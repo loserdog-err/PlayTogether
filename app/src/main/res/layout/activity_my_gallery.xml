@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chenantao.main.MyGallery">
+
+    <com.chenantao.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_large_alpha">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/include_tool_bar"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            tools:context="com.chenantao.main.MyGallery">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:id="@+id/rlBottom"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ee03a9f4"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvDirName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="10dp"
+                android:text="全部图片"/>
+
+            <TextView
+                android:id="@+id/tvImgCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:paddingRight="10dp"
+                android:text="1000张"/>
+
+            <com.gc.materialdesign.views.ButtonFlat
+                android:id="@+id/btnOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@color/black_small_alpha"
+                android:text="确定"
+                android:textColor="@color/black_small_alpha"/>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+    </com.chenantao.autolayout.AutoRelativeLayout>
+
+    <!--<com.gc.materialdesign.views.ProgressBarCircularIndeterminate-->
+    <!--android:id="@+id/progressBar"-->
+    <!--android:layout_width="64px"-->
+    <!--android:layout_height="64px"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:background="#1E88E5"/>-->
+    <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
+        android:id="@+id/progressBar"
+        android:layout_width="110px"
+        android:layout_height="105px"
+        android:layout_gravity="center"
+        android:background="#1E88E5"/>
+
+</com.chenantao.autolayout.AutoFrameLayout>

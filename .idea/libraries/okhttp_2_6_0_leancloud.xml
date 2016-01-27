@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="okhttp-2.6.0-leancloud">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/okhttp/2.6.0-leancloud/7d1a8dbbc128e91cf41ab6eafaa741ab2a6ff930/okhttp-2.6.0-leancloud.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/okhttp/2.6.0-leancloud/af7e06d7da4db559b0be6d98493367f29baadddf/okhttp-2.6.0-leancloud-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

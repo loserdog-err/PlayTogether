@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_tool_bar"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="700px"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardElevation="10px">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.chenantao.autolayout.AutoFrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:background="@color/primary_color">
+
+                <TextView
+                    style="@style/large_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="30px"
+                    android:textStyle="bold"
+                    android:text="快速注册"/>
+            </com.chenantao.autolayout.AutoFrameLayout>
+
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="450px"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="30px"
+                android:paddingRight="30px">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10px"
+                    android:layout_height="wrap_content"
+                    app:hintTextAppearance="@style/edittext_hint_text_appearance">
+
+                    <EditText
+                        android:id="@+id/etUsername"
+                        style="@style/mid_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="用户名"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50px"
+                    app:hintTextAppearance="@style/edittext_hint_text_appearance">
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        style="@style/mid_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="密码"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <com.gc.materialdesign.views.ButtonRectangle
+                    android:id="@+id/btnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/primary_color"
+                    android:text="注册"/>
+            </com.chenantao.autolayout.AutoLinearLayout>
+        </com.chenantao.autolayout.AutoLinearLayout>
+    </android.support.v7.widget.CardView>
+</com.chenantao.autolayout.AutoRelativeLayout>

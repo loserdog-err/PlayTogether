@@ -1,0 +1,34 @@
+<com.chenantao.autolayout.AutoCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="384px"
+    android:layout_margin="30px"
+    app:cardElevation="15px"
+    android:layout_height="wrap_content">
+
+    <com.chenantao.autolayout.AutoFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"                                                           >
+
+        <!--<com.facebook.drawee.view.SimpleDraweeView-->
+        <!--android:id="@+id/iv"-->
+        <!--android:layout_width="360px"-->
+        <!--android:layout_height="200px"-->
+        <!--fresco:actualImageScaleType="centerCrop"/>-->
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="374px"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"/>
+
+        <ImageButton
+            android:id="@+id/ibSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@mipmap/picture_unselected"
+            android:clickable="false"/>
+    </com.chenantao.autolayout.AutoFrameLayout>
+</com.chenantao.autolayout.AutoCardView>

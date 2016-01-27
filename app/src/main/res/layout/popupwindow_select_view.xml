@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="520px"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.gc.materialdesign.views.ButtonFlat
+        android:id="@+id/btnFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="80px"
+        android:layout_gravity="right"
+        android:background="@color/primary_color"
+        android:text="完成"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10px"
+        android:background="@color/black_mid_alpha"/>
+
+    <com.chenantao.playtogether.mvc.view.widget.SelectRecyclerView
+        android:id="@+id/rvSelect"
+        android:layout_margin="10px"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:layout_marginTop="30px"/>
+</LinearLayout>

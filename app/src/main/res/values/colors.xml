@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black_small_alpha">#dd000000</color>
+    <color name="black_mid_alpha">#b4000000</color>
+    <color name="black_big_alpha">#32000000</color>
+    <color name="black_large_alpha">#0a000000</color>
+
+    <color name="background_color">#0c000000</color>
+
+    <color name="white_little_alpha">#f0ffffff</color>
+    <color name="white_small_alpha">#dcffffff</color>
+    <color name="white_mid_alpha">#96ffffff</color>
+    <color name="white_big_alpha">#4bffffff</color>
+
+    <color name="primary_color">#03a9f4</color>
+    <color name="primary_color2">#0288d1</color>
+    <color name="status_bar_color">#039be5</color>
+    <color name="primary_small_alpha">#b403a9f4</color>
+</resources>

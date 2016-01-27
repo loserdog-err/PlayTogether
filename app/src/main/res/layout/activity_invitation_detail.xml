@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoLinearLayout
+    android:id="@+id/llRoot"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_large_alpha"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_tool_bar"/>
+
+    <com.chenantao.autolayout.AutoFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30px">
+
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <!--标题-->
+                <com.chenantao.autolayout.AutoCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    app:cardElevation="10px">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        style="@style/large_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10px"
+                        android:text="有人周末一起去烧烤吗，在线等，挺急的"/>
+                </com.chenantao.autolayout.AutoCardView>
+
+                <com.chenantao.autolayout.AutoCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px">
+
+                    <com.chenantao.autolayout.AutoLinearLayout
+                        android:id="@+id/llContentContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:minHeight="680px"
+                        android:orientation="vertical"
+                        android:padding="20px">
+
+
+                        <!--用户的信息-->
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                                android:id="@+id/ivAuthorAvatar"
+                                android:layout_width="100px"
+                                android:layout_height="100px"
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/avatar"
+                                app:type="round"/>
+
+                            <TextView
+                                android:id="@+id/tvAuthorName"
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15px"
+                                android:layout_marginTop="10px"
+                                android:layout_toRightOf="@id/ivAuthorAvatar"
+                                android:text="陈岸涛"/>
+
+                            <TextView
+                                android:id="@+id/tvAuthorDesc"
+                                style="@style/small_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/tvAuthorName"
+                                android:layout_marginLeft="15px"
+                                android:layout_marginTop="10px"
+                                android:layout_toRightOf="@id/ivAuthorAvatar"
+                                android:text="没什么爱好，比较爱装逼"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+
+                        <TextView
+                            android:id="@+id/tvContent"
+                            style="@style/mid_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30px"
+                            android:text="今天想去学习，有人一起去吗，求组队啊，快点啊，求组队啊,晒上一张美美嗒自拍照"/>
+
+                        <TextView
+                            style="@style/big_black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="60px"
+                            android:text="到期时间"
+                            android:textColor="@color/black_mid_alpha"/>
+
+                        <TextView
+                            android:id="@+id/tvExpire"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="5px"
+                            android:text="7月7号17点04分"/>
+
+                    </com.chenantao.autolayout.AutoLinearLayout>
+
+                </com.chenantao.autolayout.AutoCardView>
+
+
+                <!--<TextView-->
+                <!--style="@style/big_black"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="你的同伙"-->
+                <!--android:textColor="@color/black_mid_alpha"/>-->
+
+                <TextView
+                    android:id="@+id/tvAcceptUserNum"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="20px"
+                    android:text="@string/accept_user_num"/>
+
+
+                <!--已约的用户-->
+                <com.chenantao.autolayout.AutoCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px">
+
+                    <com.chenantao.autolayout.AutoLinearLayout
+                        android:id="@+id/llAcceptUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="100px"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10px">
+
+
+                    </com.chenantao.autolayout.AutoLinearLayout>
+
+                </com.chenantao.autolayout.AutoCardView>
+            </com.chenantao.autolayout.AutoLinearLayout>
+        </ScrollView>
+
+        <com.gc.materialdesign.views.AutoHideButtonFloat
+            android:id="@+id/btnInvite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:layout_marginBottom="50px"
+            android:layout_marginRight="20px"
+            android:background="@color/primary_color"
+            app:animate="true"
+            app:iconDrawable="@mipmap/yue"/>
+    </com.chenantao.autolayout.AutoFrameLayout>
+</com.chenantao.autolayout.AutoLinearLayout>

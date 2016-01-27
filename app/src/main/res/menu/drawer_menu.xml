@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:checked="true"
+            android:icon="@mipmap/drawer_menu_home"
+            android:title="首页"/>
+        <item
+            android:id="@+id/personCenter"
+            android:checked="false"
+            android:icon="@mipmap/drawer_menu_personal_center"
+            android:title="个人"/>
+        <item
+            android:id="@+id/invite"
+            android:icon="@mipmap/drawer_menu_invite"
+            android:title="邀约"/>
+        <item
+            android:id="@+id/friend"
+            android:icon="@mipmap/drawer_menu_friend"
+            android:title="朋友"/>
+        <item
+            android:id="@+id/faq"
+            android:icon="@mipmap/drawer_menu_faq"
+            android:title="问问"/>
+    </group>
+</menu>

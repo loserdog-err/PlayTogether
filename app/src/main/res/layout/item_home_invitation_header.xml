@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="768px"
+        android:layout_height="120px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llMovie"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/category_movie"
+                    app:type="round"/>
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="电影"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llExercise"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/category_exercise"
+                    app:type="round"/>
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="运动"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFood"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                    android:id="@+id/iv"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/category_food"
+                    app:type="round"/>
+
+                <TextView
+                    android:id="@+id/tv"
+                    style="@style/big_black"
+                    android:layout_width="80px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="美食"/>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        style="@style/large_white"
+        android:layout_width="wrap_content"
+        android:layout_height="100px"
+        android:layout_marginLeft="30px"
+        android:gravity="center"
+        android:text="最新"
+        android:textColor="@color/black_mid_alpha"/>
+
+</LinearLayout>

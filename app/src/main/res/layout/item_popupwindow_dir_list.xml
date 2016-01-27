@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/ivDirImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@mipmap/pic_dir"
+        android:padding="20dp"
+        android:paddingBottom="25dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_marginLeft="30dp"
+            android:id="@+id/tvDirName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="yellow"/>
+
+        <TextView
+            android:paddingRight="10dp"
+            android:id="@+id/tvImgCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1000张"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="small_black">
+        <item name="android:textSize">13sp</item>
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:textColor">#8a000000</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="small_white">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">#8affffff</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="mid_black">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#dd000000</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="mid_white">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ddffffff</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="big_black">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#dd000000</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="big_white">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#ddffffff</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="large_black">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#dd000000</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="large_white">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ddffffff</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="big_large_black">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#dd000000</item>
+    </style>
+
+    <style name="big_large_white">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ddffffff</item>
+    </style>
+
+    <style name="edittext_hint_text_appearance">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/primary_color</item>
+    </style>
+</resources>

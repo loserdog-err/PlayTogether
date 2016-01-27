@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                          xmlns:app="http://schemas.android.com/apk/res-auto"
+                                          android:layout_width="match_parent"
+                                          android:layout_height="265px"
+                                          android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200px"
+        android:background="@color/primary_color"/>
+
+    <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+        android:id="@+id/ivAuthorAvatar"
+        android:layout_width="130px"
+        android:layout_height="130px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="135px"
+        android:src="@mipmap/avatar"
+        app:type="round"/>
+    <!--<ImageView-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:layout_marginTop="135px"-->
+    <!--android:id="@+id/ivAvatar"-->
+    <!--android:layout_width="130px"-->
+    <!--android:layout_height="130px"-->
+    <!--android:src="@mipmap/avatar"/>-->
+
+    <TextView
+        android:id="@+id/tvUsername"
+        style="@style/large_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:layout_marginTop="30px"
+        android:text="陈岸涛"/>
+
+</com.chenantao.autolayout.AutoFrameLayout>

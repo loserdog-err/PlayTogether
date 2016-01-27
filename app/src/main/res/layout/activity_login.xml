@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvc.view.activity.user.LoginActivity">
+
+    <include layout="@layout/include_tool_bar"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="700px"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardElevation="10px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:paddingBottom="20px"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200px"
+                    android:background="@color/primary_color"/>
+
+                <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                    android:id="@+id/ivAuthorAvatar"
+                    android:layout_width="150px"
+                    android:layout_height="150px"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="120px"
+                    android:src="@mipmap/avatar"
+                    app:type="round"/>
+
+                <TextView
+                    style="@style/big_large_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60px"
+                    android:layout_marginTop="40px"
+                    android:text="登录"/>
+            </FrameLayout>
+
+            <!--用户名-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/edittext_hint_text_appearance">
+
+                <EditText
+                    android:id="@+id/etUsername"
+                    style="@style/mid_black"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="用户名"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!--密码-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                app:hintTextAppearance="@style/edittext_hint_text_appearance">
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    style="@style/mid_black"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="密码"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <!--登录以及注册按钮-->
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30px"
+                android:orientation="horizontal">
+
+                <com.gc.materialdesign.views.ButtonFlat
+                    android:id="@+id/btnRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:background="#1E88E5"
+                    android:text="还没有账号？"/>
+
+                <com.gc.materialdesign.views.ButtonFlat
+                    android:id="@+id/btnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="360px"
+                    android:background="#1E88E5"
+                    android:text="登录"/>
+            </com.chenantao.autolayout.AutoLinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

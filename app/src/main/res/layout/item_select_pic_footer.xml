@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240px"
+    android:layout_height="250px">
+
+    <ImageView
+        android:layout_width="180px"
+        android:layout_height="250px"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:src="@mipmap/add_pic">
+
+    </ImageView>
+</com.chenantao.autolayout.AutoFrameLayout>

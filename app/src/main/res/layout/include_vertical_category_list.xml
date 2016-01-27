@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoLinearLayout
+    android:id="@+id/llSelectCategoryUI"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_mid_alpha"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <!--美食-->
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="match_parent"
+        app:mrl_rippleColor="@color/white_mid_alpha"
+        android:layout_height="wrap_content"
+        app:mrl_rippleAlpha="0.05">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:id="@+id/llFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/category_food"
+                app:type="round"/>
+
+            <TextView
+                style="@style/big_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="美食"/>
+        </com.chenantao.autolayout.AutoLinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+    <!--电影-->
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="match_parent"
+        app:mrl_rippleColor="@color/white_mid_alpha"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        app:mrl_rippleAlpha="0.05">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:id="@+id/llMovie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/category_movie"
+                app:type="round"/>
+
+            <TextView
+                style="@style/big_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="电影"/>
+        </com.chenantao.autolayout.AutoLinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+    <!--运动-->
+    <com.balysv.materialripple.MaterialRippleLayout
+        app:mrl_rippleColor="@color/white_mid_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        app:mrl_rippleAlpha="0.05">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:id="@+id/llExercise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/category_exercise"
+                app:type="round"/>
+
+            <TextView
+                style="@style/big_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20px"
+                android:text="运动"/>
+        </com.chenantao.autolayout.AutoLinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+</com.chenantao.autolayout.AutoLinearLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:background="@android:color/white"
+    android:padding="10px"
+    android:layout_height="100px"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_marginLeft="10px"
+        style="@style/mid_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="汕头市龙田养鸡场"/>
+
+    <ImageView
+        android:id="@+id/ivLocate"
+        android:layout_marginRight="20px"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/locate"
+        android:layout_width="50px"
+        android:layout_height="50px"/>
+</com.chenantao.autolayout.AutoRelativeLayout>

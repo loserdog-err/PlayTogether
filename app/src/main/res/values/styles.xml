@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/status_bar_color</item>
+        <item name="colorAccent">@color/primary_color2</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="actionMenuTextColor">@color/white_small_alpha</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="drawer_style">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="tablayout_style" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="selectPopupWindowAnim">
+        <item name="android:windowEnterAnimation">@anim/popup_window_open</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_close</item>
+    </style>
+
+    <style name="toolbar_text_appearance">
+        <item name="android:textColor">@color/white_little_alpha</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+</resources>

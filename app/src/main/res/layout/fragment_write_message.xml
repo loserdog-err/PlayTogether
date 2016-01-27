@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <!--<EditText-->
+        <!--android:id="@+id/etMessage"-->
+        <!--style="@style/mid_black"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@null"-->
+        <!--android:gravity="left|top"-->
+        <!--android:hint="写出你的标题..."-->
+        <!--android:inputType="textMultiLine"-->
+        <!--android:minLines="10"-->
+        <!--android:paddingLeft="10px"-->
+        <!--android:paddingTop="5px"-->
+        <!--android:text=""/>-->
+
+    <com.rockerhieu.emojicon.EmojiconEditText
+        android:clickable="true"
+        android:inputType="textMultiLine"
+        android:minLines="10"
+        android:id="@+id/etMessage"
+        style="@style/mid_black"
+        android:layout_width="match_parent"
+        android:layout_height="1000px"
+        android:background="@null"
+        android:hint="写出你的标题..."
+        android:gravity="left|top"
+        android:paddingLeft="10px"
+        android:paddingTop="5px"
+        emojicon:emojiconSize="28sp"/>
+
+    <include
+        layout="@layout/include_write_msg_tool_box"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"/>
+</com.chenantao.autolayout.AutoFrameLayout>

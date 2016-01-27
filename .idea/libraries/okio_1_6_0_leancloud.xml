@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="okio-1.6.0-leancloud">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/okio/1.6.0-leancloud/7086c00a30a6de0ee3b963ec2c3702d37f1de11d/okio-1.6.0-leancloud.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/okio/1.6.0-leancloud/8475fc6f2f813e53b310bcecebd6a4e332430dac/okio-1.6.0-leancloud-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

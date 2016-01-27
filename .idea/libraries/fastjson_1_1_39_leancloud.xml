@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="fastjson-1.1.39-leancloud">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/fastjson/1.1.39-leancloud/94d4ebd4acdaf01d7445435382eea2d2d38e7534/fastjson-1.1.39-leancloud.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/fastjson/1.1.39-leancloud/ed3f6b73fc368aa19d76368cb2251e87f2dc21e8/fastjson-1.1.39-leancloud-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

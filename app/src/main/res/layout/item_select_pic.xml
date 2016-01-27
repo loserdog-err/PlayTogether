@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240px"
+    android:layout_height="270px"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/ivPic"
+        android:layout_width="180px"
+        android:layout_height="250px"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/avatar"/>
+
+    <ImageView
+        android:id="@+id/ivDel"
+        android:layout_width="50px"
+        android:layout_height="50px"
+        android:layout_gravity="right"
+        android:src="@mipmap/del"/>
+</com.chenantao.autolayout.AutoFrameLayout>

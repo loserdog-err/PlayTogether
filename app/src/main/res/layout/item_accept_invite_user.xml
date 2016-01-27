@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10px">
+
+    <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+        android:id="@+id/ivAuthorAvatar"
+        android:layout_width="50px"
+        android:layout_height="50px"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/avatar"/>
+
+    <TextView
+        android:id="@+id/tvUsername"
+        style="@style/small_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivAuthorAvatar"
+        android:layout_centerHorizontal="true"
+        android:maxWidth="115px"
+        android:text="陈岸涛"/>
+</com.chenantao.autolayout.AutoRelativeLayout>

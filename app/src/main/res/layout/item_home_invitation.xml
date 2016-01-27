@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="6dp">
+
+
+    <com.chenantao.autolayout.AutoCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardElevation="7px"
+        android:layout_gravity="center">
+
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:layout_width="735px"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+
+            <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                android:id="@+id/ivAuthorAvatar"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_marginLeft="30px"
+                android:src="@mipmap/avatar"
+                app:type="round"/>
+
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="160px"
+                android:layout_marginLeft="10px"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivAuthorAvatar"
+                android:layout_marginTop="5px">
+
+                <TextView
+                    android:layout_marginTop="10px"
+                    android:id="@+id/tvUsername"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50px"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical"
+                    android:maxWidth="150px"
+                    android:text="陈岸涛"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_color2"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_alignParentRight="true"
+                style="@style/small_black"
+                android:text="@string/from_category"
+                android:layout_marginRight="10px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_below="@id/tvCategory"
+                android:id="@+id/tvTitle"
+                style="@style/big_black"
+                android:layout_marginTop="10px"
+                android:textStyle="bold"
+                android:layout_width="540px"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:layout_toRightOf="@id/ivAuthorAvatar"
+                android:gravity="center_vertical"
+                android:text="有人一起xxoo吗"/>
+
+            <TextView
+                android:id="@+id/tvContent"
+                style="@style/small_black"
+                android:layout_width="500px"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:layout_marginLeft="50px"
+                android:layout_marginTop="10px"
+                android:layout_toRightOf="@id/ivAuthorAvatar"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="5"
+                android:paddingBottom="10px"
+                android:text="本人非常帅，现在求姨妹子本人非常帅，本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子现在求姨妹子本人非常帅，现在求姨妹子本人非常帅，现在求姨妹子"
+                android:textColor="@color/black_small_alpha"/>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+    </com.chenantao.autolayout.AutoCardView>
+</com.chenantao.autolayout.AutoFrameLayout>

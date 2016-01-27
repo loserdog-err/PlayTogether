@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.chenantao.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="30px"
+        android:paddingRight="30px">
+
+        <!--选择性别的layout-->
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/big_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="性别要求"/>
+
+
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/cbWomen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="30px"
+                android:background="@color/primary_color2"
+                android:text="女"/>
+
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/cbMan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px"
+                android:layout_toLeftOf="@id/cbWomen"
+                android:background="@color/primary_color2"
+                android:text="男"
+                app:check="true"/>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+        <!--选择年龄的layout-->
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginTop="10px"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/big_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="年龄要求"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="30px">
+
+                <EditText
+                    android:id="@+id/etMaxAge"
+                    style="@style/mid_black"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_border"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="10px"
+                    android:singleLine="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tvTo"
+                style="@style/small_black"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="150px"
+                android:gravity="center"
+                android:text="至"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10px"
+                android:layout_toLeftOf="@id/tvTo">
+
+                <EditText
+                    android:id="@+id/etMinAge"
+                    style="@style/mid_black"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_border"
+                    android:gravity="start|center"
+                    android:inputType="number"
+                    android:padding="10px"
+                    android:singleLine="true"
+                    app:check="true"/>
+            </android.support.design.widget.TextInputLayout>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="5px"
+            android:background="@color/black_big_alpha"/>
+        <!--选择星座的layout-->
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mrl_rippleAlpha="0.05">
+
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:id="@+id/rlConstellation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:gravity="center"
+                    android:text="星座要求"/>
+
+                <ImageView
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/more"/>
+
+                <TextView
+                    android:id="@+id/tvConstellation"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60px"
+                    android:gravity="center"
+                    android:text="不限"
+                    android:textColor="@color/black_mid_alpha"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+        <!--选择到期时间-->
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mrl_rippleAlpha="0.05">
+
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:id="@+id/rlExpire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:gravity="center"
+                    android:text="到期时间"/>
+
+                <ImageView
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/more"/>
+
+                <TextView
+                    android:id="@+id/tvExpire"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60px"
+                    android:gravity="center"
+                    android:text="不限"
+                    android:textColor="@color/black_mid_alpha"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mrl_rippleAlpha="0.05">
+
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:id="@+id/rlCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:gravity="center"
+                    android:text="兴趣类型"/>
+
+                <ImageView
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/more"/>
+
+                <TextView
+                    android:id="@+id/tvCategory"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="100px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60px"
+                    android:gravity="center"
+                    android:text="美食"
+                    android:textColor="@color/black_mid_alpha"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </com.chenantao.autolayout.AutoLinearLayout>
+
+    <include layout="@layout/include_vertical_category_list"/>
+</com.chenantao.autolayout.AutoFrameLayout>
