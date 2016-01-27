@@ -8,7 +8,7 @@ package com.chenantao.playtogether.mvc.model.bean;
 public class InvitationCondition
 {
 	private int category;
-	private int gender=-1;
+	private int gender = -1;
 
 	private int minAge;
 

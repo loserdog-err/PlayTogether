@@ -7,19 +7,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
+import com.avos.avoscloud.AVUser;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.chenantao.autolayout.utils.AutoUtils;
 import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
+import com.chenantao.playtogether.mvc.model.bean.event.EventLocate;
 import com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg;
+import com.chenantao.playtogether.utils.LocationUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Chenantao_gg on 2016/1/27.
@@ -64,16 +74,52 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
 	{
 		AutoUtils.autoSize(holder.itemView);
+		//处理header的逻辑，主要是定位
 		if (isHeader(position))
 		{
+			final InvitationCategoryHeaderViewHolder headerViewHolder =
+					(InvitationCategoryHeaderViewHolder) holder;
+			headerViewHolder.mIvLocate.setOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					//将经纬度保存到服务器
+					LocationUtils.getLocationClient(mContext.getApplicationContext()).start();
+				}
+			});
+			if ("".equals(headerViewHolder.mTvAddress.getText().toString()))
+			{
+				//先取上次的地址设置进去
+				LocationClient client = LocationUtils.getLocationClient(mContext);
+				BDLocation location = client.getLastKnownLocation();
+				if (location != null) headerViewHolder.mTvAddress.setText(location.getAddrStr());
+				client.registerLocationListener(new LocationListener(headerViewHolder));
+				client.start();
+			}
 			return;
 		}
+		//处理item
 		Invitation invitation = mDatas.get(position - 1);//还有个header。要减1
 		User author = invitation.getAuthor();
 		AVFile avatar = author.getAvatar();
 		InvitationCategoryItemViewHolder itemViewHolder = (InvitationCategoryItemViewHolder)
 				holder;
-		itemViewHolder.mTvCategory.setVisibility(View.GONE);
+		//据算距离本屌的距离
+		User user = AVUser.getCurrentUser(User.class);
+		AVGeoPoint localPoint = user.getLocation();
+		AVGeoPoint authorPoint = author.getLocation();
+		//当item的作者不是本人，有位置坐标，并且还没有
+		if (localPoint != null && authorPoint != null && !user.getUsername().equals(author
+				.getUsername()))
+		{
+			int distance = (int) LocationUtils.getDistance(localPoint, authorPoint);//米
+			itemViewHolder.mTvDistance.setText(mContext.getResources().getString(R.string
+					.distance_from_me, distance));
+		} else
+		{
+			itemViewHolder.mTvDistance.setText("");
+		}
 		itemViewHolder.mTvContent.setText(invitation.getContent());
 		itemViewHolder.mTvTitle.setText(invitation.getTitle());
 		itemViewHolder.mTvUsername.setText(author.getUsername());
@@ -81,7 +127,7 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		{
 			Uri uri = Uri.parse(avatar.getThumbnailUrl(true, 150, 150));
 			PicassoUtils.displayFitImage(mContext, uri, itemViewHolder.mIvAuthorAvatar, null);
-		}else
+		} else
 		{
 			itemViewHolder.mIvAuthorAvatar.setImageResource(R.mipmap.avatar);
 		}
@@ -105,14 +151,15 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		return mCount;
 	}
 
+
 	class InvitationCategoryItemViewHolder extends RecyclerView.ViewHolder
 	{
 		@Bind(R.id.ivAuthorAvatar)
 		MultipleShapeImg mIvAuthorAvatar;
 		@Bind(R.id.tvUsername)
 		TextView mTvUsername;
-		@Bind(R.id.tvCategory)
-		TextView mTvCategory;
+		@Bind(R.id.tvFlag)
+		TextView mTvDistance;
 		@Bind(R.id.tvTitle)
 		TextView mTvTitle;
 		@Bind(R.id.tvContent)
@@ -130,11 +177,41 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 
 		@Bind(R.id.tvAddress)
 		TextView mTvAddress;
+		@Bind(R.id.ivLocate)
+		MaterialRippleLayout mIvLocate;
 
 		public InvitationCategoryHeaderViewHolder(View itemView)
 		{
 			super(itemView);
 			ButterKnife.bind(this, itemView);
+		}
+	}
+
+	class LocationListener implements BDLocationListener
+	{
+		private TextView mTv;
+
+		public LocationListener(InvitationCategoryHeaderViewHolder holder)
+		{
+			mTv = holder.mTvAddress;
+		}
+
+		@Override
+		public void onReceiveLocation(BDLocation location)
+		{
+			if (location.getLocType() == BDLocation.TypeGpsLocation || location
+					.getLocType() == BDLocation.TypeNetWorkLocation || location
+					.getLocType() == BDLocation.TypeOffLineLocation)
+			{
+				mTv.setText(location.getAddrStr());
+				//将经纬度保存到服务器
+				EventBus.getDefault().post(new EventLocate(location.getLatitude(),
+						location.getLongitude()));
+			} else
+			{
+				Toast.makeText(mContext, "定位失败，检查网络是否通畅", Toast.LENGTH_SHORT).show();
+			}
+			LocationUtils.stopClient();
 		}
 	}
 

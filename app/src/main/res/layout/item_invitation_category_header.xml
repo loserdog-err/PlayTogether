@@ -2,25 +2,32 @@
 <com.chenantao.autolayout.AutoRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center_vertical"
-    android:background="@android:color/white"
-    android:padding="10px"
     android:layout_height="100px"
-    android:orientation="horizontal">
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="10px">
 
     <TextView
+        android:layout_centerVertical="true"
         android:id="@+id/tvAddress"
-        android:layout_marginLeft="10px"
         style="@style/mid_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="汕头市龙田养鸡场"/>
+        android:layout_marginLeft="10px"
+        android:text=""/>
 
-    <ImageView
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="120px"
         android:id="@+id/ivLocate"
-        android:layout_marginRight="20px"
+        android:layout_height="100px"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/locate"
-        android:layout_width="50px"
-        android:layout_height="50px"/>
+        android:layout_marginRight="20px">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/locate"/>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
 </com.chenantao.autolayout.AutoRelativeLayout>

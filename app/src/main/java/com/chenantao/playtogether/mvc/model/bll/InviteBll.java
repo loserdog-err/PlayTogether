@@ -4,10 +4,13 @@ import android.content.Context;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.InvitationCondition;
+import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.utils.FileUtils;
 import com.orhanobut.logger.Logger;
 
@@ -165,17 +168,24 @@ public class InviteBll
 				InvitationCondition.OrderBy orderBy = condition.getOrderBy();
 				AVQuery<Invitation> query = AVQuery.getQuery(Invitation.class);
 				query.whereEqualTo(Invitation.FIELD_CATEGORY, category);
+//				query.whereEqualTo(Invitation.FIELD_GENDER, gender);
 				query.whereGreaterThanOrEqualTo(Invitation.FIELD_MIN_AGE, minAge);
 				query.whereLessThanOrEqualTo(Invitation.FIELD_MAX_AGE, maxAge);
 				query.include(Invitation.FIELD_AUTHOR);
 				if (orderBy == InvitationCondition.OrderBy.NEAREST)//离我最近
 				{
 					// TODO: 2016/1/27 需要百度sdk提供的功能来实现
+					AVGeoPoint point = AVUser.getCurrentUser(User.class).getLocation();
+					if (point != null)
+					{
+						query.whereNear(User.FIELD_LOCATION, point);
+					}
+
 				} else//最新
 				{
 					query.orderByDescending(Invitation.CREATED_AT);
 				}
-				Logger.e("condition:" + condition);
+//				Logger.e("condition:" + condition);
 				try
 				{
 					List<Invitation> invitations = query.find();

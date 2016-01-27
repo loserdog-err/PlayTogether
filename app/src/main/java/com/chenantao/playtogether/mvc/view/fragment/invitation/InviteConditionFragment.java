@@ -76,7 +76,7 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 	AutoLinearLayout mLlMovie;
 	@Bind(R.id.llExercise)
 	AutoLinearLayout mLlExercise;
-	@Bind(R.id.tvCategory)
+	@Bind(R.id.tvFlag)
 	TextView mTvCategory;
 
 	private View mRoot;

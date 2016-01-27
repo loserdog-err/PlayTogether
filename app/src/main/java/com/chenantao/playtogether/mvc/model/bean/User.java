@@ -3,6 +3,7 @@ package com.chenantao.playtogether.mvc.model.bean;
 import android.os.Parcel;
 
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVUser;
 
 /**
@@ -15,6 +16,7 @@ public class User extends AVUser
 	private String desc;//个人描述
 
 
+	public static final String FIELD_LOCATION = "location";
 
 	private AVFile avatar;
 
@@ -23,9 +25,11 @@ public class User extends AVUser
 		setUsername(username);
 		this.password = password;
 	}
+
 	public User()
 	{
 	}
+
 	//此处为我们的默认实现，当然你也可以自行实现
 	public static final Creator CREATOR = AVObjectCreator.instance;
 
@@ -63,6 +67,7 @@ public class User extends AVUser
 	{
 		put("avatar", avatar);
 	}
+
 	public String getDesc()
 	{
 		return getString("desc");
@@ -71,5 +76,17 @@ public class User extends AVUser
 	public void setDesc(String desc)
 	{
 		put("desc", desc);
+	}
+
+	public void setLocation(AVGeoPoint point)
+	{
+		put(FIELD_LOCATION, point);
+	}
+
+	public AVGeoPoint getLocation()
+	{
+		AVGeoPoint point = (AVGeoPoint) get(FIELD_LOCATION);
+		if (point != null) return point;
+		return null;
 	}
 }

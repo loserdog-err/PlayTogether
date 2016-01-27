@@ -52,7 +52,7 @@
             </com.chenantao.autolayout.AutoRelativeLayout>
 
             <TextView
-                android:id="@+id/tvCategory"
+                android:id="@+id/tvFlag"
                 android:layout_alignParentRight="true"
                 style="@style/small_black"
                 android:text="@string/from_category"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:layout_below="@id/tvCategory"
+                android:layout_below="@id/tvFlag"
                 android:id="@+id/tvTitle"
                 style="@style/big_black"
                 android:layout_marginTop="10px"

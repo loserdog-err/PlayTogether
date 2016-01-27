@@ -113,4 +113,24 @@ public class UserBll
 			}
 		});
 	}
+
+	public Observable<Void> updateLocation(final User user)
+	{
+		return Observable.create(new Observable.OnSubscribe<Void>()
+		{
+			@Override
+			public void call(Subscriber<? super Void> subscriber)
+			{
+				try
+				{
+					user.save();
+					subscriber.onNext(null);
+				} catch (AVException e)
+				{
+					subscriber.onError(e);
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 }

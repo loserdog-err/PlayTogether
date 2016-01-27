@@ -27,6 +27,7 @@
     <!--android:src="@mipmap/avatar"/>-->
 
     <TextView
+        android:textStyle="bold"
         android:id="@+id/tvUsername"
         style="@style/large_white"
         android:layout_width="wrap_content"

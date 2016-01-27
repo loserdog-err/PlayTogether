@@ -26,8 +26,11 @@ android {
     dexOptions {
         incremental true
     }
-}
-repositories {
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 

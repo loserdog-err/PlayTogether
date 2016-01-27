@@ -176,7 +176,7 @@ public class HomeInvitationItemAdapter extends RecyclerView.Adapter implements V
 		TextView mTvUsername;
 		@Bind(R.id.tvContent)
 		TextView mTvContent;
-		@Bind(R.id.tvCategory)
+		@Bind(R.id.tvFlag)
 		TextView mTvCategory;
 
 		public HomeInvitationItemViewHolder(View itemView)

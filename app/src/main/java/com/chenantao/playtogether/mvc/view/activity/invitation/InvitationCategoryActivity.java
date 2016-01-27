@@ -13,6 +13,7 @@ import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.mvc.controller.invitation.InvitationCategoryController;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.InvitationCondition;
+import com.chenantao.playtogether.mvc.model.bean.event.EventLocate;
 import com.chenantao.playtogether.mvc.view.adapter.InvitationCategoryAdapter;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.utils.Constant;
@@ -22,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Chenantao_gg on 2016/1/26.
@@ -67,7 +69,9 @@ public class InvitationCategoryActivity extends BaseActivity
 		{
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			mCollapsingToolbarLayout.setTitle("运动");
+			setHeader();
 		}
+		EventBus.getDefault().register(this);
 		mCategory = getIntent().getIntExtra(EXTRA_CATEGORY, Constant.CATEGORY_FOOD);
 		//初始化SwipeRefreshLayout
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.primary_color);
@@ -80,6 +84,13 @@ public class InvitationCategoryActivity extends BaseActivity
 		//加载数据并显示加载框
 		mController.loadData(condition);
 		showProgress();
+	}
+
+	/**
+	 * 根据类型设置头部，图片，文字等
+	 */
+	private void setHeader()
+	{
 	}
 
 	private void initEvent()
@@ -119,6 +130,11 @@ public class InvitationCategoryActivity extends BaseActivity
 		});
 	}
 
+	public void onEvent(EventLocate event)
+	{
+		mController.updateLocation(event.longitude, event.latitude);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -127,6 +143,7 @@ public class InvitationCategoryActivity extends BaseActivity
 		item.setTitle("筛选");
 		return super.onCreateOptionsMenu(menu);
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{

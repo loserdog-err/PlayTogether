@@ -222,7 +222,7 @@
                     android:src="@mipmap/more"/>
 
                 <TextView
-                    android:id="@+id/tvCategory"
+                    android:id="@+id/tvFlag"
                     style="@style/mid_black"
                     android:layout_width="wrap_content"
                     android:layout_height="100px"

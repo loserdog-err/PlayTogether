@@ -49,7 +49,7 @@ public class Invitation extends AVObject
 	public List<String> uploadPicsPath = new ArrayList<>();
 	//	public static final String FIELD_TITLE = "title";
 //	public static final String FIELD_CONTENT = "content";
-//	public static final String FIELD_GENDER = "gender";
+	public static final String FIELD_GENDER = "gender";
 	public static final String FIELD_MIN_AGE = "minAge";
 	public static final String FIELD_MAX_AGE = "maxAge";
 	//	public static final String FIELD_CONSTELLATION = "constellation";

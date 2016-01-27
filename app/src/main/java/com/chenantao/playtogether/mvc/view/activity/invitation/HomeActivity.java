@@ -97,6 +97,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		mNavigationView.setItemIconTintList(null);
 		View headerView = mNavigationView.getHeaderView(0);
 		mIvAvatar = (ImageView) headerView.findViewById(R.id.ivAuthorAvatar);
+		TextView tvUsername = (TextView) headerView.findViewById(R.id.tvUsername);
+		tvUsername.setText(AVUser.getCurrentUser().getUsername());
 		mRvInvitation.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
 				false));
 		initEvent();
@@ -269,7 +271,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	{
 		WindowManager.LayoutParams lp = getWindow().getAttributes();
 		lp.alpha = isOpen ? 0.3f : 1.0f;
-		lp.dimAmount =isOpen? 0.5f:1.0f;
+		lp.dimAmount = isOpen ? 0.5f : 1.0f;
 		getWindow().setAttributes(lp);
 	}
 

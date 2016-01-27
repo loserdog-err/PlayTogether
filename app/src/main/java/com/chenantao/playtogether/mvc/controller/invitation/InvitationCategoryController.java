@@ -2,10 +2,15 @@ package com.chenantao.playtogether.mvc.controller.invitation;
 
 import android.app.Activity;
 
+import com.avos.avoscloud.AVGeoPoint;
+import com.avos.avoscloud.AVUser;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.InvitationCondition;
+import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bll.InviteBll;
+import com.chenantao.playtogether.mvc.model.bll.UserBll;
 import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationCategoryActivity;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -24,6 +29,8 @@ public class InvitationCategoryController
 
 	@Inject
 	public InviteBll mInviteBll;
+	@Inject
+	public UserBll mUserBll;
 
 	@Inject
 	public InvitationCategoryController(Activity activity)
@@ -62,6 +69,37 @@ public class InvitationCategoryController
 					public void call(Throwable throwable)
 					{
 						mActivity.refreshDataFail("加载数据失败：" + throwable.getMessage());
+					}
+				});
+	}
+
+	/**
+	 * 保存用户的位置
+	 *
+	 * @param longitude
+	 * @param latitude
+	 */
+	public void updateLocation(double longitude, double latitude)
+	{
+		User user = AVUser.getCurrentUser(User.class);
+//		Logger.e(user.getLocation()+"");
+		user.setLocation(new AVGeoPoint(latitude, longitude));
+		mUserBll.updateLocation(user)
+				.subscribeOn(Schedulers.io())
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Action1<Void>()
+				{
+					@Override
+					public void call(Void aVoid)
+					{
+//						Logger.e("更新定位成功");
+					}
+				}, new Action1<Throwable>()
+				{
+					@Override
+					public void call(Throwable throwable)
+					{
+						Logger.e("更新定位失败：" + throwable.getMessage());
 					}
 				});
 	}
