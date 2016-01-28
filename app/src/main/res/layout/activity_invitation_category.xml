@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/coordinatorLayout"
     android:background="@color/background_color"
     android:layout_height="match_parent">
 
@@ -43,6 +44,7 @@
                 app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
                 <View
+                    android:id="@+id/view_header"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
@@ -61,6 +63,5 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
     </android.support.design.widget.AppBarLayout>
 </android.support.design.widget.CoordinatorLayout>

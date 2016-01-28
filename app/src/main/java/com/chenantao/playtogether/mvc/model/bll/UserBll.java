@@ -56,6 +56,7 @@ public class UserBll
 					AVUser avUser = new AVUser();
 					avUser.setUsername(user.getUsername());
 					avUser.setPassword(user.getPassword());
+					avUser.put(User.FIELD_GENDER, user.getGender());
 					avUser.signUp();
 					//注册成功
 					subscriber.onNext(user);

@@ -4,6 +4,7 @@ import android.os.Parcel;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.DateUtils;
@@ -23,9 +24,9 @@ public class Invitation extends AVObject
 	public static String TABLE_NAME = "_invitation";
 
 	//性别常量
-	public static final int GENDER_MAN = 0;
-	public static final int GENDER_WOMEN = 1;
-	public static final int GENDER_ALL = 2;
+//	public static final int GENDER_MAN = 0;
+//	public static final int GENDER_WOMEN = 1;
+//	public static final int GENDER_ALL = 2;
 	public static final int MAX_AGE = 99;
 	public static final int MIN_AGE = 10;
 	//类别常量
@@ -57,6 +58,7 @@ public class Invitation extends AVObject
 	public static final String FIELD_CATEGORY = "category";
 	public static final String FIELD_AUTHOR = "author";
 	public static final String FIELD_PIC = "pics";//上传的照片
+	public static final String FIELD_LOCATION = "location";//位置
 	public static final String FIELD_ACCEPT_INVITE_USERS = "acceptInviteUsers";
 
 	public Invitation()
@@ -124,10 +126,10 @@ public class Invitation extends AVObject
 	public String getGender()
 	{
 		int gender = getInt("gender");
-		if (gender == GENDER_MAN)
+		if (gender == Constant.GENDER_MAN)
 		{
 			return "男";
-		} else if (gender == GENDER_WOMEN)
+		} else if (gender == Constant.GENDER_WOMEN)
 		{
 			return "女";
 		} else
@@ -285,5 +287,17 @@ public class Invitation extends AVObject
 	{
 //		getAcceptInviteUsers();
 		addUnique(FIELD_ACCEPT_INVITE_USERS, user);
+	}
+
+	public void setLocation(AVGeoPoint point)
+	{
+		put(FIELD_LOCATION, point);
+	}
+
+	public AVGeoPoint getLocation()
+	{
+		AVGeoPoint point = (AVGeoPoint) get(FIELD_LOCATION);
+		if (point != null) return point;
+		return null;
 	}
 }

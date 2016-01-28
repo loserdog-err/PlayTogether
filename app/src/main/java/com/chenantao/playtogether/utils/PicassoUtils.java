@@ -42,7 +42,7 @@ public class PicassoUtils
 					@Override
 					public void onError()
 					{
-						Logger.e("down load..");
+//						Logger.e("down load..");
 						//Try again online if cache failed
 						Picasso.with(context)
 								.load(uri)

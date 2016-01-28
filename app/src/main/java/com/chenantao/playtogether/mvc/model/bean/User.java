@@ -17,6 +17,8 @@ public class User extends AVUser
 
 
 	public static final String FIELD_LOCATION = "location";
+	public static final String FIELD_GENDER = "gender";
+	public static final String FIELD_AGE = "age";
 
 	private AVFile avatar;
 
@@ -88,5 +90,24 @@ public class User extends AVUser
 		AVGeoPoint point = (AVGeoPoint) get(FIELD_LOCATION);
 		if (point != null) return point;
 		return null;
+	}
+
+	public void setGender(int gender)
+	{
+		put(FIELD_GENDER,gender);
+	}
+	public int getGender()
+	{
+		return getInt(FIELD_GENDER);
+	}
+
+	public void setAge(int age)
+	{
+		put(FIELD_AGE,age);
+	}
+
+	public int getAge()
+	{
+		return getInt(FIELD_AGE);
 	}
 }

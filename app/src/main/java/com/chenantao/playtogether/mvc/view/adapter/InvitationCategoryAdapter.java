@@ -1,6 +1,7 @@
 package com.chenantao.playtogether.mvc.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bean.event.EventLocate;
+import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationDetailActivity;
 import com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg;
 import com.chenantao.playtogether.utils.LocationUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
@@ -90,17 +92,22 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 			});
 			if ("".equals(headerViewHolder.mTvAddress.getText().toString()))
 			{
-				//先取上次的地址设置进去
+				//先取上次的地址设置进去,如果没有，在从服务器请求
 				LocationClient client = LocationUtils.getLocationClient(mContext);
 				BDLocation location = client.getLastKnownLocation();
-				if (location != null) headerViewHolder.mTvAddress.setText(location.getAddrStr());
-				client.registerLocationListener(new LocationListener(headerViewHolder));
-				client.start();
+				if (location == null)
+				{
+					client.registerLocationListener(new LocationListener(headerViewHolder));
+					client.start();
+				} else
+				{
+					headerViewHolder.mTvAddress.setText(location.getAddrStr());
+				}
 			}
 			return;
 		}
 		//处理item
-		Invitation invitation = mDatas.get(position - 1);//还有个header。要减1
+		final Invitation invitation = mDatas.get(position - 1);//还有个header。要减1
 		User author = invitation.getAuthor();
 		AVFile avatar = author.getAvatar();
 		InvitationCategoryItemViewHolder itemViewHolder = (InvitationCategoryItemViewHolder)
@@ -108,7 +115,7 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		//据算距离本屌的距离
 		User user = AVUser.getCurrentUser(User.class);
 		AVGeoPoint localPoint = user.getLocation();
-		AVGeoPoint authorPoint = author.getLocation();
+		AVGeoPoint authorPoint = invitation.getLocation();
 		//当item的作者不是本人，有位置坐标，并且还没有
 		if (localPoint != null && authorPoint != null && !user.getUsername().equals(author
 				.getUsername()))
@@ -131,6 +138,18 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		{
 			itemViewHolder.mIvAuthorAvatar.setImageResource(R.mipmap.avatar);
 		}
+		itemViewHolder.itemView.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(mContext, InvitationDetailActivity.class);
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_ID, invitation
+						.getObjectId());
+				mContext.startActivity(intent);
+
+			}
+		});
 	}
 
 	@Override
@@ -214,5 +233,4 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 			LocationUtils.stopClient();
 		}
 	}
-
 }

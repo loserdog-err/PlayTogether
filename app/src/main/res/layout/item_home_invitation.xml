@@ -14,6 +14,7 @@
         android:layout_gravity="center">
 
         <com.chenantao.autolayout.AutoRelativeLayout
+            android:paddingLeft="10px"
             android:layout_width="735px"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -32,7 +33,6 @@
 
             <com.chenantao.autolayout.AutoRelativeLayout
                 android:layout_width="160px"
-                android:layout_marginLeft="10px"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ivAuthorAvatar"
                 android:layout_marginTop="5px">

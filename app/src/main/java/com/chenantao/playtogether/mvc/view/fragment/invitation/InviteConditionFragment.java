@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -18,8 +17,8 @@ import com.chenantao.autolayout.AutoRelativeLayout;
 import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.mvc.model.bean.InterestCategory;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
-import com.chenantao.playtogether.mvc.view.common.BaseFragment;
 import com.chenantao.playtogether.mvc.view.adapter.SelectRecyclerViewAdapter;
+import com.chenantao.playtogether.mvc.view.common.BaseFragment;
 import com.chenantao.playtogether.mvc.view.widget.SelectRecyclerView;
 import com.chenantao.playtogether.mvc.view.widget.SnappingLinearLayoutManager;
 import com.chenantao.playtogether.utils.Constant;
@@ -34,12 +33,12 @@ import butterknife.OnClick;
 /**
  * Created by Chenantao_gg on 2016/1/21.
  */
-public class InviteConditionFragment extends BaseFragment implements CheckBox.OnCheckListener
+public class InviteConditionFragment extends BaseFragment
 {
 	public static final int TYPE_CONSTELLATION = 0;
 	public static final int TYPE_EXPIRE = 1;
 	public static final int TYPE_SELECT_CATEGORY = 2;
-	//选择性别的单选框
+	//选择性别的复选框
 	@Bind(R.id.cbWomen)
 	CheckBox mCbWomen;
 	@Bind(R.id.cbMan)
@@ -81,7 +80,7 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 
 	private View mRoot;
 
-	private boolean isPopupWindowOpen = false;//标识popupwindow是否打开
+//	private boolean isPopupWindowOpen = false;//标识popupwindow是否打开
 
 	private boolean isSelectUIShow = false;//选择类型的ui是否显示
 
@@ -125,8 +124,6 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 	public void afterViewCreated(View view)
 	{
 		mRoot = view;
-		mCbWomen.setOncheckListener(this);
-		mCbMan.setOncheckListener(this);
 	}
 
 	@OnClick({R.id.rlConstellation, R.id.rlExpire, R.id.rlCategory, R.id.llFood, R.id.llMovie,
@@ -162,25 +159,9 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 				setSelect(InterestCategory.FOOD, TYPE_SELECT_CATEGORY);
 				hideSelectCategoryUI();
 				break;
-
 		}
 	}
 
-
-	@Override
-	public void onCheck(CheckBox checkBox, boolean b)
-	{
-		switch (checkBox.getId())
-		{
-			//选择性别复选框的单击事件
-			case R.id.cbMan:
-				mCbWomen.setChecked(false);
-				break;
-			case R.id.cbWomen:
-				mCbMan.setChecked(false);
-				break;
-		}
-	}
 
 	/**
 	 * 得到条件筛选fragment的数据
@@ -208,7 +189,11 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 				.MIN_AGE;
 		if (maxAge > Invitation.MAX_AGE || maxAge < Invitation.MIN_AGE) maxAge = Invitation
 				.MAX_AGE;
-		invitation.setGender(mCbMan.isCheck() ? 0 : 1);
+		if (!mCbMan.isCheck() && !mCbWomen.isCheck())
+		{
+			invitation.setGender(Constant.GENDER_ALL);
+		} else invitation.setGender(mCbMan.isCheck() ? Constant.GENDER_MAN : Constant
+				.GENDER_WOMEN);
 		invitation.setMinAge(minAge);
 		invitation.setMaxAge(maxAge);
 		invitation.setConstellation(Invitation.convertConstellation
@@ -318,17 +303,8 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 			//init popupwindow
 			mSelectPopupWindowContentView = LayoutInflater.from(getActivity()).inflate(R.layout
 					.popupwindow_select_view, null);
-			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(mSelectPopupWindowContentView);
-			mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener()
-			{
-				@Override
-				public void onDismiss()
-				{
-					//当popupwindow关闭的时候，使内容区域变暗
-					isPopupWindowOpen = false;
-					toggleLight();
-				}
-			});
+			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(mSelectPopupWindowContentView,
+					getActivity());
 			//初始化recyclerview
 			mSelectRecyclerView = (SelectRecyclerView) mSelectPopupWindowContentView.findViewById
 					(R.id
@@ -363,19 +339,6 @@ public class InviteConditionFragment extends BaseFragment implements CheckBox.On
 		mCurrentType = type;
 		mPopupWindow.showAtLocation(mRoot, Gravity
 				.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-		isPopupWindowOpen = true;
-		toggleLight();
+		PopupWindowManager.toggleLight(true,getActivity());
 	}
-
-	/**
-	 * popupWindow弹出或隐藏时
-	 * 使内容区域变亮或变暗
-	 */
-	private void toggleLight()
-	{
-		WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-		lp.alpha = isPopupWindowOpen ? 0.3f : 1.0f;
-		getActivity().getWindow().setAttributes(lp);
-	}
-
 }

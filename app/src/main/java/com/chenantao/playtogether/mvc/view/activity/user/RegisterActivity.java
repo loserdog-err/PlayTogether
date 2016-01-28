@@ -73,6 +73,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
 				{
 					//符合注册条件
 					User user = new User(username, password);
+					user.setGender(0);
 					DialogUtils.showProgressDialog("注册中，请骚等哦`(*∩_∩*)′", RegisterActivity.this);
 					mController.registerUser(user);
 				}

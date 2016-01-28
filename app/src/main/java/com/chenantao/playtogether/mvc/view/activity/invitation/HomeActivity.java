@@ -281,16 +281,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		{
 			View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_select_avatar,
 					mDrawerLayout, false);
-			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view);
-			mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener()
-			{
-				@Override
-				public void onDismiss()
-				{
-					//当popupwindow关闭的时候，使内容区域变暗
-					toggleLight(false);
-				}
-			});
+			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view,this);
 			TextView tvFromGallery = (TextView) view.findViewById(R.id.tvFromGallery);
 			TextView tvTakePhoto = (TextView) view.findViewById(R.id.tvTakePhoto);
 			tvFromGallery.setOnClickListener(this);

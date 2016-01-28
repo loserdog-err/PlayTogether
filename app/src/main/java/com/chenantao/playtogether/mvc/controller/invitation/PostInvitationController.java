@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVUser;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bll.InviteBll;
+import com.chenantao.playtogether.mvc.model.bll.UserBll;
 import com.chenantao.playtogether.mvc.view.activity.invitation.PostInvitationActivity;
 import com.chenantao.playtogether.mvc.view.fragment.invitation.InviteConditionFragment;
 import com.chenantao.playtogether.mvc.view.fragment.invitation.WriteMessageFragment;
@@ -19,8 +20,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -32,6 +35,9 @@ public class PostInvitationController
 
 	@Inject
 	public InviteBll mInviteBll;
+
+	@Inject
+	public UserBll mUserBll;
 
 	@Inject
 	public PostInvitationController(Activity activity)
@@ -65,22 +71,43 @@ public class PostInvitationController
 			Toast.makeText(mActivity, "没标题你要问神马⊙△⊙？", Toast.LENGTH_SHORT).show();
 			return;
 		}
-		Invitation invitation = new Invitation();
+		final Invitation invitation = new Invitation();
 		invitation.setAuthor(AVUser.getCurrentUser(User.class));
 		invitation.setTitle(title);
 		invitation.setContent(content);
 		invitation.setUploadPicsPath(uploadFiles);
 		//由于条件fragment数据较多，这里创建一个对象供其自己set进去
 		conditionFragment.getInputData(invitation);
-//		int desireWidth = (int) (ScreenUtils.getScreenWidth(mActivity) * 0.84);
-//		int desireHeight = ScreenUtils.getScreenHeight(mActivity) / 2;
-		mInviteBll.postInvitation(invitation, mActivity)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<AVObject>()
+		mInviteBll.getLocation(mActivity)
+				.subscribeOn(AndroidSchedulers.mainThread())
+				.observeOn(Schedulers.io())
+				.doOnNext(new Action1<AVGeoPoint>()
 				{
 					@Override
-					public void call(AVObject avObject)
+					public void call(AVGeoPoint point)
+					{
+						User user = AVUser.getCurrentUser(User.class);
+						if (point != null)
+						{
+							user.setLocation(point);
+							mUserBll.updateLocation(user);
+						}
+					}
+				})
+				.observeOn(Schedulers.io())
+				.flatMap(new Func1<AVGeoPoint, Observable<Invitation>>()
+				{
+					@Override
+					public Observable<Invitation> call(AVGeoPoint point)
+					{
+						return mInviteBll.postInvitation(invitation, point, mActivity);
+					}
+				})
+				.observeOn(AndroidSchedulers.mainThread())
+				.subscribe(new Action1<Invitation>()
+				{
+					@Override
+					public void call(Invitation obj)
 					{
 						mActivity.postInvitationSuccess();
 					}
@@ -89,9 +116,11 @@ public class PostInvitationController
 					@Override
 					public void call(Throwable throwable)
 					{
+						throwable.printStackTrace();
 						mActivity.postInvitationFail("失败啦，不知道为神马，重试一遍吧");
 						Logger.e(throwable, "发布失败");
 					}
 				});
+
 	}
 }

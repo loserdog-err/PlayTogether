@@ -6,10 +6,10 @@
 
     <color name="black_small_alpha">#dd000000</color>
     <color name="black_mid_alpha">#b4000000</color>
-    <color name="black_big_alpha">#32000000</color>
+    <color name="black_big_alpha">#4b000000</color>
     <color name="black_large_alpha">#0a000000</color>
 
-    <color name="background_color">#0c000000</color>
+    <color name="background_color">#06000000</color>
 
     <color name="white_little_alpha">#f0ffffff</color>
     <color name="white_small_alpha">#dcffffff</color>

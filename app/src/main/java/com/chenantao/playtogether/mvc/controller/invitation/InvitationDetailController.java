@@ -10,8 +10,10 @@ import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationDetailA
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -59,13 +61,22 @@ public class InvitationDetailController
 	 *
 	 * @param invitation
 	 */
-	public void acceptInvite(Invitation invitation)
+	public void acceptInvite(final Invitation invitation)
 	{
 //		acceptInviteUsers.add(AVUser.getCurrentUser(User.class));
 //		invitation.setAcceptInviteUsers(acceptInviteUsers);
 		invitation.setAcceptInviteUser(AVUser.getCurrentUser(User.class));
-		mInviteBll.acceptInvite(invitation)
+		mInviteBll.hadAcceptInvite(invitation)
 				.subscribeOn(Schedulers.io())
+				.observeOn(Schedulers.io())
+				.flatMap(new Func1<Boolean, Observable<Invitation>>()
+				{
+					@Override
+					public Observable<Invitation> call(Boolean hasInvited)
+					{
+						return mInviteBll.acceptInvite(invitation, hasInvited);
+					}
+				})
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(new Action1<Invitation>()
 				{

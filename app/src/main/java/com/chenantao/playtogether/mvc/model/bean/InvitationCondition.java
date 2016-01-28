@@ -10,11 +10,13 @@ public class InvitationCondition
 	private int category;
 	private int gender = -1;
 
-	private int minAge;
+	private int minAge=Invitation.MIN_AGE;
 
-	private int maxAge;
+	private int maxAge=Invitation.MAX_AGE;
 
-
+//	private boolean orderByNearest;//离我最近
+//	private boolean orderByNewly;//最新
+//	private boolean orderByMostMember;//同伙最多
 	private OrderBy orderBy;
 
 

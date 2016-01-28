@@ -28,6 +28,7 @@ import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
 import com.chenantao.playtogether.utils.ScreenUtils;
 import com.gc.materialdesign.views.AutoHideButtonFloat;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 
 	private boolean mIsContentPicLoaded = false;//内容里的图片是否加载完毕
 	private int mAcceptInviteNums = 0;//接受邀请的用户数量，主要是用于判断数据是否改变去更新显示下面的用户列表
+	private boolean mIsAcceptUserSet = false;//接受邀请的用户inflate过了没
 
 	@Inject
 	public InvitationDetailController mController;
@@ -152,6 +154,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * 为了避免重复的inflate以及addview，先判断是否是第一次设置，
+	 * 不是的话则拿到上次更新到的下标，从这个下标开始，添加新更新的数据
+	 */
 	public void setAcceptInviteUsers()
 	{
 		if (mLlAcceptUser.getChildCount() > 5)
@@ -160,17 +166,31 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		}
 		List<User> acceptInviteUsers = mInvitation.getAcceptInviteUsers();
 		int count = acceptInviteUsers.size();
-		if (count == mAcceptInviteNums) return;
-		mAcceptInviteNums = count;
-		count = count > 5 ? 5 : count;
-		for (int i = 0; i < count; i++)
+		int startIndex = 0;
+		if (mIsAcceptUserSet)//如果已经设置过了
+		{
+			startIndex = mAcceptInviteNums;
+		}
+		for (int i = startIndex; i < count; i++)
 		{
 //			Logger.json(acceptInviteUsers.get(i).toString());
 			User user = acceptInviteUsers.get(i);
 			View view = LayoutInflater.from(this).inflate(R.layout.item_accept_invite_user,
-					mLlAcceptUser, true);
+					mLlAcceptUser, false);
+			mLlAcceptUser.addView(view, mLlAcceptUser.getChildCount());
 			((TextView) view.findViewById(R.id.tvUsername)).setText(user.getUsername());
+			ImageView ivAvatar = (ImageView) view.findViewById(R.id.ivAvatar);
+			//设置头像
+			AVFile avFile = user.getAvatar();
+			if (avFile != null)
+			{
+				Logger.e("display");
+				PicassoUtils.displayFitImage(this, Uri.parse(avFile.getThumbnailUrl(true, 100,
+						100)), ivAvatar, null);
+			}
 		}
+		mIsAcceptUserSet = true;
+		mAcceptInviteNums = count;
 	}
 
 	/**
@@ -190,17 +210,17 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 					final AVFile file = contentFile.get(i);
 					final int originalImageWidth = (int) file.getMetaData("width");
 					final int originalImageHeight = (int) file.getMetaData("height");
-					double[] ratio = FileUtils.compressIfMoreThanDesireHeightWidth(originalImageWidth,
-							originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
-							CONTENT_PIC_HEIGHT_MAX_RATIO, this);
+					double[] ratio = FileUtils.compressIfMoreThanDesireHeightWidth
+							(originalImageWidth,
+									originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
+									CONTENT_PIC_HEIGHT_MAX_RATIO, this);
 //					double widthRatio = (double) file.getMetaData("widthRatio");
 //					double heightRatio = (double) file.getMetaData("heightRatio");
 					final int width = (int) (screenWidth * ratio[0]);
 					final int height = (int) (screenHeight * ratio[1]);
 					ImageView imageView = getContentImageView(width, height);
 					//因为后面还有两个textview，所以要减2，这里为了方便，用硬编码，囧
-					mLlContentContainer.addView(imageView, mLlContentContainer.getChildCount() -
-							2);
+					mLlContentContainer.addView(imageView, mLlContentContainer.getChildCount());
 					//点击图片查看高清无码大图
 					imageView.setOnClickListener(new View.OnClickListener()
 					{
@@ -247,7 +267,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	public void acceptInviteFail(String msg)
 	{
 		DialogUtils.dismissProgressDialog();
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -301,6 +321,11 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		switch (v.getId())
 		{
 			case R.id.btnInvite:
+				if (mInvitation.getAuthor().getObjectId() == AVUser.getCurrentUser().getObjectId())
+				{
+					Toast.makeText(this, "请不要自导自演", Toast.LENGTH_LONG).show();
+					return;
+				}
 				Snackbar.make(mLlRoot, "约吗英雄", Snackbar.LENGTH_LONG)
 						.setAction("约起来", new View.OnClickListener()
 						{

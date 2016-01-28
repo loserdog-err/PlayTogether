@@ -8,10 +8,14 @@ import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.InvitationCondition;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.utils.FileUtils;
+import com.chenantao.playtogether.utils.LocationUtils;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
@@ -27,17 +31,57 @@ import rx.Subscriber;
 public class InviteBll
 {
 	/**
+	 * 获得发邀请人的地址
+	 *
+	 * @param context
+	 * @return
+	 */
+	public Observable<AVGeoPoint> getLocation(final Context context)
+	{
+		return Observable.create(new Observable.OnSubscribe<AVGeoPoint>()
+		{
+			@Override
+			public void call(final Subscriber<? super AVGeoPoint> subscriber)
+			{
+				LocationClient client = LocationUtils.getLocationClient(context);
+				client.registerLocationListener(new BDLocationListener()
+				{
+					@Override
+					public void onReceiveLocation(BDLocation location)
+					{
+						if (location.getLocType() == BDLocation.TypeGpsLocation || location
+								.getLocType() == BDLocation.TypeNetWorkLocation || location
+								.getLocType() == BDLocation.TypeOffLineLocation)
+						{
+							subscriber.onNext(new AVGeoPoint(location.getLatitude(), location
+									.getLongitude()));
+						} else
+						{
+							subscriber.onNext(null);
+						}
+						LocationUtils.stopClient();
+					}
+				});
+				client.start();
+			}
+		});
+	}
+
+	/**
 	 * 发布邀请
 	 *
 	 * @param invitation
+	 * @param point
 	 * @return
 	 */
-	public Observable<AVObject> postInvitation(final Invitation invitation, final Context context)
+	public Observable<Invitation> postInvitation(final Invitation invitation, final AVGeoPoint
+			point,
+	                                             final Context context)
 	{
-		return Observable.create(new Observable.OnSubscribe<AVObject>()
+		return Observable.create(new Observable.OnSubscribe<Invitation>()
 		{
 			@Override
-			public void call(Subscriber<? super AVObject> subscriber)
+			public void call(Subscriber<? super Invitation> subscriber)
 			{
 				try
 				{
@@ -55,6 +99,7 @@ public class InviteBll
 						uploadFiles.add(avFile);
 					}
 					invitation.setPics(uploadFiles);
+					invitation.setLocation(point);
 					invitation.save();
 					subscriber.onNext(invitation);
 				} catch (Exception e)
@@ -126,7 +171,52 @@ public class InviteBll
 		});
 	}
 
-	public Observable<Invitation> acceptInvite(final Invitation invitation)
+	/**
+	 * 查询用户是否已经接受了邀请
+	 *
+	 * @return true，代表已经接收过邀请
+	 */
+	public Observable<Boolean> hadAcceptInvite(final Invitation invitation)
+	{
+		return Observable.create(new Observable.OnSubscribe<Boolean>()
+		{
+			@Override
+			public void call(Subscriber<? super Boolean> subscriber)
+			{
+				AVQuery<Invitation> query = AVQuery.getQuery(Invitation.class);
+				AVQuery<User> innerQuery = AVQuery.getQuery(User.class);
+				User localUser = AVUser.getCurrentUser(User.class);
+				innerQuery.whereEqualTo(User.OBJECT_ID, localUser.getObjectId());
+				query.whereMatchesQuery(Invitation.FIELD_ACCEPT_INVITE_USERS, innerQuery);
+				query.whereEqualTo(Invitation.OBJECT_ID, invitation.getObjectId());
+				try
+				{
+					List<Invitation> invitations = query.find();
+					if (invitations != null && invitations.size() > 0)
+					{
+						subscriber.onNext(true);
+					} else
+					{
+						subscriber.onNext(false);
+					}
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onNext(true);
+				}
+			}
+		});
+	}
+
+	/**
+	 * 接受邀请
+	 *
+	 * @param invitation
+	 * @param hasInvited
+	 * @return
+	 */
+	public Observable<Invitation> acceptInvite(final Invitation invitation, final Boolean
+			hasInvited)
 	{
 		return Observable.create(new Observable.OnSubscribe<Invitation>()
 		{
@@ -135,6 +225,11 @@ public class InviteBll
 			{
 				try
 				{
+					if (hasInvited)
+					{
+						subscriber.onError(new Exception("别这么热情啊，你都已经接受邀请了"));
+						return;
+					}
 //					Logger.json(invitation.toString());
 					invitation.setFetchWhenSave(true);
 					invitation.save();
@@ -167,10 +262,23 @@ public class InviteBll
 				int maxAge = condition.getMaxAge();
 				InvitationCondition.OrderBy orderBy = condition.getOrderBy();
 				AVQuery<Invitation> query = AVQuery.getQuery(Invitation.class);
+				AVQuery<User> innerQuery = AVQuery.getQuery(User.class);
+				//指定类别
 				query.whereEqualTo(Invitation.FIELD_CATEGORY, category);
-//				query.whereEqualTo(Invitation.FIELD_GENDER, gender);
-				query.whereGreaterThanOrEqualTo(Invitation.FIELD_MIN_AGE, minAge);
-				query.whereLessThanOrEqualTo(Invitation.FIELD_MAX_AGE, maxAge);
+				//嵌套查询，查询受邀用户是指定性别的的invitation
+//				if (gender == Constant.GENDER_ALL)
+//				{
+//					int[] genders = new int[]{Constant.GENDER_MAN, Constant.GENDER_WOMEN};
+//					innerQuery.whereContainedIn(User.FIELD_GENDER, Arrays.asList(genders));
+//				} else
+//				{
+//					innerQuery.whereEqualTo(User.FIELD_GENDER, gender);
+//				}
+				//指定年龄
+				innerQuery.whereGreaterThanOrEqualTo(User.FIELD_AGE, minAge);
+				innerQuery.whereLessThanOrEqualTo(User.FIELD_AGE, maxAge);
+				query.whereMatchesQuery(Invitation.FIELD_AUTHOR, innerQuery);
+
 				query.include(Invitation.FIELD_AUTHOR);
 				if (orderBy == InvitationCondition.OrderBy.NEAREST)//离我最近
 				{
@@ -178,14 +286,15 @@ public class InviteBll
 					AVGeoPoint point = AVUser.getCurrentUser(User.class).getLocation();
 					if (point != null)
 					{
-						query.whereNear(User.FIELD_LOCATION, point);
+						query.whereNear(Invitation.FIELD_LOCATION, point);
+
 					}
 
 				} else//最新
 				{
 					query.orderByDescending(Invitation.CREATED_AT);
 				}
-//				Logger.e("condition:" + condition);
+				Logger.e("condition:" + condition);
 				try
 				{
 					List<Invitation> invitations = query.find();

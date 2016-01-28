@@ -6,7 +6,7 @@
     android:layout_marginLeft="10px">
 
     <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
-        android:id="@+id/ivAuthorAvatar"
+        android:id="@+id/ivAvatar"
         android:layout_width="50px"
         android:layout_height="50px"
         android:layout_centerHorizontal="true"
@@ -18,7 +18,7 @@
         style="@style/small_black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ivAuthorAvatar"
+        android:layout_below="@id/ivAvatar"
         android:layout_centerHorizontal="true"
         android:maxWidth="115px"
         android:text="陈岸涛"/>

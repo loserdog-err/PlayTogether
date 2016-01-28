@@ -17,10 +17,15 @@ public class Constant
 	public static final int PASSWORD_MIN_LENGTH = 4;
 	public static final int PASSWORD_MAX_LENGTH = 16;
 
-	//类别常量
+	//兴趣类别常量
 	public static final int CATEGORY_MOVIE = 0;
 	public static final int CATEGORY_EXERCISE = 1;
 	public static final int CATEGORY_FOOD = 2;
+
+	//一些通用常量
+	public static final int GENDER_MAN = 0;
+	public static final int GENDER_WOMEN = 1;
+	public static final int GENDER_ALL = 2;
 
 	public static final List<InterestCategory> CATEGORIES = new ArrayList<>();
 
@@ -48,5 +53,5 @@ public class Constant
 			ONE_MONTH, NEVER, "", ""};
 
 
-	public static final int MAX_UPLOAD_PIC =10;//上传图片的最大数量
+	public static final int MAX_UPLOAD_PIC = 10;//上传图片的最大数量
 }
