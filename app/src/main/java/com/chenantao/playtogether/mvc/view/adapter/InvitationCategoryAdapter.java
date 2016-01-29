@@ -2,6 +2,7 @@ package com.chenantao.playtogether.mvc.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -108,9 +109,9 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		}
 		//处理item
 		final Invitation invitation = mDatas.get(position - 1);//还有个header。要减1
-		User author = invitation.getAuthor();
+		final User author = invitation.getAuthor();
 		AVFile avatar = author.getAvatar();
-		InvitationCategoryItemViewHolder itemViewHolder = (InvitationCategoryItemViewHolder)
+		final InvitationCategoryItemViewHolder itemViewHolder = (InvitationCategoryItemViewHolder)
 				holder;
 		//据算距离本屌的距离
 		User user = AVUser.getCurrentUser(User.class);
@@ -127,9 +128,11 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		{
 			itemViewHolder.mTvDistance.setText("");
 		}
+		final String title = invitation.getTitle();
+		final String authorName = author.getUsername();
 		itemViewHolder.mTvContent.setText(invitation.getContent());
-		itemViewHolder.mTvTitle.setText(invitation.getTitle());
-		itemViewHolder.mTvUsername.setText(author.getUsername());
+		itemViewHolder.mTvTitle.setText(title);
+		itemViewHolder.mTvUsername.setText(authorName);
 		if (avatar != null)
 		{
 			Uri uri = Uri.parse(avatar.getThumbnailUrl(true, 150, 150));
@@ -146,6 +149,11 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 				Intent intent = new Intent(mContext, InvitationDetailActivity.class);
 				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_ID, invitation
 						.getObjectId());
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_USERNAME, authorName);
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_TITLE, title);
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_AVATAR, (
+						(BitmapDrawable) itemViewHolder.mIvAuthorAvatar.getDrawable()).getBitmap
+						());
 				mContext.startActivity(intent);
 
 			}
@@ -167,7 +175,7 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 	@Override
 	public int getItemCount()
 	{
-		return mCount;
+		return mDatas.size()+1;
 	}
 
 

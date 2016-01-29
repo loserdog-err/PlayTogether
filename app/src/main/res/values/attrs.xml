@@ -15,4 +15,8 @@
         <attr name="type"/>
         <attr name="borderRadius"/>
     </declare-styleable>
+
+    <array name="progress_colors">
+        <item>@color/primary_color</item>
+    </array>
 </resources>

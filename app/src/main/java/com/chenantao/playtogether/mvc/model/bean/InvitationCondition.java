@@ -14,9 +14,13 @@ public class InvitationCondition
 
 	private int maxAge=Invitation.MAX_AGE;
 
+	private int skip;//加载更多时用到，需要跳过多少条数
+
 //	private boolean orderByNearest;//离我最近
 //	private boolean orderByNewly;//最新
 //	private boolean orderByMostMember;//同伙最多
+
+
 	private OrderBy orderBy;
 
 
@@ -73,6 +77,16 @@ public class InvitationCondition
 	public void setOrderBy(OrderBy orderBy)
 	{
 		this.orderBy = orderBy;
+	}
+
+	public int getSkip()
+	{
+		return skip;
+	}
+
+	public void setSkip(int skip)
+	{
+		this.skip = skip;
 	}
 
 	@Override

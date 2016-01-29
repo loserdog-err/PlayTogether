@@ -1,41 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    android:id="@+id/drawerLayout"
+<com.chenantao.autolayout.AutoFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color"
-    tools:context=".mvc.view.activity.invitation.HomeActivity">
+    android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:background="@color/black_large_alpha"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <include layout="@layout/include_tool_bar"/>
-
-            <com.chenantao.autolayout.AutoRecyclerView
-                android:id="@+id/rvInvitation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:headerLayout="@layout/drawer_header"
-        app:itemTextColor="@drawable/selector_item"
-        app:menu="@menu/drawer_menu"
-        app:theme="@style/drawer_style"/>
-</android.support.v4.widget.DrawerLayout>
+        android:background="@color/background_color"
+        tools:context=".mvc.view.activity.invitation.HomeActivity">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black_large_alpha"
+                android:orientation="vertical">
+
+                <include layout="@layout/include_tool_bar"/>
+
+                <com.chenantao.autolayout.AutoRecyclerView
+                    android:id="@+id/rvInvitation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigationView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/drawer_header"
+            app:itemTextColor="@drawable/selector_item"
+            app:menu="@menu/drawer_menu"
+            app:theme="@style/drawer_style"/>
+    </android.support.v4.widget.DrawerLayout>
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/viewDim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C0000000"/>
+</com.chenantao.autolayout.AutoFrameLayout>

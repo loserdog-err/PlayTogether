@@ -236,4 +236,11 @@
     </com.chenantao.autolayout.AutoLinearLayout>
 
     <include layout="@layout/include_vertical_category_list"/>
+
+    <View
+        android:id="@+id/viewDim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C0000000"
+        android:visibility="gone"/>
 </com.chenantao.autolayout.AutoFrameLayout>

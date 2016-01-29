@@ -53,29 +53,17 @@ public class MainActivity extends BaseActivity
 			public void onClick(View v)
 			{
 				AVQuery query = AVQuery.getQuery(User.class);
-				String[] genders = new String[]{"0"};
+				int[] genders = new int[]{0, 1};
 				query.whereContainedIn("gender", Arrays.asList(genders));
-//				AVQuery<AVObject> query = new AVQuery<AVObject>("invitation");
-				query.findInBackground(new FindCallback<User>()
-				{
+				query.findInBackground(new FindCallback<User>() {
 					@Override
-					public void done(List<User> list, AVException e)
-					{
-						if (e == null)
-						{
-							Logger.e("success");
-							for (int i = 0; i < list.size(); i++)
-							{
-								Logger.e("gender:" + list.get(i).getGender());
-							}
-						} else
-						{
-							e.printStackTrace();
+					public void done(List<User> list, AVException e) {
+						for (int i = 0; i < list.size(); i++) {
+							Logger.e("gender:" + list.get(i).getGender());
 						}
 					}
 				});
 			}
-
 		});
 	}
 }

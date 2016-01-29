@@ -4,4 +4,7 @@
     <string name="accept_user_num">你有%1$d个同伙</string>
     <string name="from_category">来自 %1$s</string>
     <string name="distance_from_me">离我%1$d米</string>
+    <string name="share_element_avatar">sb</string>
+    <string name="share_element_username">username</string>
+    <string name="share_element_title">title</string>
 </resources>

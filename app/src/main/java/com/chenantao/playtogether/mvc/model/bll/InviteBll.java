@@ -14,6 +14,7 @@ import com.baidu.location.LocationClient;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.InvitationCondition;
 import com.chenantao.playtogether.mvc.model.bean.User;
+import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.LocationUtils;
 import com.orhanobut.logger.Logger;
@@ -277,9 +278,7 @@ public class InviteBll
 				//指定年龄
 				innerQuery.whereGreaterThanOrEqualTo(User.FIELD_AGE, minAge);
 				innerQuery.whereLessThanOrEqualTo(User.FIELD_AGE, maxAge);
-				query.whereMatchesQuery(Invitation.FIELD_AUTHOR, innerQuery);
-
-				query.include(Invitation.FIELD_AUTHOR);
+				//指定排序方式
 				if (orderBy == InvitationCondition.OrderBy.NEAREST)//离我最近
 				{
 					// TODO: 2016/1/27 需要百度sdk提供的功能来实现
@@ -294,7 +293,11 @@ public class InviteBll
 				{
 					query.orderByDescending(Invitation.CREATED_AT);
 				}
-				Logger.e("condition:" + condition);
+				//指定分页显示的数据
+				query.setLimit(Constant.PAGE_SIZE);
+				query.setSkip(condition.getSkip());
+				query.include(Invitation.FIELD_AUTHOR);
+				query.whereMatchesQuery(Invitation.FIELD_AUTHOR, innerQuery);
 				try
 				{
 					List<Invitation> invitations = query.find();

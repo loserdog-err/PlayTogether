@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -31,8 +30,8 @@ import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bean.event.EventRefreshData;
 import com.chenantao.playtogether.mvc.model.bean.event.EventSetAvatar;
-import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.mvc.view.adapter.HomeInvitationItemAdapter;
+import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.utils.DialogUtils;
 import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
@@ -53,6 +52,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 {
 
 	private static final int REQUEST_CODE_CAPTURE_CAMERA = 0;
+	@Bind(R.id.viewDim)
+	View viewDim;
 	@Bind(R.id.rvInvitation)
 	AutoRecyclerView mRvInvitation;
 	@Bind(R.id.swipeRefreshLayout)
@@ -62,6 +63,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	@Bind(R.id.drawerLayout)
 	DrawerLayout mDrawerLayout;
 	ImageView mIvAvatar;
+
 	private RecyclerView.Adapter mRvInvitationAdapter;
 
 	private PopupWindow mPopupWindow;
@@ -185,8 +187,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 				break;
 			case R.id.ivAuthorAvatar:
 				mPopupWindow = getPopupWindow();
-				mPopupWindow.showAtLocation(mNavigationView, Gravity
-						.CENTER, 0, 0);
+//				mPopupWindow.showAtLocation(mNavigationView, Gravity
+//						.CENTER, 0, 0);
+				mPopupWindow.showAsDropDown(mIvAvatar, 0, 0);
 				toggleLight(true);
 				break;
 		}
@@ -269,10 +272,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	 */
 	private void toggleLight(boolean isOpen)
 	{
-		WindowManager.LayoutParams lp = getWindow().getAttributes();
-		lp.alpha = isOpen ? 0.3f : 1.0f;
-		lp.dimAmount = isOpen ? 0.5f : 1.0f;
-		getWindow().setAttributes(lp);
+		if (isOpen)
+		{
+			viewDim.setVisibility(View.VISIBLE);
+		} else
+		{
+			viewDim.setVisibility(View.GONE);
+		}
 	}
 
 	private PopupWindow getPopupWindow()
@@ -281,7 +287,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		{
 			View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_select_avatar,
 					mDrawerLayout, false);
-			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view,this);
+			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view, viewDim);
+			mPopupWindow.setAnimationStyle(R.style.select_avatar_popupwindow_anim);
 			TextView tvFromGallery = (TextView) view.findViewById(R.id.tvFromGallery);
 			TextView tvTakePhoto = (TextView) view.findViewById(R.id.tvTakePhoto);
 			tvFromGallery.setOnClickListener(this);

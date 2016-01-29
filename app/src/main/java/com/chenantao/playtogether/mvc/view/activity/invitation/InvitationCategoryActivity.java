@@ -1,5 +1,6 @@
 package com.chenantao.playtogether.mvc.view.activity.invitation;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,7 @@ import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.PopupWindowManager;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.CheckBox;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -45,6 +47,10 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 	public static final String EXTRA_CATEGORY = "category";
 
 	public int mCategory;
+	@Bind(R.id.appBarLayout)
+	AppBarLayout mAppBarLayout;
+	@Bind(R.id.viewDim)
+	View viewDim;
 	@Bind(R.id.collapsingToolbarLayout)
 	CollapsingToolbarLayout mCollapsingToolbarLayout;
 	@Bind(R.id.swipeRefreshLayout)
@@ -60,6 +66,7 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 	RecyclerView mRvInvitation;
 	LinearLayoutManager mLayoutManager;
 	List<Invitation> mDatas;
+	InvitationCategoryAdapter mAdapter;
 
 	//popupwindow的控件
 	TextView mEtMinAge;
@@ -103,14 +110,14 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.primary_color);
 		initEvent();
 		//初始化recyclerview
-		mRvInvitation.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-				false));
+		mRvInvitation.setLayoutManager(mLayoutManager = new LinearLayoutManager(this,
+				LinearLayoutManager.VERTICAL, false));
 		//加载数据并显示加载框
 		InvitationCondition condition = new InvitationCondition();
 		condition.setCategory(mCategory);
 		mCondition = condition;
-		mController.loadData(condition);
 		showProgress();
+		mController.loadData(condition);
 	}
 
 	/**
@@ -137,6 +144,24 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 
 	private void initEvent()
 	{
+		//监听recyclerview滑动到底部时加载更多
+		mRvInvitation.addOnScrollListener(new RecyclerView.OnScrollListener()
+		{
+			@Override
+			public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+			{
+				super.onScrolled(recyclerView, dx, dy);
+				if (isLastItemDisplaying())
+				{
+					if (mCondition != null)
+					{
+						mCondition.setSkip(mDatas.size());
+						mController.loadData(mCondition);
+						showProgress();
+					}
+				}
+			}
+		});
 		mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
 		{
 			@Override
@@ -146,14 +171,34 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 				{
 					mController.loadData(mCondition);
 				} else mSwipeRefreshLayout.setRefreshing(false);
+
 			}
 		});
 	}
 
-	public void refreshDataSuccess(List<Invitation> invitations)
+	public void addDataSuccess(List<Invitation> invitations)
 	{
 		mSwipeRefreshLayout.setRefreshing(false);
-		mRvInvitation.setAdapter(new InvitationCategoryAdapter(this, invitations));
+		int count = invitations.size();
+		if (count == 0)
+		{
+			return;
+		}
+//		int startIndex = mDatas.size()+1;
+		Logger.e("size:" + count);
+		for (int i = 0; i < count; i++)
+		{
+			mDatas.add(invitations.get(i));
+		}
+		mAdapter.notifyItemRangeInserted(mAdapter.getItemCount(), count);
+	}
+
+
+	public void refreshDataSuccess(List<Invitation> invitations)
+	{
+		mDatas = invitations;
+		mSwipeRefreshLayout.setRefreshing(false);
+		mRvInvitation.setAdapter(mAdapter = new InvitationCategoryAdapter(this, invitations));
 	}
 
 	public void refreshDataFail(String msg)
@@ -175,6 +220,11 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 		});
 	}
 
+	/**
+	 * 更新用户位置
+	 *
+	 * @param event
+	 */
 	public void onEvent(EventLocate event)
 	{
 		mController.updateLocation(event.longitude, event.latitude);
@@ -214,7 +264,7 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 					mCbWomen = (CheckBox) view.findViewById(R.id.cbWomen);
 					ButtonFlat btnReset = (ButtonFlat) view.findViewById(R.id.btnReset);
 					ButtonFlat btnOk = (ButtonFlat) view.findViewById(R.id.btnOk);
-					mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view, this);
+					mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view, viewDim);
 					mPopupWindow.setAnimationStyle(R.style.category_filter_popupwindow_anim);
 					//init event
 					btnReset.setOnClickListener(this);
@@ -225,7 +275,7 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 				}
 				mPopupWindow.showAsDropDown(mToolBar,
 						0, 0);
-				PopupWindowManager.toggleLight(true, this);
+				PopupWindowManager.toggleLight(true, viewDim);
 				break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -305,4 +355,23 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 				break;
 		}
 	}
+
+	private boolean isLastItemDisplaying()
+	{
+		if (mRvInvitation != null && mRvInvitation.getAdapter() != null)
+		{
+			if (mRvInvitation.getAdapter().getItemCount() != 0)
+			{
+				int lastVisibleItemPosition = ((LinearLayoutManager) mRvInvitation
+						.getLayoutManager())
+						.findLastCompletelyVisibleItemPosition();
+				if (lastVisibleItemPosition != RecyclerView.NO_POSITION &&
+						lastVisibleItemPosition ==
+								mRvInvitation.getAdapter().getItemCount() - 1)
+					return true;
+			}
+		}
+		return false;
+	}
+
 }

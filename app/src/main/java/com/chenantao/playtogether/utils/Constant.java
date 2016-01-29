@@ -27,6 +27,9 @@ public class Constant
 	public static final int GENDER_WOMEN = 1;
 	public static final int GENDER_ALL = 2;
 
+	//分页显示的常量
+	public static final int PAGE_SIZE=20;
+
 	public static final List<InterestCategory> CATEGORIES = new ArrayList<>();
 
 	public static final String[] CONSTELLATION = new String[]{"", "", "白羊座", "金牛座", "双子座", "巨蟹座",

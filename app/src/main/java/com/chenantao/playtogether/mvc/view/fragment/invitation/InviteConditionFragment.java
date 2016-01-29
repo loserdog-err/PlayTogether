@@ -38,6 +38,11 @@ public class InviteConditionFragment extends BaseFragment
 	public static final int TYPE_CONSTELLATION = 0;
 	public static final int TYPE_EXPIRE = 1;
 	public static final int TYPE_SELECT_CATEGORY = 2;
+
+	//使屏幕变暗的view
+	@Bind(R.id.viewDim)
+	View viewDim;
+
 	//选择性别的复选框
 	@Bind(R.id.cbWomen)
 	CheckBox mCbWomen;
@@ -79,7 +84,6 @@ public class InviteConditionFragment extends BaseFragment
 	TextView mTvCategory;
 
 	private View mRoot;
-
 //	private boolean isPopupWindowOpen = false;//标识popupwindow是否打开
 
 	private boolean isSelectUIShow = false;//选择类型的ui是否显示
@@ -304,7 +308,7 @@ public class InviteConditionFragment extends BaseFragment
 			mSelectPopupWindowContentView = LayoutInflater.from(getActivity()).inflate(R.layout
 					.popupwindow_select_view, null);
 			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(mSelectPopupWindowContentView,
-					getActivity());
+					viewDim);
 			//初始化recyclerview
 			mSelectRecyclerView = (SelectRecyclerView) mSelectPopupWindowContentView.findViewById
 					(R.id
@@ -339,6 +343,6 @@ public class InviteConditionFragment extends BaseFragment
 		mCurrentType = type;
 		mPopupWindow.showAtLocation(mRoot, Gravity
 				.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
-		PopupWindowManager.toggleLight(true,getActivity());
+		PopupWindowManager.toggleLight(true, viewDim);
 	}
 }

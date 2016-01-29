@@ -1,9 +1,13 @@
 package com.chenantao.playtogether.mvc.view.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +84,7 @@ public class HomeInvitationItemAdapter extends RecyclerView.Adapter implements V
 		//因为包含一个header，所以取数据的时候要从position减掉1的偏移量
 		int dataPos = position - offsetIndex;
 		final Invitation invitation = mDatas.get(dataPos);
-		HomeInvitationItemViewHolder itemHolder = (HomeInvitationItemViewHolder) holder;
+		final HomeInvitationItemViewHolder itemHolder = (HomeInvitationItemViewHolder) holder;
 		itemHolder.mIvAvatar.setImageResource(R.mipmap.avatar);
 		itemHolder.mTvTitle.setText(invitation.getTitle());
 		itemHolder.mTvContent.setText(invitation.getContent());
@@ -106,7 +110,31 @@ public class HomeInvitationItemAdapter extends RecyclerView.Adapter implements V
 				Intent intent = new Intent(mContext, InvitationDetailActivity.class);
 				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_ID, invitation
 						.getObjectId());
-				mContext.startActivity(intent);
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_USERNAME, invitation
+						.getAuthor().getUsername());
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_TITLE, invitation
+						.getTitle());
+				intent.putExtra(InvitationDetailActivity.EXTRA_INVITATION_AVATAR, (
+						(BitmapDrawable) itemHolder.mIvAvatar.getDrawable()).getBitmap());
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+				{
+					ActivityOptions options =
+							ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,
+									Pair.create((View) itemHolder.mIvAvatar, mContext
+											.getResources().getString(R.string
+													.share_element_avatar)),
+									Pair.create((View) itemHolder.mTvTitle, mContext
+											.getResources().getString(R.string
+													.share_element_title)),
+									Pair.create((View) itemHolder.mTvUsername, mContext
+											.getResources().getString(R.string
+													.share_element_username)));
+					mContext.startActivity(intent, options.toBundle());
+
+				} else
+				{
+					mContext.startActivity(intent);
+				}
 			}
 		});
 	}

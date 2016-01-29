@@ -10,16 +10,16 @@
     <com.chenantao.autolayout.AutoCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardElevation="7px"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        app:cardElevation="7px">
 
         <com.chenantao.autolayout.AutoRelativeLayout
-            android:paddingLeft="10px"
             android:layout_width="735px"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingBottom="30px"
+            android:paddingLeft="10px"
             android:paddingTop="30px">
 
 
@@ -29,6 +29,7 @@
                 android:layout_height="100px"
                 android:layout_marginLeft="30px"
                 android:src="@mipmap/avatar"
+                android:transitionName="@string/share_element_avatar"
                 app:type="round"/>
 
             <com.chenantao.autolayout.AutoRelativeLayout
@@ -38,39 +39,42 @@
                 android:layout_marginTop="5px">
 
                 <TextView
-                    android:layout_marginTop="10px"
                     android:id="@+id/tvUsername"
                     style="@style/mid_black"
                     android:layout_width="wrap_content"
                     android:layout_height="50px"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10px"
                     android:gravity="center_vertical"
                     android:maxWidth="150px"
                     android:text="陈岸涛"
+                    android:textColor="@color/primary_color2"
                     android:textStyle="bold"
-                    android:textColor="@color/primary_color2"/>
+                    android:transitionName="@string/share_element_username"/>
             </com.chenantao.autolayout.AutoRelativeLayout>
 
             <TextView
                 android:id="@+id/tvFlag"
-                android:layout_alignParentRight="true"
                 style="@style/small_black"
-                android:text="@string/from_category"
-                android:layout_marginRight="10px"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10px"
+                android:text="@string/from_category"/>
+
             <TextView
-                android:layout_below="@id/tvFlag"
                 android:id="@+id/tvTitle"
                 style="@style/big_black"
-                android:layout_marginTop="10px"
-                android:textStyle="bold"
                 android:layout_width="540px"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tvFlag"
                 android:layout_marginLeft="50px"
+                android:layout_marginTop="10px"
                 android:layout_toRightOf="@id/ivAuthorAvatar"
                 android:gravity="center_vertical"
-                android:text="有人一起xxoo吗"/>
+                android:text="有人一起xxoo吗"
+                android:textStyle="bold"
+                android:transitionName="@string/share_element_title"/>
 
             <TextView
                 android:id="@+id/tvContent"

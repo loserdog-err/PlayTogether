@@ -39,7 +39,7 @@ public class InvitationCategoryController
 	}
 
 
-	public void loadData(InvitationCondition condition)
+	public void loadData(final InvitationCondition condition)
 	{
 		//对一些没赋值的条件赋默认值以及一些输入校验
 		int minAge = condition.getMinAge();
@@ -61,7 +61,14 @@ public class InvitationCategoryController
 					@Override
 					public void call(List<Invitation> invitations)
 					{
-						mActivity.refreshDataSuccess(invitations);
+						if (condition.getSkip() == 0)
+						{
+							mActivity.refreshDataSuccess(invitations);
+						} else
+						{
+							mActivity.addDataSuccess(invitations);
+						}
+
 					}
 				}, new Action1<Throwable>()
 				{
@@ -103,4 +110,5 @@ public class InvitationCategoryController
 					}
 				});
 	}
+
 }

@@ -42,6 +42,11 @@
         <item name="android:windowExitAnimation">@anim/category_filter_popupwindow_close</item>
     </style>
 
+    <style name="select_avatar_popupwindow_anim">
+        <item name="android:windowEnterAnimation">@anim/popup_window_select_avatar_open</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_select_avatar_close</item>
+    </style>
+
     <style name="toolbar_text_appearance">
         <item name="android:textColor">@color/white_little_alpha</item>
         <item name="android:textStyle">bold</item>

@@ -1,6 +1,7 @@
 package com.chenantao.playtogether.mvc.view.activity.invitation;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -28,7 +29,6 @@ import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
 import com.chenantao.playtogether.utils.ScreenUtils;
 import com.gc.materialdesign.views.AutoHideButtonFloat;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -67,6 +67,9 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	@Bind(R.id.tvAcceptUserNum)
 	TextView mTvAcceptUserNum;
 	public static final String EXTRA_INVITATION_ID = "invitationId";
+	public static final String EXTRA_INVITATION_TITLE = "title";
+	public static final String EXTRA_INVITATION_USERNAME = "username";
+	public static final String EXTRA_INVITATION_AVATAR = "avatar";
 
 	private Invitation mInvitation;
 
@@ -98,6 +101,12 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 			toolbar.setTitle("邀请详情");
 		}
 		String invitationId = getIntent().getStringExtra(EXTRA_INVITATION_ID);
+		String title = getIntent().getStringExtra(EXTRA_INVITATION_TITLE);
+		String username = getIntent().getStringExtra(EXTRA_INVITATION_USERNAME);
+		Bitmap bitmap = getIntent().getParcelableExtra(EXTRA_INVITATION_AVATAR);
+		mTvTitle.setText(title);
+		mTvAuthorName.setText(username);
+		mIvAvatar.setImageBitmap(bitmap);
 		if (invitationId == null)
 		{
 			Toast.makeText(this, "加载不到数据::>_<:: ", Toast.LENGTH_SHORT).show();
@@ -112,12 +121,12 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 
 	private void loadData(String invitationId)
 	{
-		DialogUtils.showDefaultDialog(this);
 		mController.loadData(invitationId);
 	}
 
 	/**
 	 * 文本信息加载完毕
+	 * 作者头像、姓名，标题是共享元素，不用设置了
 	 *
 	 * @param invitation
 	 */
@@ -126,9 +135,9 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		mInvitation = invitation;
 		DialogUtils.dismissProgressDialog();
 		User author = invitation.getAuthor();
-		mTvAuthorName.setText(author.getUsername());
+//		mTvAuthorName.setText(author.getUsername());
 		mTvAuthorDesc.setText(author.getDesc());
-		mTvTitle.setText(invitation.getTitle());
+//		mTvTitle.setText(invitation.getTitle());
 		mTvContent.setText(invitation.getContent());
 		mTvExpire.setText(invitation.getExpire());
 		mTvAcceptUserNum.setText(getString(R.string.accept_user_num, invitation
@@ -136,13 +145,13 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		//设置受约的用户姓名
 		setAcceptInviteUsers();
 		//下载作者头像
-		AVFile authorAvatar = author.getAvatar();
-		if (authorAvatar != null)
-		{
-			String avatarUrl = authorAvatar.getThumbnailUrl(false, mIvAvatar.getMeasuredWidth()
-					, mIvAvatar.getMeasuredHeight());
-			PicassoUtils.displayFitImage(this, Uri.parse(avatarUrl), mIvAvatar, null);
-		}
+//		AVFile authorAvatar = author.getAvatar();
+//		if (authorAvatar != null)
+//		{
+//			String avatarUrl = authorAvatar.getThumbnailUrl(false, mIvAvatar.getMeasuredWidth()
+//					, mIvAvatar.getMeasuredHeight());
+//			PicassoUtils.displayFitImage(this, Uri.parse(avatarUrl), mIvAvatar, null);
+//		}
 		//下载图片
 		downloadPic();
 	}
@@ -173,7 +182,6 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		}
 		for (int i = startIndex; i < count; i++)
 		{
-//			Logger.json(acceptInviteUsers.get(i).toString());
 			User user = acceptInviteUsers.get(i);
 			View view = LayoutInflater.from(this).inflate(R.layout.item_accept_invite_user,
 					mLlAcceptUser, false);
@@ -184,7 +192,6 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 			AVFile avFile = user.getAvatar();
 			if (avFile != null)
 			{
-				Logger.e("display");
 				PicassoUtils.displayFitImage(this, Uri.parse(avFile.getThumbnailUrl(true, 100,
 						100)), ivAvatar, null);
 			}
@@ -214,8 +221,6 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 							(originalImageWidth,
 									originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
 									CONTENT_PIC_HEIGHT_MAX_RATIO, this);
-//					double widthRatio = (double) file.getMetaData("widthRatio");
-//					double heightRatio = (double) file.getMetaData("heightRatio");
 					final int width = (int) (screenWidth * ratio[0]);
 					final int height = (int) (screenHeight * ratio[1]);
 					ImageView imageView = getContentImageView(width, height);
@@ -270,32 +275,6 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-		MenuItem item = menu.findItem(R.id.menu_item_btn);
-		item.setTitle("设为到期");
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case R.id.menu_item_btn:
-				if (!AVUser.getCurrentUser().getUsername().equals(mInvitation.getAuthor()
-						.getUsername()))
-				{
-					Toast.makeText(this, "你非作者，不能进行此项操作", Toast.LENGTH_SHORT).show();
-				} else
-				{
-				}
-				break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 
 	/**
 	 * 根据屏占比创建内容中的imageview
@@ -338,5 +317,32 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 						.show();
 				break;
 		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+		MenuItem item = menu.findItem(R.id.menu_item_btn);
+		item.setTitle("设为到期");
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+			case R.id.menu_item_btn:
+				if (!AVUser.getCurrentUser().getUsername().equals(mInvitation.getAuthor()
+						.getUsername()))
+				{
+					Toast.makeText(this, "你非作者，不能进行此项操作", Toast.LENGTH_SHORT).show();
+				} else
+				{
+				}
+				break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
