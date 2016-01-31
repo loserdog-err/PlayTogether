@@ -131,7 +131,7 @@ public class InvitationDetailController
 					@Override
 					public Observable<AVIMConversation> call(AVIMClient client)
 					{
-						return mConversationBll.createConversaionIfNotExists(members, client,
+						return mConversationBll.createConversationIfNotExists(members, client,
 								ChatConstant.TYPE_SINGLE_CHAT, myName + authorName);
 
 					}

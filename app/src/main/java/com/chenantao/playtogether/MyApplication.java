@@ -2,9 +2,15 @@ package com.chenantao.playtogether;
 
 import android.app.Application;
 
+import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.PushService;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.chenantao.playtogether.chat.handler.DefaultHandler;
+import com.chenantao.playtogether.chat.handler.MyConversationEventHandler;
 import com.chenantao.playtogether.injector.component.ApplicationComponent;
 import com.chenantao.playtogether.injector.component.DaggerApplicationComponent;
 import com.chenantao.playtogether.injector.modules.ApiModule;
@@ -12,6 +18,7 @@ import com.chenantao.playtogether.injector.modules.ApplicationModule;
 import com.chenantao.playtogether.injector.modules.BllModule;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
+import com.chenantao.playtogether.mvc.view.activity.user.LoginActivity;
 import com.orhanobut.logger.Logger;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
@@ -34,15 +41,27 @@ public class MyApplication extends Application
 				.build();
 		//leancloud所需要的参数
 		initBean();
-		AVOSCloud.initialize(this, "Y16sd0KaVf7Lsw6aWoTFSGOg-gzGzoHsz",
-				"ASphDiRHs5K7EPQCX2NadEdE");
-		AVOSCloud.setDebugLogEnabled(true);
+		initLeanCloud();
 		//初始化log
 		Logger.init("cat")
 				.methodCount(2)
 				.hideThreadInfo();
 		initPicasso();
 
+	}
+
+	private void initLeanCloud()
+	{
+		AVOSCloud.initialize(this, "Y16sd0KaVf7Lsw6aWoTFSGOg-gzGzoHsz",
+						"ASphDiRHs5K7EPQCX2NadEdE");
+//		AVOSCloud.setDebugLogEnabled(true);
+		AVIMMessageManager.registerDefaultMessageHandler(new DefaultHandler(this));
+		//开启推送
+		AVInstallation.getCurrentInstallation().saveInBackground();
+		// 设置通知默认打开的 Activity
+		PushService.setDefaultPushCallback(this, LoginActivity.class);
+		AVIMMessageManager.setConversationEventHandler(new MyConversationEventHandler());
+		AVIMClient.setOfflineMessagePush(true);
 	}
 
 	private void initPicasso()

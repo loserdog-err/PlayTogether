@@ -97,7 +97,7 @@
                     android:id="@+id/btnLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="360px"
+                    android:layout_marginLeft="330px"
                     android:background="#1E88E5"
                     android:text="登录"/>
             </com.chenantao.autolayout.AutoLinearLayout>

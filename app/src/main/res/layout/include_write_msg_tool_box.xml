@@ -16,8 +16,8 @@
 
         <CheckBox
             android:id="@+id/cbSelectEmoji"
-            android:layout_width="90px"
-            android:layout_height="90px"
+            android:layout_width="70px"
+            android:layout_height="70px"
             android:layout_marginLeft="4px"
             android:background="@mipmap/icon_face_normal"
             android:button="@null"
@@ -25,17 +25,26 @@
 
         <CheckBox
             android:id="@+id/cbSelectPic"
-            android:layout_width="80px"
-            android:layout_height="80px"
-            android:layout_marginLeft="10px"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_marginLeft="30px"
             android:background="@mipmap/select_pic"
             android:button="@null"
             android:checked="false"/>
 
+        <CheckBox
+            android:id="@+id/cbVoice"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_marginLeft="30px"
+            android:background="@mipmap/voice"
+            android:button="@null"
+            android:checked="false"/>
 
     </com.chenantao.autolayout.AutoLinearLayout>
 
 
+    <!--选择emoji的框-->
     <com.chenantao.autolayout.AutoFrameLayout
         android:id="@+id/flEmojicons"
         android:layout_width="match_parent"
@@ -50,6 +59,7 @@
         <!--</FrameLayout>-->
     </com.chenantao.autolayout.AutoFrameLayout>
 
+    <!--选择照片的框-->
     <com.chenantao.autolayout.AutoRelativeLayout
         android:id="@+id/rlSelectPic"
         android:layout_width="match_parent"
@@ -73,6 +83,43 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20px"
             android:text="@string/select_num_hint"/>
+
+    </com.chenantao.autolayout.AutoRelativeLayout>
+
+
+    <View
+        android:background="@color/black_big_alpha"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+    <com.chenantao.autolayout.AutoRelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rlVoice"
+        android:layout_width="match_parent"
+        android:layout_height="440px">
+
+        <TextView
+            style="@style/mid_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10px"
+            android:text="按住说话"/>
+
+        <View
+            android:id="@+id/viewVoice"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/microphone"/>
+
+        <View
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="20px"
+            android:background="@mipmap/msg_clear"/>
 
     </com.chenantao.autolayout.AutoRelativeLayout>
 </LinearLayout>

@@ -11,6 +11,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+//        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -58,12 +59,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     //水波纹背景
     compile 'com.balysv:material-ripple:1.0.2'
-    //circularreveal
-    compile('com.github.ozodrukh:CircularReveal:1.3.1@aar') {
-        transitive = true;
-    }
-    //官方下拉刷新的扩展，支持上拉加载更多
-    compile 'com.cjj.materialrefeshlayout:library:1.3.0'
     //EventBus
     compile 'de.greenrobot:eventbus:2.4.0'
     //picasso
@@ -72,40 +67,14 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     //okhttp
     compile 'com.squareup.okhttp:okhttp:2.2.0'
-    //ORMlite
-    compile 'com.j256.ormlite:ormlite-core:4.48'
-    compile 'com.j256.ormlite:ormlite-android:4.48'
     //------------------------------------------------------
+
     //|                                                     |
+
     //------------------leancloud---------------------------
+
     //------------------leancloud---------------------------//
-    //avoscloud-sdk 为 LeanCloud基础包
-//    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
-//    //avoscloud-push 为推送与实时聊天需要的包
-//    compile 'cn.leancloud.android:avoscloud-push:v3.+@aar'
-//    //avoscloud-statistics 为 LeanCloud 统计包
-//    compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
-//    //avoscloud-feedback 为 LeanCloud 用户反馈包
-//    compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
-//    //avoscloud-sns 为 LeanCloud 第三方登录包
-//    compile 'cn.leancloud.android:avoscloud-sns:v3.+@aar'
-//    compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
-//    //avoscloud-search 为 LeanCloud 应用内搜索包
-//    compile 'cn.leancloud.android:avoscloud-search:v3.+@aar'
 
-    //avoscloud-sdk 为 LeanCloud基础包
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.7.2'
-
-    //avoscloud-push 与 Java-WebSocket 为推送与IM需要的包
-    compile 'cn.leancloud.android:avoscloud-push:v3.7.2@aar'
-    compile 'cn.leancloud.android:Java-WebSocket:1.2.0-leancloud'
-
-    //avoscloud-statistics 为 LeanCloud 统计包
-    compile 'cn.leancloud.android:avoscloud-statistics:v3.7.2@aar'
-    //avoscloud-search 为 LeanCloud 应用内搜索包
-    compile 'cn.leancloud.android:avoscloud-search:v3.7.2@aar'
-    //|                                                     |
-    //------------------------------------------------------
     //百度定位sdk
     compile files('libs/locSDK_6.13.jar')
     //屏幕适配
@@ -116,4 +85,14 @@ dependencies {
     compile 'com.github.orhanobut:logger:1.12'
     //emoji
     compile 'com.rockerhieu.emojicon:library:1.0'
+    //recyclerview 动画
+    compile 'jp.wasabeef:recyclerview-animators:2.2.0'
+    compile files('libs/avoscloud-push-v3.13.jar')
+    compile files('libs/avoscloud-sdk-v3.13.jar')
+    compile files('libs/fastjson.jar')
+    compile files('libs/httpmime-4.2.4.jar')
+    compile files('libs/Java-WebSocket-1.3.1-leancloud.jar')
+    compile files('libs/okhttp-2.6.0-leancloud.jar')
+    compile files('libs/okio-1.6.0-leancloud.jar')
+    compile files('libs/protobuf-java-2.6.1.jar')
 }
