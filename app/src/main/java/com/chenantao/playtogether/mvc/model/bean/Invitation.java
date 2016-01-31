@@ -60,6 +60,7 @@ public class Invitation extends AVObject
 	public static final String FIELD_PIC = "pics";//上传的照片
 	public static final String FIELD_LOCATION = "location";//位置
 	public static final String FIELD_ACCEPT_INVITE_USERS = "acceptInviteUsers";
+	public static final String FIELD_OBJECT_ID = "objectId";
 
 	public Invitation()
 	{

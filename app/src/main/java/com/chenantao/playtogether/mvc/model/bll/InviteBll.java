@@ -187,9 +187,9 @@ public class InviteBll
 				AVQuery<Invitation> query = AVQuery.getQuery(Invitation.class);
 				AVQuery<User> innerQuery = AVQuery.getQuery(User.class);
 				User localUser = AVUser.getCurrentUser(User.class);
-				innerQuery.whereEqualTo(User.OBJECT_ID, localUser.getObjectId());
+				innerQuery.whereEqualTo(User.FIELD_OBJECT_ID, localUser.getObjectId());
 				query.whereMatchesQuery(Invitation.FIELD_ACCEPT_INVITE_USERS, innerQuery);
-				query.whereEqualTo(Invitation.OBJECT_ID, invitation.getObjectId());
+				query.whereEqualTo(Invitation.FIELD_OBJECT_ID, invitation.getObjectId());
 				try
 				{
 					List<Invitation> invitations = query.find();
@@ -267,9 +267,9 @@ public class InviteBll
 				//指定类别
 				query.whereEqualTo(Invitation.FIELD_CATEGORY, category);
 				//嵌套查询，查询受邀用户是指定性别的的invitation
-//				if (gender == Constant.GENDER_ALL)
+//				if (gender == ChatConstant.GENDER_ALL)
 //				{
-//					int[] genders = new int[]{Constant.GENDER_MAN, Constant.GENDER_WOMEN};
+//					int[] genders = new int[]{ChatConstant.GENDER_MAN, ChatConstant.GENDER_WOMEN};
 //					innerQuery.whereContainedIn(User.FIELD_GENDER, Arrays.asList(genders));
 //				} else
 //				{

@@ -33,10 +33,13 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <!--百度sdk定位的service-->
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="xKds9GxOYQH7CcSfiDGNtTnq" />
+            android:value="xKds9GxOYQH7CcSfiDGNtTnq"/>
         <!-- 屏幕适配所需要的参数 -->
         <meta-data
             android:name="design_width"
@@ -52,6 +55,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- 实时通信模块、推送（若使用该功能，需添加以下声明）START -->
+        <service android:name="com.avos.avoscloud.PushService"/>
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+            </intent-filter>
+        </receiver>
+        <!-- 实时通信模块、推送 END -->
+
         <!--注册页面-->
         <activity android:name=".mvc.view.activity.user.RegisterActivity"/>
         <!--登录-->
@@ -72,6 +86,14 @@
         <activity android:name=".mvc.view.activity.invitation.InvitationCategoryActivity"/>
         <!--查看大图的activity-->
         <activity android:name=".mvc.view.common.ShowImageActivity"/>
+
+
+        <!-- ————————————————————————————聊天模块————————————————————————————————————-->
+
+        <!--聊天首页-->
+        <activity android:name=".chat.ChatHomeActivity"/>
+        <!--聊天页面-->
+        <activity android:name=".chat.ChatActivity"/>
     </application>
 
 </manifest>

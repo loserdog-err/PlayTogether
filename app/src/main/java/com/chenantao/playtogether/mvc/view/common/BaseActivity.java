@@ -58,6 +58,9 @@ public abstract class BaseActivity extends AutoLayoutActivity
 	{
 		super.onDestroy();
 		ActivityCollector.removeActivity(this);
-		EventBus.getDefault().unregister(this);
+		if (EventBus.getDefault().isRegistered(this))
+		{
+			EventBus.getDefault().unregister(this);
+		}
 	}
 }

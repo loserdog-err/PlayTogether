@@ -36,7 +36,7 @@ public class MyApplication extends Application
 		initBean();
 		AVOSCloud.initialize(this, "Y16sd0KaVf7Lsw6aWoTFSGOg-gzGzoHsz",
 				"ASphDiRHs5K7EPQCX2NadEdE");
-//		AVOSCloud.setDebugLogEnabled(true);
+		AVOSCloud.setDebugLogEnabled(true);
 		//初始化log
 		Logger.init("cat")
 				.methodCount(2)

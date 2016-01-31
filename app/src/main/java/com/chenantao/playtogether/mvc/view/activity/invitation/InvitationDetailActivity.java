@@ -115,8 +115,14 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		{
 			loadData(invitationId);
 		}
-		mBtnInvite.setOnClickListener(this);
+		initEvent();
 
+	}
+
+	private void initEvent()
+	{
+		mBtnInvite.setOnClickListener(this);
+		mIvAvatar.setOnClickListener(this);
 	}
 
 	private void loadData(String invitationId)
@@ -156,6 +162,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		downloadPic();
 	}
 
+	public void chatWithAuthorFail(String msg)
+	{
+		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+	}
 
 	public void loadDataFail(String msg)
 	{
@@ -315,6 +325,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 							}
 						})
 						.show();
+				break;
+			case R.id.ivAuthorAvatar:
+				String authorName = mTvAuthorName.getText().toString();
+				mController.chatWithAuthor(authorName);
 				break;
 		}
 	}

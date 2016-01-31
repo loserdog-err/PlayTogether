@@ -24,6 +24,7 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 import com.chenantao.autolayout.AutoRecyclerView;
 import com.chenantao.playtogether.R;
+import com.chenantao.playtogether.chat.ChatActivity;
 import com.chenantao.playtogether.gallery.MyGalleryActivity;
 import com.chenantao.playtogether.mvc.controller.invitation.HomeController;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
@@ -149,6 +150,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 						startActivity(intent);
 						break;
 					case R.id.friend:
+						intent = new Intent(HomeActivity.this, ChatActivity.class);
+						startActivity(intent);
 						break;
 					case R.id.faq:
 						break;

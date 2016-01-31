@@ -55,10 +55,13 @@ public class MainActivity extends BaseActivity
 				AVQuery query = AVQuery.getQuery(User.class);
 				int[] genders = new int[]{0, 1};
 				query.whereContainedIn("gender", Arrays.asList(genders));
-				query.findInBackground(new FindCallback<User>() {
+				query.findInBackground(new FindCallback<User>()
+				{
 					@Override
-					public void done(List<User> list, AVException e) {
-						for (int i = 0; i < list.size(); i++) {
+					public void done(List<User> list, AVException e)
+					{
+						for (int i = 0; i < list.size(); i++)
+						{
 							Logger.e("gender:" + list.get(i).getGender());
 						}
 					}

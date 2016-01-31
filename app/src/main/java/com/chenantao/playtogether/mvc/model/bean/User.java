@@ -19,6 +19,7 @@ public class User extends AVUser
 	public static final String FIELD_LOCATION = "location";
 	public static final String FIELD_GENDER = "gender";
 	public static final String FIELD_AGE = "age";
+	public static final String FIELD_OBJECT_ID = "objectId";
 
 	private AVFile avatar;
 
