@@ -11,7 +11,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-//        multiDexEnabled true
+//        multiDexEnabled false
     }
     buildTypes {
         release {
@@ -29,7 +29,7 @@ android {
     }
     dexOptions {
         incremental true
-        preDexLibraries = false
+//        preDexLibraries = false
     }
     sourceSets {
         main {
@@ -67,14 +67,8 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     //okhttp
     compile 'com.squareup.okhttp:okhttp:2.2.0'
-    //------------------------------------------------------
-
-    //|                                                     |
-
     //------------------leancloud---------------------------
-
     //------------------leancloud---------------------------//
-
     //百度定位sdk
     compile files('libs/locSDK_6.13.jar')
     //屏幕适配
@@ -95,4 +89,5 @@ dependencies {
     compile files('libs/okhttp-2.6.0-leancloud.jar')
     compile files('libs/okio-1.6.0-leancloud.jar')
     compile files('libs/protobuf-java-2.6.1.jar')
+    compile files('libs/badgeview.jar')
 }

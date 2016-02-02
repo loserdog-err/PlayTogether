@@ -57,4 +57,7 @@ public class Constant
 
 
 	public static final int MAX_UPLOAD_PIC = 10;//上传图片的最大数量
+
+	public static final int AVATAR_WIDTH=150;
+	public static final int AVATAR_HEIGHT=150;
 }

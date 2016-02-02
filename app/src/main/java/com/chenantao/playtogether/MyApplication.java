@@ -35,17 +35,17 @@ public class MyApplication extends Application
 	{
 		super.onCreate();
 		mApplicationComponent = DaggerApplicationComponent.builder()
-				.apiModule(new ApiModule())
-				.bllModule(new BllModule())
-				.applicationModule(new ApplicationModule(this))
-				.build();
+						.apiModule(new ApiModule())
+						.bllModule(new BllModule())
+						.applicationModule(new ApplicationModule(this))
+						.build();
 		//leancloud所需要的参数
 		initBean();
 		initLeanCloud();
 		//初始化log
 		Logger.init("cat")
-				.methodCount(2)
-				.hideThreadInfo();
+//						.methodCount(2);
+						.hideThreadInfo();
 		initPicasso();
 
 	}
@@ -60,7 +60,7 @@ public class MyApplication extends Application
 		AVInstallation.getCurrentInstallation().saveInBackground();
 		// 设置通知默认打开的 Activity
 		PushService.setDefaultPushCallback(this, LoginActivity.class);
-		AVIMMessageManager.setConversationEventHandler(new MyConversationEventHandler());
+		AVIMMessageManager.setConversationEventHandler(new MyConversationEventHandler(this));
 		AVIMClient.setOfflineMessagePush(true);
 	}
 

@@ -95,8 +95,8 @@ public class HomeInvitationItemAdapter extends RecyclerView.Adapter implements V
 		AVFile avFile = invitation.getAuthor().getAvatar();
 		if (avFile != null)
 		{
-			Uri avatarUri = Uri.parse(avFile.getThumbnailUrl(true, 150,
-					150));
+			Uri avatarUri = Uri.parse(avFile.getThumbnailUrl(true, Constant.AVATAR_WIDTH,
+					Constant.AVATAR_HEIGHT));
 			PicassoUtils.displayFitImage(mContext, avatarUri, itemHolder.mIvAvatar, null);
 		} else
 		{

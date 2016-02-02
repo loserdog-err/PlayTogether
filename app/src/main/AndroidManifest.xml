@@ -61,8 +61,9 @@
         </activity>
 
         <!-- 实时通信模块、推送（若使用该功能，需添加以下声明）START -->
-        <service android:name="com.avos.avoscloud.PushService"
-                 android:exported="true"/>
+        <service
+            android:name="com.avos.avoscloud.PushService"
+            android:exported="true"/>
         <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -72,6 +73,8 @@
         </receiver>
         <!-- 实时通信模块、推送 END -->
 
+
+        <receiver android:name=".chat.utils.NotificationBroadcastReceiver"/>
 
 
         <!--注册页面-->

@@ -103,12 +103,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		TextView tvUsername = (TextView) headerView.findViewById(R.id.tvUsername);
 		tvUsername.setText(AVUser.getCurrentUser().getUsername());
 		mRvInvitation.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
-				false));
+						false));
 		initEvent();
 		//loadData();
 		//显示调用下拉组件
 		mDrawerLayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver
-				.OnGlobalLayoutListener()
+						.OnGlobalLayoutListener()
 		{
 			@Override
 			public void onGlobalLayout()
@@ -131,7 +131,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 			}
 		});
 		mNavigationView.setNavigationItemSelectedListener(new NavigationView
-				.OnNavigationItemSelectedListener()
+						.OnNavigationItemSelectedListener()
 		{
 			Intent intent = null;
 
@@ -146,12 +146,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 						break;
 					case R.id.invite:
 						Intent intent = new Intent(HomeActivity.this, PostInvitationActivity
-								.class);
+										.class);
 						startActivity(intent);
 						break;
 					case R.id.friend:
-						intent = new Intent(HomeActivity.this, ChatHomeActivity.class);
-						startActivity(intent);
+						ChatHomeActivity.startActivity(HomeActivity.this, AVUser.getCurrentUser().getUsername
+										());
 						break;
 					case R.id.faq:
 						break;
@@ -185,7 +185,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 				} else
 				{
 					Toast.makeText(getApplicationContext(), "请确认已经插入SD卡",
-							Toast.LENGTH_LONG).show();
+									Toast.LENGTH_LONG).show();
 				}
 				break;
 			case R.id.ivAuthorAvatar:
@@ -231,7 +231,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		mSwipeRefreshLayout.setRefreshing(true);
 		List<Invitation> datas = new ArrayList<>();
 		mRvInvitation.setAdapter(mRvInvitationAdapter = new HomeInvitationItemAdapter(this,
-				datas));
+						datas));
 		mControllr.getNewlyInvitationDatas();
 
 	}
@@ -240,7 +240,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	{
 		mSwipeRefreshLayout.setRefreshing(false);
 		mRvInvitation.setAdapter(mRvInvitationAdapter = new HomeInvitationItemAdapter(this,
-				datas));
+						datas));
 
 	}
 
@@ -256,10 +256,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		int width = mIvAvatar.getMeasuredWidth();
 		int height = mIvAvatar.getMeasuredHeight();
 		Picasso.with(this).
-				load(new File(path))
-				.resize(width, height)
-				.placeholder(R.mipmap.pictures_no)
-				.into(mIvAvatar);
+						load(new File(path))
+						.resize(width, height)
+						.placeholder(R.mipmap.pictures_no)
+						.into(mIvAvatar);
 		DialogUtils.dismissProgressDialog();
 	}
 
@@ -289,7 +289,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		if (mPopupWindow == null)
 		{
 			View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_select_avatar,
-					mDrawerLayout, false);
+							mDrawerLayout, false);
 			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view, viewDim);
 			mPopupWindow.setAnimationStyle(R.style.select_avatar_popupwindow_anim);
 			TextView tvFromGallery = (TextView) view.findViewById(R.id.tvFromGallery);
