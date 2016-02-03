@@ -55,11 +55,11 @@ public class SelectPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		if (viewType == TYPE_ITEM_FOOTER)
 		{
 			return new FooterViewHolder(LayoutInflater.from(mContext).inflate(R.layout
-					.item_select_pic_footer, parent, false));
+							.item_select_pic_footer, parent, false));
 		} else
 		{
 			return new SelectPicViewHolder(LayoutInflater.from(mContext).inflate(R.layout
-							.item_select_pic, parent, false
+											.item_select_pic, parent, false
 			));
 		}
 	}
@@ -82,6 +82,7 @@ public class SelectPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 					}
 					Intent intent = new Intent(mContext, MyGalleryActivity.class);
 					intent.putExtra(MyGalleryActivity.EXTRA_LIMIT_COUNT, Constant.MAX_UPLOAD_PIC);
+					intent.putExtra(MyGalleryActivity.EXTRA_SELECT_TYPE, MyGalleryActivity.TYPE_UPLOAD_PIC);
 					mContext.startActivity(intent);
 				}
 			});
@@ -94,24 +95,24 @@ public class SelectPicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 		int height = ivPic.getLayoutParams().height;
 		Uri uri = Uri.parse("file:///" + path);
 		Picasso.with(mContext)
-				.load(uri)
-				.placeholder(R.mipmap.pictures_no)
-				.resize(width, height)
-				.into(ivPic);
+						.load(uri)
+						.placeholder(R.mipmap.pictures_no)
+						.resize(width, height)
+						.into(ivPic);
 		ImageView ivDel = selectViewHolder.ivDel;
 		//防止重复点击
 		RxView.clicks(ivDel)
-				.throttleFirst(500, TimeUnit.SECONDS)
-				.subscribe(new Action1<Void>()
-				{
-					@Override
-					public void call(Void aVoid)
-					{
-						notifyItemRemoved(holder.getAdapterPosition());
-						MyGalleryAdapter.mSelectedImgs.remove(path);
-						mCount = mCount - 1;
-					}
-				});
+						.throttleFirst(500, TimeUnit.SECONDS)
+						.subscribe(new Action1<Void>()
+						{
+							@Override
+							public void call(Void aVoid)
+							{
+								notifyItemRemoved(holder.getAdapterPosition());
+								MyGalleryAdapter.mSelectedImgs.remove(path);
+								mCount = mCount - 1;
+							}
+						});
 	}
 
 

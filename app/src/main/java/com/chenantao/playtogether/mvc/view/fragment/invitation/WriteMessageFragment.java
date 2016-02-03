@@ -139,7 +139,7 @@ public class WriteMessageFragment extends Fragment implements
 				hidePicSelectBox(false);
 			}
 		});
-		//可能是设置了进入的时候不允许获得焦点，第一次单击事件不会触发，所以改用这个
+		//可能是设置了进入的时候不允许获得焦点，第一次单击事件不会触发，所以还得加上这个
 		mEtMessage.setOnFocusChangeListener(new View.OnFocusChangeListener()
 		{
 			@Override

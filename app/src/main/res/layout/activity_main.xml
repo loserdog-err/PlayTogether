@@ -8,11 +8,11 @@
     android:orientation="vertical"
     tools:context="com.chenantao.playtogether.MainActivity">
 
-    <Button
+    <com.chenantao.playtogether.chat.RecorderButton
         android:id="@+id/btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="query"/>
+        android:layout_width="200px"
+        android:background="@mipmap/microphone"
+        android:layout_height="200px"/>
 
     <ImageView
         android:id="@+id/iv"

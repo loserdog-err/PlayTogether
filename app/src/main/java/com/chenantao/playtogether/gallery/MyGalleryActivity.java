@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chenantao.playtogether.R;
+import com.chenantao.playtogether.chat.event.EventChatPic;
 import com.chenantao.playtogether.mvc.model.bean.event.EventSetAvatar;
 import com.chenantao.playtogether.mvc.model.bean.event.EventUploadPic;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
@@ -31,7 +32,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 
 public class MyGalleryActivity extends BaseActivity implements LoaderManager
-		.LoaderCallbacks<Cursor>, View.OnClickListener
+				.LoaderCallbacks<Cursor>, View.OnClickListener
 {
 
 	public static final int SPAN_COUNT = 2;
@@ -40,6 +41,11 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 	public static final int mSelectLimit = 0;
 
 	public static final String EXTRA_LIMIT_COUNT = "limitCount";
+	public static final String EXTRA_SELECT_TYPE = "type";//选择照片是要干嘛用的,上传头像，还是发邀请,etc.
+	public static final int TYPE_UPLOAD_PIC = 0;
+	public static final int TYPE_UPLOAD_AVATAR = 1;
+	public static final int TYPE_CHAT = 2;
+	public int mType = -1;
 
 
 	private RecyclerView mRv;
@@ -75,6 +81,8 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 	public void afterCreate()
 	{
 		int limitCount = getIntent().getIntExtra(EXTRA_LIMIT_COUNT, 0);
+		mType = getIntent().getIntExtra(EXTRA_SELECT_TYPE, -1);
+		if (mType == -1) finish();
 		//如果限制的数目跟已有的不同，证明在不同的地方打开了gallery，所以清空选中的图片
 		if (limitCount != MyGalleryAdapter.mLimitCount)
 			MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
@@ -94,8 +102,8 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 	{
 		final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID};
 		return new CursorLoader(this, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null,
-				null,
-				MediaStore.Images.Media.DATE_MODIFIED);
+						null,
+						MediaStore.Images.Media.DATE_MODIFIED);
 	}
 
 	@Override
@@ -115,8 +123,8 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 					{
 						if (cursor.isClosed()) return;
 						String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images
-								.Media
-								.DATA));
+										.Media
+										.DATA));
 						File parentFile = new File(path).getParentFile();
 						if (parentFile != null && parentFile.list() != null)
 						{
@@ -129,7 +137,7 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 //						Logger.e("add folder");
 								dirNames.add(mCurrentFolder.getName());
 								FolderBean folderBean = new FolderBean(path, parentFile
-										.getAbsolutePath(), getSubfiles(mCurrentFolder).size());
+												.getAbsolutePath(), getSubfiles(mCurrentFolder).size());
 								mFolders.add(folderBean);
 							}
 						} else
@@ -161,10 +169,10 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 	{
 		List<String> subFiles = getSubfiles(mCurrentFolder);
 		mRv.setAdapter(new MyGalleryAdapter(this, subFiles, mCurrentFolder
-				.getAbsolutePath()));
+						.getAbsolutePath()));
 		mRv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT,
-				StaggeredGridLayoutManager
-						.VERTICAL));
+						StaggeredGridLayoutManager
+										.VERTICAL));
 		mTvDirName.setText(mCurrentFolder.getName());
 		mTvImgCount.setText(subFiles.size() + "张");
 		initPopupWindow();
@@ -197,7 +205,7 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 		});
 		//设置popupwindow的回调
 		mDirListPopupWindow.setOnFolderSelectedListener(new DirListPopupWindow
-				.OnFolderSelectedListener()
+						.OnFolderSelectedListener()
 		{
 
 			public void onSelected(FolderBean folderBean)
@@ -212,11 +220,11 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 				mTvImgCount.setText(folderBean.getImageCount() + "张");
 				mTvDirName.setText(folderBean.getName());
 				mRv.setAdapter(new MyGalleryAdapter(MyGalleryActivity.this, getSubfiles
-						(mCurrentFolder),
-						folderBean.getDir()));
+								(mCurrentFolder),
+								folderBean.getDir()));
 				mRv.setLayoutManager(new StaggeredGridLayoutManager(SPAN_COUNT,
-						StaggeredGridLayoutManager
-								.VERTICAL));
+								StaggeredGridLayoutManager
+												.VERTICAL));
 //				if (mLayoutManger != null) mLayoutManger.scrollToPosition(0);
 				mDirListPopupWindow.dismiss();
 			}
@@ -231,7 +239,7 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 			public boolean accept(File dir, String filename)
 			{
 				if (filename.endsWith(".jpg") || filename.endsWith(".png")
-						|| filename.endsWith(".jpeg"))
+								|| filename.endsWith(".jpeg"))
 				{
 					return true;
 				}
@@ -263,20 +271,25 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 				} else
 				{
 					Toast.makeText(MyGalleryActivity.this, "骚等下,还没加载完毕..", Toast.LENGTH_SHORT)
-							.show();
+									.show();
 				}
 				break;
 			case R.id.btnOk:
-				if (MyGalleryAdapter.mLimitCount == 1)//当前为设置头像
+				if (mType == TYPE_UPLOAD_AVATAR)//当前为上传头像
 				{
-					EventBus.getDefault().post(new EventSetAvatar(MyGalleryAdapter.mSelectedImgs
-							.get(0)));
+					EventBus.getDefault().post(new EventSetAvatar(MyGalleryAdapter.mSelectedImgs));
 					MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
 					finish();
 					return;
+				} else if (mType == TYPE_UPLOAD_PIC)//当前为上传图片
+				{
+					EventBus.getDefault().post(new EventUploadPic(MyGalleryAdapter.mSelectedImgs));
+					finish();
+				} else if (mType == TYPE_CHAT)
+				{
+					EventBus.getDefault().post(new EventChatPic(MyGalleryAdapter.mSelectedImgs));
+					finish();
 				}
-				EventBus.getDefault().post(new EventUploadPic(MyGalleryAdapter.mSelectedImgs));
-				finish();
 				break;
 		}
 	}

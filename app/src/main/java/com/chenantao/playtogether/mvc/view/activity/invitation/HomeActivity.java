@@ -172,6 +172,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 			case R.id.tvFromGallery:
 				intent = new Intent(this, MyGalleryActivity.class);
 				intent.putExtra(MyGalleryActivity.EXTRA_LIMIT_COUNT, 1);
+				intent.putExtra(MyGalleryActivity.EXTRA_SELECT_TYPE, MyGalleryActivity.TYPE_UPLOAD_AVATAR);
 				startActivity(intent);
 				break;
 			case R.id.tvTakePhoto:
@@ -215,7 +216,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	public void onEvent(EventSetAvatar event)
 	{
 		mPopupWindow.dismiss();
-		mControllr.uploadAvatar(event.path);
+		mControllr.uploadAvatar(event.path.get(0));
 		DialogUtils.showProgressDialog("上传头像中..", this);
 	}
 

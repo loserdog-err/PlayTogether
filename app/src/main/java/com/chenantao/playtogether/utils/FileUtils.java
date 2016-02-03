@@ -16,9 +16,9 @@ public class FileUtils
 {
 	private static File imageCacheDir;//图片缓存的目录
 	private static File voiceCacheDir;//音频缓存的目录
-	private static final String VOICE_PATH = Environment.getExternalStorageDirectory()
+	public static final String VOICE_PATH = Environment.getExternalStorageDirectory()
 			.getPath() + "/cat_voice";//音频文件存储路径
-	private static final String IMAGE_PATH = Environment.getExternalStorageDirectory()
+	public static final String IMAGE_PATH = Environment.getExternalStorageDirectory()
 			.getPath() + "/cat_image"; //图片地址缓存路径
 
 	static

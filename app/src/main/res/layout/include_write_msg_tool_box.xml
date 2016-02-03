@@ -88,15 +88,15 @@
 
 
     <View
-        android:background="@color/black_big_alpha"
         android:layout_width="match_parent"
-        android:layout_height="1px"/>
+        android:layout_height="1px"
+        android:background="@color/black_big_alpha"/>
 
     <com.chenantao.autolayout.AutoRelativeLayout
-        android:visibility="gone"
         android:id="@+id/rlVoice"
         android:layout_width="match_parent"
-        android:layout_height="440px">
+        android:layout_height="440px"
+        android:visibility="gone">
 
         <TextView
             style="@style/mid_black"
@@ -106,8 +106,14 @@
             android:layout_marginTop="10px"
             android:text="按住说话"/>
 
-        <View
-            android:id="@+id/viewVoice"
+        <!--<View-->
+        <!--android:id="@+id/viewVoice"-->
+        <!--android:layout_width="200px"-->
+        <!--android:layout_height="200px"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:background="@mipmap/microphone"/>-->
+        <com.chenantao.playtogether.chat.RecorderButton
+            android:id="@+id/btnRecorder"
             android:layout_width="200px"
             android:layout_height="200px"
             android:layout_centerInParent="true"
