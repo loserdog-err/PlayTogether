@@ -285,9 +285,10 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 				{
 					EventBus.getDefault().post(new EventUploadPic(MyGalleryAdapter.mSelectedImgs));
 					finish();
-				} else if (mType == TYPE_CHAT)
+				} else if (mType == TYPE_CHAT)//发送聊天图片
 				{
 					EventBus.getDefault().post(new EventChatPic(MyGalleryAdapter.mSelectedImgs));
+					MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
 					finish();
 				}
 				break;

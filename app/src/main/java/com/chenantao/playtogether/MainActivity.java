@@ -1,21 +1,12 @@
 package com.chenantao.playtogether;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
 import com.chenantao.playtogether.mvc.controller.MainController;
-import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.view.activity.user.LoginActivity;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
-import com.orhanobut.logger.Logger;
-
-import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -45,28 +36,34 @@ public class MainActivity extends BaseActivity
 	{
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
-		mIv = (ImageView) findViewById(R.id.iv);
-		mBtn = (Button) findViewById(R.id.btn);
-		mBtn.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				AVQuery query = AVQuery.getQuery(User.class);
-				int[] genders = new int[]{0, 1};
-				query.whereContainedIn("gender", Arrays.asList(genders));
-				query.findInBackground(new FindCallback<User>()
-				{
-					@Override
-					public void done(List<User> list, AVException e)
-					{
-						for (int i = 0; i < list.size(); i++)
-						{
-							Logger.e("gender:" + list.get(i).getGender());
-						}
-					}
-				});
-			}
-		});
+//		mBtn.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View v)
+//			{
+//
+//			}
+//		});
+//		mBtn.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View v)
+//			{
+//				AVQuery query = AVQuery.getQuery(User.class);
+//				int[] genders = new int[]{0, 1};
+//				query.whereContainedIn("gender", Arrays.asList(genders));
+//				query.findInBackground(new FindCallback<User>()
+//				{
+//					@Override
+//					public void done(List<User> list, AVException e)
+//					{
+//						for (int i = 0; i < list.size(); i++)
+//						{
+//							Logger.e("gender:" + list.get(i).getGender());
+//						}
+//					}
+//				});
+//			}
+//		});
 	}
 }

@@ -234,7 +234,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 					final int width = (int) (screenWidth * ratio[0]);
 					final int height = (int) (screenHeight * ratio[1]);
 					ImageView imageView = getContentImageView(width, height);
-					//因为后面还有两个textview，所以要减2，这里为了方便，用硬编码，囧
+					//将图片添加到内容容器的末尾
 					mLlContentContainer.addView(imageView, mLlContentContainer.getChildCount());
 					//点击图片查看高清无码大图
 					imageView.setOnClickListener(new View.OnClickListener()

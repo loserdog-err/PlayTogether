@@ -10,14 +10,9 @@
 
     <com.chenantao.playtogether.chat.RecorderButton
         android:id="@+id/btn"
-        android:layout_width="200px"
-        android:background="@mipmap/microphone"
-        android:layout_height="200px"/>
-
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="300px"
+        android:layout_height="400px"
+        android:background="@mipmap/microphone"/>
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/address_looking_up"
