@@ -11,6 +11,10 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.chenantao.playtogether.chat.handler.DefaultHandler;
 import com.chenantao.playtogether.chat.handler.MyConversationEventHandler;
+import com.chenantao.playtogether.chat.injector.component.ChatApplicationComponent;
+import com.chenantao.playtogether.chat.injector.component.DaggerChatApplicationComponent;
+import com.chenantao.playtogether.chat.injector.modules.ChatApplicationModule;
+import com.chenantao.playtogether.chat.injector.modules.ChatBllModule;
 import com.chenantao.playtogether.injector.component.ApplicationComponent;
 import com.chenantao.playtogether.injector.component.DaggerApplicationComponent;
 import com.chenantao.playtogether.injector.modules.ApiModule;
@@ -30,10 +34,14 @@ public class MyApplication extends Application
 {
 	private ApplicationComponent mApplicationComponent;
 
+	private ChatApplicationComponent mChatApplicationComponent;
+
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
+		initLeanCloud();
+		initChat();
 		mApplicationComponent = DaggerApplicationComponent.builder()
 						.apiModule(new ApiModule())
 						.bllModule(new BllModule())
@@ -44,9 +52,29 @@ public class MyApplication extends Application
 		initLeanCloud();
 		//初始化log
 		Logger.init("cat")
-//						.methodCount(2);
+						.methodCount(2)
 						.hideThreadInfo();
 		initPicasso();
+
+	}
+
+	/**
+	 * 初始化聊天系统所必须的
+	 */
+	private void initChat()
+	{
+		mChatApplicationComponent = DaggerChatApplicationComponent.builder()
+						.chatBllModule(new ChatBllModule())
+						.chatApplicationModule(new ChatApplicationModule(this))
+						.build();
+		AVIMMessageManager.registerDefaultMessageHandler(new DefaultHandler(this));
+		//开启推送
+		AVInstallation.getCurrentInstallation().saveInBackground();
+		// 设置通知默认打开的 Activity
+		PushService.setDefaultPushCallback(this, LoginActivity.class);
+		AVIMMessageManager.setConversationEventHandler(new MyConversationEventHandler(this));
+		AVIMClient.setOfflineMessagePush(true);
+
 
 	}
 
@@ -55,13 +83,6 @@ public class MyApplication extends Application
 		AVOSCloud.initialize(this, "Y16sd0KaVf7Lsw6aWoTFSGOg-gzGzoHsz",
 						"ASphDiRHs5K7EPQCX2NadEdE");
 //		AVOSCloud.setDebugLogEnabled(true);
-		AVIMMessageManager.registerDefaultMessageHandler(new DefaultHandler(this));
-		//开启推送
-		AVInstallation.getCurrentInstallation().saveInBackground();
-		// 设置通知默认打开的 Activity
-		PushService.setDefaultPushCallback(this, LoginActivity.class);
-		AVIMMessageManager.setConversationEventHandler(new MyConversationEventHandler(this));
-		AVIMClient.setOfflineMessagePush(true);
 	}
 
 	private void initPicasso()
@@ -83,5 +104,10 @@ public class MyApplication extends Application
 	public ApplicationComponent getApplicationComponent()
 	{
 		return mApplicationComponent;
+	}
+
+	public ChatApplicationComponent getChatApplicationComponent()
+	{
+		return mChatApplicationComponent;
 	}
 }

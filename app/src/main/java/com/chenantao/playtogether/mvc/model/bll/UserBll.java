@@ -2,11 +2,14 @@ package com.chenantao.playtogether.mvc.model.bll;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.chenantao.playtogether.chat.bll.ChatUserBll;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.utils.Constant;
 
 import java.io.File;
+import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -14,12 +17,12 @@ import rx.Subscriber;
 /**
  * Created by Chenantao_gg on 2016/1/17.
  */
-public class UserBll
+public class UserBll implements ChatUserBll
 {
 	public boolean checkUsername(String username)
 	{
 		if (username.length() >= Constant.USERNAME_MIN_LENGTH && username.length() <=
-				Constant.PASSWORD_MAX_LENGTH)
+						Constant.PASSWORD_MAX_LENGTH)
 		{
 			//校验通过
 			return true;
@@ -33,7 +36,7 @@ public class UserBll
 	public boolean checkPassword(String password)
 	{
 		if (password.length() >= Constant.PASSWORD_MIN_LENGTH && password.length() <=
-				Constant.PASSWORD_MAX_LENGTH)
+						Constant.PASSWORD_MAX_LENGTH)
 		{
 			//校验通过
 			return true;
@@ -126,6 +129,40 @@ public class UserBll
 				{
 					user.save();
 					subscriber.onNext(null);
+				} catch (AVException e)
+				{
+					subscriber.onError(e);
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * 使用聊天系统需要实现的接口
+	 *
+	 * @param username 用户名，通常是 clientId
+	 * @return
+	 */
+	@Override
+	public Observable<String> getAvatarByUsername(final String username)
+	{
+		return Observable.create(new Observable.OnSubscribe<String>()
+		{
+			@Override
+			public void call(Subscriber<? super String> subscriber)
+			{
+				AVQuery query = AVQuery.getQuery(User.class);
+				query.whereEqualTo(User.FIELD_USERNAME, username);
+				query.whereExists(User.FIELD_AVATAR);
+				try
+				{
+					List<User> list = query.find();
+					if (!list.isEmpty())
+						subscriber.onNext(list.get(0).getAvatar().getThumbnailUrl(true, Constant.AVATAR_WIDTH,
+										Constant.AVATAR_HEIGHT));
+					else
+						subscriber.onCompleted();
 				} catch (AVException e)
 				{
 					subscriber.onError(e);

@@ -16,10 +16,12 @@ public class User extends AVUser
 	private String desc;//个人描述
 
 
+	public static final String FIELD_USERNAME = "username";
 	public static final String FIELD_LOCATION = "location";
 	public static final String FIELD_GENDER = "gender";
 	public static final String FIELD_AGE = "age";
 	public static final String FIELD_OBJECT_ID = "objectId";
+	public static final String FIELD_AVATAR = "avatar";
 
 	private AVFile avatar;
 
@@ -95,8 +97,9 @@ public class User extends AVUser
 
 	public void setGender(int gender)
 	{
-		put(FIELD_GENDER,gender);
+		put(FIELD_GENDER, gender);
 	}
+
 	public int getGender()
 	{
 		return getInt(FIELD_GENDER);
@@ -104,7 +107,7 @@ public class User extends AVUser
 
 	public void setAge(int age)
 	{
-		put(FIELD_AGE,age);
+		put(FIELD_AGE, age);
 	}
 
 	public int getAge()
