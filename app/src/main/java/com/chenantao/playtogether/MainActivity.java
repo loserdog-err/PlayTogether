@@ -1,12 +1,16 @@
 package com.chenantao.playtogether;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.avos.avoscloud.AVUser;
 import com.chenantao.playtogether.mvc.controller.MainController;
+import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.view.activity.user.LoginActivity;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -36,34 +40,16 @@ public class MainActivity extends BaseActivity
 	{
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
-//		mBtn.setOnClickListener(new View.OnClickListener()
-//		{
-//			@Override
-//			public void onClick(View v)
-//			{
-//
-//			}
-//		});
-//		mBtn.setOnClickListener(new View.OnClickListener()
-//		{
-//			@Override
-//			public void onClick(View v)
-//			{
-//				AVQuery query = AVQuery.getQuery(User.class);
-//				int[] genders = new int[]{0, 1};
-//				query.whereContainedIn("gender", Arrays.asList(genders));
-//				query.findInBackground(new FindCallback<User>()
-//				{
-//					@Override
-//					public void done(List<User> list, AVException e)
-//					{
-//						for (int i = 0; i < list.size(); i++)
-//						{
-//							Logger.e("gender:" + list.get(i).getGender());
-//						}
-//					}
-//				});
-//			}
-//		});
+		mBtn = (Button) findViewById(R.id.btn);
+		mBtn.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				User currentUser = AVUser.getCurrentUser(User.class);
+				Logger.e("curUser:" + currentUser);
+			}
+		});
+//		Logger.e("xixi");
 	}
 }

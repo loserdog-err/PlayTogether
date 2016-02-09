@@ -1,6 +1,10 @@
 package com.chenantao.playtogether.injector.component;
 
 import com.chenantao.playtogether.MainActivity;
+import com.chenantao.playtogether.chat.mvc.view.activity.AddFriendActivity;
+import com.chenantao.playtogether.chat.mvc.view.activity.ChatActivity;
+import com.chenantao.playtogether.chat.mvc.view.activity.ChatHomeActivity;
+import com.chenantao.playtogether.chat.mvc.view.activity.CreateDiscussGroupActivity;
 import com.chenantao.playtogether.injector.MyScope;
 import com.chenantao.playtogether.injector.modules.ActivityModule;
 import com.chenantao.playtogether.mvc.view.activity.invitation.HomeActivity;
@@ -33,4 +37,12 @@ public interface ActivityComponent
 
 	void inject(InvitationCategoryActivity invitationCategoryActivity);
 
+	/*聊天模块*/
+	void inject(AddFriendActivity addFriendActivity);
+
+	void inject(ChatActivity chatActivity);
+
+	void inject(ChatHomeActivity chatHomeActivity);
+
+	void inject(CreateDiscussGroupActivity createDiscussGroupActivity);
 }

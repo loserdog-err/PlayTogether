@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 
+import com.chenantao.playtogether.utils.ScreenUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.UUID;
@@ -189,8 +191,10 @@ public class FileUtils
 	 * 当图片超过给定的宽度占屏比和高度占屏比时，返回压缩后的占屏比
 	 * 返回的数组下标为0为宽度，下边1为高度
 	 *
-	 * @param maxWidthRatio
-	 * @param maxHeightRatio
+	 * @param maxWidthRatio 最大的占宽比
+	 * @param maxHeightRatio 最大的占高比
+	 * @param imageWidth     真实图片的宽度
+	 * @param imageHeight    真实图片的高度
 	 * @return 为了适配不同分辨率，返回的是屏占比，下标0为占屏幕宽度百分比，下标1为占屏幕高度百分比
 	 */
 	public static double[] compressIfMoreThanDesireHeightWidth(
@@ -235,6 +239,5 @@ public class FileUtils
 		double imageHeight = options.outHeight;
 		return new double[]{imageWidth, imageHeight};
 	}
-
 
 }

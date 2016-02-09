@@ -59,6 +59,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.1.1'
     //水波纹背景
     compile 'com.balysv:material-ripple:1.0.2'
+    //圆形图片
+    compile 'com.makeramen:roundedimageview:2.2.1'
     //EventBus
     compile 'de.greenrobot:eventbus:2.4.0'
     //picasso

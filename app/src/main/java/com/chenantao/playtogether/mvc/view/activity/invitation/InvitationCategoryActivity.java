@@ -9,9 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -27,6 +26,7 @@ import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.PopupWindowManager;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.views.CheckBox;
 import com.orhanobut.logger.Logger;
 
@@ -41,12 +41,14 @@ import de.greenrobot.event.EventBus;
  * Created by Chenantao_gg on 2016/1/26.
  */
 public class InvitationCategoryActivity extends BaseActivity implements View.OnClickListener,
-		CompoundButton.OnCheckedChangeListener
+				CompoundButton.OnCheckedChangeListener
 {
 
 	public static final String EXTRA_CATEGORY = "category";
 
 	public int mCategory;
+	@Bind(R.id.btnFilter)
+	ButtonRectangle btnFilter;
 	@Bind(R.id.appBarLayout)
 	AppBarLayout mAppBarLayout;
 	@Bind(R.id.viewDim)
@@ -103,15 +105,24 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 		if (actionBar != null)
 		{
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			setHeader();
 		}
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		toolbar.setNavigationOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				finish();
+			}
+		});
+		setHeader();
 		EventBus.getDefault().register(this);
 		//初始化SwipeRefreshLayout
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.primary_color);
 		initEvent();
 		//初始化recyclerview
 		mRvInvitation.setLayoutManager(mLayoutManager = new LinearLayoutManager(this,
-				LinearLayoutManager.VERTICAL, false));
+						LinearLayoutManager.VERTICAL, false));
 		//加载数据并显示加载框
 		InvitationCondition condition = new InvitationCondition();
 		condition.setCategory(mCategory);
@@ -174,6 +185,7 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 
 			}
 		});
+		btnFilter.setOnClickListener(this);
 	}
 
 	public void addDataSuccess(List<Invitation> invitations)
@@ -231,61 +243,13 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-		MenuItem item = menu.findItem(R.id.menu_item_btn);
-		item.setTitle("筛选");
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case R.id.menu_item_btn:
-				if (mPopupWindow == null)
-				{
-					/**
-					 * 性别可以全选
-					 * 年龄会过滤，小于10或者大于99都会进行过滤
-					 * 排序只能选择一个
-					 */
-					View view = LayoutInflater.from(this).inflate(R.layout
-									.popupwindow_invitation_filter,
-							mCoordinatorLayout, false);
-					//find view
-					mEtMinAge = (TextView) view.findViewById(R.id.etMinAge);
-					mEtMaxAge = (TextView) view.findViewById(R.id.etMaxAge);
-					mCbNearest = (android.widget.CheckBox) view.findViewById(R.id.cbNearest);
-					mCbNewly = (android.widget.CheckBox) view.findViewById(R.id.cbNewly);
-					mCbMan = (CheckBox) view.findViewById(R.id.cbMan);
-					mCbWomen = (CheckBox) view.findViewById(R.id.cbWomen);
-					ButtonFlat btnReset = (ButtonFlat) view.findViewById(R.id.btnReset);
-					ButtonFlat btnOk = (ButtonFlat) view.findViewById(R.id.btnOk);
-					mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view, viewDim);
-					mPopupWindow.setAnimationStyle(R.style.category_filter_popupwindow_anim);
-					//init event
-					btnReset.setOnClickListener(this);
-					btnOk.setOnClickListener(this);
-					mCbNearest.setOnCheckedChangeListener(this);
-					mCbNewly.setOnCheckedChangeListener(this);
-
-				}
-				mPopupWindow.showAsDropDown(mToolBar,
-						0, 0);
-				PopupWindowManager.toggleLight(true, viewDim);
-				break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
 	public void onClick(View v)
 	{
 		switch (v.getId())
 		{
+			case R.id.btnFilter://弹出筛选对话框
+				showPopupWindow();
+				break;
 			case R.id.btnReset:
 				resetPopupwindow();
 				break;
@@ -332,6 +296,42 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 		}
 	}
 
+	private void showPopupWindow()
+	{
+		if (mPopupWindow == null)
+		{
+			/**
+			 * 性别可以全选
+			 * 年龄会过滤，小于10或者大于99都会进行过滤
+			 * 排序只能选择一个
+			 */
+			View view = LayoutInflater.from(this).inflate(R.layout
+											.popupwindow_invitation_filter,
+							mCoordinatorLayout, false);
+			//find view
+			mEtMinAge = (TextView) view.findViewById(R.id.etMinAge);
+			mEtMaxAge = (TextView) view.findViewById(R.id.etMaxAge);
+			mCbNearest = (android.widget.CheckBox) view.findViewById(R.id.cbNearest);
+			mCbNewly = (android.widget.CheckBox) view.findViewById(R.id.cbNewly);
+			mCbMan = (CheckBox) view.findViewById(R.id.cbMan);
+			mCbWomen = (CheckBox) view.findViewById(R.id.cbWomen);
+			ButtonFlat btnReset = (ButtonFlat) view.findViewById(R.id.btnReset);
+			ButtonFlat btnOk = (ButtonFlat) view.findViewById(R.id.btnOk);
+			mPopupWindow = PopupWindowManager.getPopupWindow(view, ViewGroup.LayoutParams
+							.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, viewDim);
+			mPopupWindow.setAnimationStyle(R.style.category_filter_popupwindow_anim);
+			//init event
+			btnReset.setOnClickListener(this);
+			btnOk.setOnClickListener(this);
+			mCbNearest.setOnCheckedChangeListener(this);
+			mCbNewly.setOnCheckedChangeListener(this);
+
+		}
+		mPopupWindow.showAsDropDown(mToolBar,
+						0, 0);
+		PopupWindowManager.toggleLight(true, viewDim);
+	}
+
 	public void resetPopupwindow()
 	{
 		mEtMinAge.setText("");
@@ -363,11 +363,11 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 			if (mRvInvitation.getAdapter().getItemCount() != 0)
 			{
 				int lastVisibleItemPosition = ((LinearLayoutManager) mRvInvitation
-						.getLayoutManager())
-						.findLastCompletelyVisibleItemPosition();
+								.getLayoutManager())
+								.findLastCompletelyVisibleItemPosition();
 				if (lastVisibleItemPosition != RecyclerView.NO_POSITION &&
-						lastVisibleItemPosition ==
-								mRvInvitation.getAdapter().getItemCount() - 1)
+								lastVisibleItemPosition ==
+												mRvInvitation.getAdapter().getItemCount() - 1)
 					return true;
 			}
 		}

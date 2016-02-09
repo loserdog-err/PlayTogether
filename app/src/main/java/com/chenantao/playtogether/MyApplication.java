@@ -11,10 +11,6 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.chenantao.playtogether.chat.handler.DefaultHandler;
 import com.chenantao.playtogether.chat.handler.MyConversationEventHandler;
-import com.chenantao.playtogether.chat.injector.component.ChatApplicationComponent;
-import com.chenantao.playtogether.chat.injector.component.DaggerChatApplicationComponent;
-import com.chenantao.playtogether.chat.injector.modules.ChatApplicationModule;
-import com.chenantao.playtogether.chat.injector.modules.ChatBllModule;
 import com.chenantao.playtogether.injector.component.ApplicationComponent;
 import com.chenantao.playtogether.injector.component.DaggerApplicationComponent;
 import com.chenantao.playtogether.injector.modules.ApiModule;
@@ -34,7 +30,6 @@ public class MyApplication extends Application
 {
 	private ApplicationComponent mApplicationComponent;
 
-	private ChatApplicationComponent mChatApplicationComponent;
 
 	@Override
 	public void onCreate()
@@ -63,10 +58,6 @@ public class MyApplication extends Application
 	 */
 	private void initChat()
 	{
-		mChatApplicationComponent = DaggerChatApplicationComponent.builder()
-						.chatBllModule(new ChatBllModule())
-						.chatApplicationModule(new ChatApplicationModule(this))
-						.build();
 		AVIMMessageManager.registerDefaultMessageHandler(new DefaultHandler(this));
 		//开启推送
 		AVInstallation.getCurrentInstallation().saveInBackground();
@@ -106,8 +97,4 @@ public class MyApplication extends Application
 		return mApplicationComponent;
 	}
 
-	public ChatApplicationComponent getChatApplicationComponent()
-	{
-		return mChatApplicationComponent;
-	}
 }

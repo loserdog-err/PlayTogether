@@ -2,6 +2,7 @@ package com.chenantao.playtogether.utils;
 
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -70,6 +71,39 @@ public class DateUtils
 	}
 
 	/**
+	 * 将一个date转换为语义化的字符串，例如是今天就显示时间，例如06:06 昨天就显示昨天
+	 * 前天就显示日期 ,例如 01-07
+	 *
+	 * @return
+	 */
+	public static String date2desc(Date date)
+	{
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		if (date.getTime() > calendar.getTime().getTime())
+		{
+			//今天
+			return date2string(date, "HH:mm");
+		} else
+		{
+			calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 1);
+			if (date.getTime() > calendar.getTime().getTime())
+			{
+				//昨天
+				return "昨天";
+			} else
+			{
+				//昨天以前，显示具体日期
+				return date2string(date, "MM-dd");
+			}
+		}
+
+	}
+
+	/**
 	 * 将long型的毫秒数转化为特定格式的String时间
 	 *
 	 * @param format
@@ -79,9 +113,9 @@ public class DateUtils
 	public static String long2date(String format, long mill)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
-		Date date = new Date(mill);
-		return sdf.format(date);
+		return sdf.format(mill);
 	}
+
 	/**
 	 * 将long型的毫秒数转化为默认(HH:mm:ss)格式的String时间
 	 *
@@ -91,8 +125,7 @@ public class DateUtils
 	public static String long2date(long mill)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		Date date = new Date(mill);
-		return sdf.format(date);
+		return sdf.format(mill);
 	}
 
 

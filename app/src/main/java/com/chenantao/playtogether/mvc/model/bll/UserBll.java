@@ -4,20 +4,21 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
-import com.chenantao.playtogether.chat.bll.ChatUserBll;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.utils.Constant;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Func1;
 
 /**
  * Created by Chenantao_gg on 2016/1/17.
  */
-public class UserBll implements ChatUserBll
+public class UserBll
 {
 	public boolean checkUsername(String username)
 	{
@@ -136,33 +137,67 @@ public class UserBll implements ChatUserBll
 				}
 			}
 		});
+
 	}
 
-	/**
-	 * 使用聊天系统需要实现的接口
-	 *
-	 * @param username 用户名，通常是 clientId
-	 * @return
-	 */
-	@Override
-	public Observable<String> getAvatarByUsername(final String username)
+	public Observable<User> getUserByUserName(final String username)
 	{
-		return Observable.create(new Observable.OnSubscribe<String>()
+		return Observable.create(new Observable.OnSubscribe<User>()
 		{
 			@Override
-			public void call(Subscriber<? super String> subscriber)
+			public void call(Subscriber<? super User> subscriber)
 			{
-				AVQuery query = AVQuery.getQuery(User.class);
+				AVQuery<User> query = AVQuery.getQuery(User.class);
 				query.whereEqualTo(User.FIELD_USERNAME, username);
-				query.whereExists(User.FIELD_AVATAR);
 				try
 				{
-					List<User> list = query.find();
-					if (!list.isEmpty())
-						subscriber.onNext(list.get(0).getAvatar().getThumbnailUrl(true, Constant.AVATAR_WIDTH,
-										Constant.AVATAR_HEIGHT));
-					else
+					List<User> userList = query.find();
+					if (!userList.isEmpty()) subscriber.onNext(userList.get(0));
+					else subscriber.onError(new Exception("查无此人"));
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+
+
+	/*---------------------------以下这些方法为接入聊天系统必须实现的方法-------------------*/
+
+
+	/**
+	 * 得到指定 username 的好友列表
+	 *
+	 * @param username
+	 * @return
+	 */
+	public Observable<List<User>> getFriends(final String username)
+	{
+		return Observable.create(new Observable.OnSubscribe<List<User>>()
+		{
+			@Override
+			public void call(Subscriber<? super List<User>> subscriber)
+			{
+				AVQuery<User> query = AVQuery.getQuery(User.class);
+				query.whereEqualTo(User.FIELD_USERNAME, username);
+				query.include(User.FIELD_FRIENDS);
+				try
+				{
+					/**
+					 * 获得 User 数组后，将其转换为 ChatUser的list
+					 */
+					List<User> users = query.find();
+					List list = users.get(0).getList(User.FIELD_FRIENDS);
+					if (list != null && !list.isEmpty())
+					{
+						List<User> friends = list;
+						subscriber.onNext(friends);
+					} else
+					{
 						subscriber.onCompleted();
+					}
 				} catch (AVException e)
 				{
 					subscriber.onError(e);
@@ -170,5 +205,85 @@ public class UserBll implements ChatUserBll
 				}
 			}
 		});
+	}
+
+	/**
+	 * 为当前用户添加好友，先把用户名转换为 User 对象，然后再添加到好友数组里面
+	 *
+	 * @param friendName
+	 * @return
+	 */
+	public Observable<User> addFriend(final String friendName)
+	{
+		return checkIfIsFriend(friendName)
+						.flatMap(new Func1<String, Observable<User>>()
+						{
+							@Override
+							public Observable<User> call(String friend)
+							{
+								return getUserByUserName(friendName);
+							}
+						})
+						.flatMap(new Func1<User, Observable<User>>()
+						{
+							@Override
+							public Observable<User> call(final User friend)
+							{
+								return Observable.create(new Observable.OnSubscribe<User>()
+								{
+									@Override
+									public void call(Subscriber<? super User> subscriber)
+									{
+										User me = AVUser.getCurrentUser(User.class);
+										List<User> friendList = me.getFriends();
+										friendList.addAll(Arrays.asList(friend));
+										me.setFriends(friendList);
+										try
+										{
+											me.save();
+											subscriber.onNext(friend);
+										} catch (AVException e)
+										{
+											subscriber.onError(e);
+											e.printStackTrace();
+										}
+									}
+								});
+							}
+						});
+	}
+
+	/**
+	 * 检查 指定friend 是否已经是我的好友
+	 *
+	 * @param friend
+	 * @return
+	 */
+	public Observable<String> checkIfIsFriend(final String friend)
+	{
+		return Observable.create(new Observable.OnSubscribe<String>()
+		{
+			@Override
+			public void call(Subscriber<? super String> subscriber)
+			{
+				List<User> friends = AVUser.getCurrentUser(User.class).getFriends();
+				if (!friends.isEmpty())
+				{
+					for (User user : friends)
+					{
+						if (user.getUsername().equals(friend))
+						{
+							subscriber.onError(new Exception(friend + " 已是你的好友"));
+							break;
+						}
+					}
+				}
+				subscriber.onNext(friend);
+			}
+
+
+		});
+
+
 	}
 }

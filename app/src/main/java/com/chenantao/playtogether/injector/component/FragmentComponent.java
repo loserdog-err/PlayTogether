@@ -1,5 +1,7 @@
 package com.chenantao.playtogether.injector.component;
 
+import com.chenantao.playtogether.chat.mvc.view.fragment.ConvListFragment;
+import com.chenantao.playtogether.chat.mvc.view.fragment.FriendListFragment;
 import com.chenantao.playtogether.injector.MyScope;
 import com.chenantao.playtogether.injector.modules.FragmentModule;
 import com.chenantao.playtogether.mvc.view.fragment.invitation.InviteConditionFragment;
@@ -15,4 +17,8 @@ import dagger.Component;
 public interface FragmentComponent
 {
 	void inject(InviteConditionFragment fragment);
+
+	void inject(ConvListFragment convListFragment);
+
+	void inject(FriendListFragment friendListFragment);
 }

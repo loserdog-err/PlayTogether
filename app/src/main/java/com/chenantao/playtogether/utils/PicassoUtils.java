@@ -81,7 +81,6 @@ public class PicassoUtils
 	{
 		Picasso.with(context)
 				.load(uri)
-				.centerInside()
 				.resize(width, height)
 				.placeholder(R.mipmap.pictures_no)
 				.networkPolicy(NetworkPolicy.OFFLINE)

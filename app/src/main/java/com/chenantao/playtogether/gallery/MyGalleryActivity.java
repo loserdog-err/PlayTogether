@@ -21,6 +21,7 @@ import com.chenantao.playtogether.mvc.model.bean.event.EventSetAvatar;
 import com.chenantao.playtogether.mvc.model.bean.event.EventUploadPic;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.CheckBox;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
 import java.io.File;
@@ -55,8 +56,9 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 	//底部的控件
 	private RelativeLayout mRlBottom;
 	private TextView mTvDirName;
-	private TextView mTvImgCount;
+	//	private TextView mTvImgCount;
 	private ButtonFlat mBtnOk;
+	private CheckBox mCbIsSendOriginal;//是否发送原图
 
 
 	private File mCurrentFolder;
@@ -93,7 +95,8 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 		mRv = (RecyclerView) findViewById(R.id.rv);
 		mRlBottom = (RelativeLayout) findViewById(R.id.rlBottom);
 		mTvDirName = (TextView) findViewById(R.id.tvDirName);
-		mTvImgCount = (TextView) findViewById(R.id.tvImgCount);
+		mCbIsSendOriginal = (CheckBox) findViewById(R.id.cbIsOriginal);
+//		mTvImgCount = (TextView) findViewById(R.id.tvImgCount);
 		mBtnOk = (ButtonFlat) findViewById(R.id.btnOk);
 	}
 
@@ -174,7 +177,7 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 						StaggeredGridLayoutManager
 										.VERTICAL));
 		mTvDirName.setText(mCurrentFolder.getName());
-		mTvImgCount.setText(subFiles.size() + "张");
+//		mTvImgCount.setText(subFiles.size() + "张");
 		initPopupWindow();
 		initEvent();
 	}
@@ -217,7 +220,7 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 					return;
 				}
 				mCurrentFolder = new File(folderBean.getDir());
-				mTvImgCount.setText(folderBean.getImageCount() + "张");
+//				mTvImgCount.setText(folderBean.getImageCount() + "张");
 				mTvDirName.setText(folderBean.getName());
 				mRv.setAdapter(new MyGalleryAdapter(MyGalleryActivity.this, getSubfiles
 								(mCurrentFolder),
@@ -279,18 +282,17 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 				{
 					EventBus.getDefault().post(new EventSetAvatar(MyGalleryAdapter.mSelectedImgs));
 					MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
-					finish();
 					return;
 				} else if (mType == TYPE_UPLOAD_PIC)//当前为上传图片
 				{
 					EventBus.getDefault().post(new EventUploadPic(MyGalleryAdapter.mSelectedImgs));
-					finish();
 				} else if (mType == TYPE_CHAT)//发送聊天图片
 				{
-					EventBus.getDefault().post(new EventChatPic(MyGalleryAdapter.mSelectedImgs));
+					EventBus.getDefault().post(new EventChatPic(MyGalleryAdapter.mSelectedImgs,
+									mCbIsSendOriginal.isCheck()));
 					MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
-					finish();
 				}
+				finish();
 				break;
 		}
 	}

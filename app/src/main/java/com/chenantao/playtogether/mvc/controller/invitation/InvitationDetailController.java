@@ -6,15 +6,14 @@ import android.content.Intent;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.chenantao.playtogether.chat.ChatActivity;
-import com.chenantao.playtogether.chat.bll.ChatBll;
-import com.chenantao.playtogether.chat.bll.ConversationBll;
+import com.chenantao.playtogether.chat.mvc.view.activity.ChatActivity;
+import com.chenantao.playtogether.chat.mvc.bll.ChatBll;
+import com.chenantao.playtogether.chat.mvc.bll.ConversationBll;
 import com.chenantao.playtogether.chat.utils.ChatConstant;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bll.InviteBll;
 import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationDetailActivity;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,25 +48,25 @@ public class InvitationDetailController
 	public void loadData(String invitationId)
 	{
 		mInviteBll
-				.getInvitationById(invitationId)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<Invitation>()
-				{
-					@Override
-					public void call(Invitation invitation)
-					{
-						mActivity.loadTextDataSuccess(invitation);
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
-						throwable.printStackTrace();
-						mActivity.loadDataFail("失败啦：" + throwable.getMessage());
-					}
-				});
+						.getInvitationById(invitationId)
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Action1<Invitation>()
+						{
+							@Override
+							public void call(Invitation invitation)
+							{
+								mActivity.loadTextDataSuccess(invitation);
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
+								throwable.printStackTrace();
+								mActivity.loadDataFail("失败啦：" + throwable.getMessage());
+							}
+						});
 
 	}
 
@@ -78,83 +77,81 @@ public class InvitationDetailController
 	 */
 	public void acceptInvite(final Invitation invitation)
 	{
-//		acceptInviteUsers.add(AVUser.getCurrentUser(User.class));
+//		acceptInviteUsers.add(AVUser.getCurrentUser(ChatUser.class));
 //		invitation.setAcceptInviteUsers(acceptInviteUsers);
 		invitation.setAcceptInviteUser(AVUser.getCurrentUser(User.class));
 		mInviteBll.hadAcceptInvite(invitation)
-				.subscribeOn(Schedulers.io())
-				.observeOn(Schedulers.io())
-				.flatMap(new Func1<Boolean, Observable<Invitation>>()
-				{
-					@Override
-					public Observable<Invitation> call(Boolean hasInvited)
-					{
-						return mInviteBll.acceptInvite(invitation, hasInvited);
-					}
-				})
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<Invitation>()
-				{
-					@Override
-					public void call(Invitation invitation)
-					{
-						mActivity.acceptInviteSuccess(invitation);
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
-						throwable.printStackTrace();
-						mActivity.acceptInviteFail("受约失败啦:" + throwable.getMessage());
-					}
-				});
+						.subscribeOn(Schedulers.io())
+						.observeOn(Schedulers.io())
+						.flatMap(new Func1<Boolean, Observable<Invitation>>()
+						{
+							@Override
+							public Observable<Invitation> call(Boolean hasInvited)
+							{
+								return mInviteBll.acceptInvite(invitation, hasInvited);
+							}
+						})
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Action1<Invitation>()
+						{
+							@Override
+							public void call(Invitation invitation)
+							{
+								mActivity.acceptInviteSuccess(invitation);
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
+								throwable.printStackTrace();
+								mActivity.acceptInviteFail("受约失败啦:" + throwable.getMessage());
+							}
+						});
 	}
 
 	/**
 	 * 与作者聊天，需要先登录，然后创建会话
-	 *
-	 * @param authorName
 	 */
-	public void chatWithAuthor(final String authorName)
+	public void chatWithAuthor(final User author)
 	{
-		final List<String> members = new ArrayList<>();
-		final String myName = AVUser.getCurrentUser(User.class).getUsername();
-		members.add(authorName);
-		members.add(myName);
-		Logger.e("authorname:" + authorName + ",myName:" + myName);
+		final List<User> members = new ArrayList<>();
+		User user = AVUser.getCurrentUser(User.class);
+		final String myName = user.getUsername();
+		members.add(author);
+		members.add(user);
 		mChatBll.login(myName)//登录
-				.subscribeOn(AndroidSchedulers.mainThread())
-				.observeOn(AndroidSchedulers.mainThread())
-				.flatMap(new Func1<AVIMClient, Observable<AVIMConversation>>()//创建会话
-				{
-					@Override
-					public Observable<AVIMConversation> call(AVIMClient client)
-					{
-						return mConversationBll.createConversationIfNotExists(members, client,
-								ChatConstant.TYPE_SINGLE_CHAT, myName + authorName);
+						.subscribeOn(AndroidSchedulers.mainThread())
+						.observeOn(AndroidSchedulers.mainThread())
+						.flatMap(new Func1<AVIMClient, Observable<AVIMConversation>>()//创建会话
+						{
+							@Override
+							public Observable<AVIMConversation> call(AVIMClient client)
+							{
+								return mConversationBll.createConversation(members, client,
+												ChatConstant.TYPE_SINGLE_CHAT, myName + author.getUsername());
 
-					}
-				})
-				.subscribe(new Action1<AVIMConversation>()
-				{
-					@Override
-					public void call(AVIMConversation conversation)
-					{
-						Intent intent = new Intent(mActivity, ChatActivity.class);
-						intent.putExtra(ChatActivity.EXTRA_CONVERSATION_ID, conversation
-								.getConversationId());
-						mActivity.startActivity(intent);
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
-						mActivity.chatWithAuthorFail("聊天失败:" + throwable.getMessage());
-						throwable.printStackTrace();
-					}
-				});
+							}
+						})
+						.subscribe(new Action1<AVIMConversation>()
+						{
+							@Override
+							public void call(AVIMConversation conversation)
+							{
+								Intent intent = new Intent(mActivity, ChatActivity.class);
+								intent.putExtra(ChatActivity.EXTRA_CONVERSATION_ID, conversation
+												.getConversationId());
+								mActivity.startActivity(intent);
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
+								mActivity.chatWithAuthorFail("聊天失败:" + throwable.getMessage());
+								throwable.printStackTrace();
+							}
+						});
 	}
 }
 

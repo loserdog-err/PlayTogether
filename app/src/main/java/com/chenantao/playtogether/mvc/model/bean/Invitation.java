@@ -43,8 +43,8 @@ public class Invitation extends AVObject
 //	private Date expire;
 //	private int category;
 //
-//	private User author;
-//	private List<User> acceptInviteUsers;//受约用户
+//	private ChatUser author;
+//	private List<ChatUser> acceptInviteUsers;//受约用户
 
 
 	public List<String> uploadPicsPath = new ArrayList<>();
@@ -269,7 +269,7 @@ public class Invitation extends AVObject
 	{
 		List<User> list = getList(FIELD_ACCEPT_INVITE_USERS);
 //		ArrayList list = (ArrayList) get(Invitation.FIELD_ACCEPT_INVITE_USERS);
-//		User user = (User) list.get(0);
+//		ChatUser user = (ChatUser) list.get(0);
 //		Logger.e("user:" + user.getUsername());
 		if (list == null)
 		{

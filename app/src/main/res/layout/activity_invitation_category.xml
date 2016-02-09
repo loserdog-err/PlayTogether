@@ -59,7 +59,7 @@
                     app:layout_collapseParallaxMultiplier="0.8"
                     app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
-                    <View
+                    <ImageView
                         android:id="@+id/view_header"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -76,7 +76,16 @@
                     android:titleTextColor="@android:color/white"
                     app:layout_collapseMode="pin"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <com.gc.materialdesign.views.ButtonRectangle
+                        android:layout_gravity="right"
+                        android:id="@+id/btnFilter"
+                        android:layout_width="60dp"
+                        android:background="@android:color/holo_green_light"
+                        android:layout_height="40dp"
+                        android:text="筛选"/>
+                </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>

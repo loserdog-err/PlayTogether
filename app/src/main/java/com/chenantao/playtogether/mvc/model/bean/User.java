@@ -5,6 +5,10 @@ import android.os.Parcel;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVUser;
+import com.chenantao.playtogether.utils.Constant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Chenantao_gg on 2016/1/19.
@@ -22,6 +26,9 @@ public class User extends AVUser
 	public static final String FIELD_AGE = "age";
 	public static final String FIELD_OBJECT_ID = "objectId";
 	public static final String FIELD_AVATAR = "avatar";
+
+	//聊天系统需要的字段常量
+	public static final String FIELD_FRIENDS = "friends";
 
 	private AVFile avatar;
 
@@ -66,6 +73,14 @@ public class User extends AVUser
 	public AVFile getAvatar()
 	{
 		return getAVFile("avatar");
+	}
+
+	public String getAvatarUrl()
+	{
+		AVFile avFile = this.getAvatar();
+		if (avFile != null)
+			return avFile.getThumbnailUrl(true, Constant.AVATAR_WIDTH, Constant.AVATAR_HEIGHT);
+		else return null;
 	}
 
 	public void setAvatar(AVFile avatar)
@@ -114,4 +129,20 @@ public class User extends AVUser
 	{
 		return getInt(FIELD_AGE);
 	}
+
+	public void setFriends(List<User> friends)
+	{
+		put(FIELD_FRIENDS, friends);
+	}
+
+	public List<User> getFriends()
+	{
+		List<User> list = getList(FIELD_FRIENDS);
+		if (list == null)
+		{
+			return new ArrayList<User>();
+		}
+		return list;
+	}
+
 }

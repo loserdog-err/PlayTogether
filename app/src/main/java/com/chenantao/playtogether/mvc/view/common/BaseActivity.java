@@ -16,6 +16,7 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by Chenantao_gg on 2016/1/17.
+ *
  */
 public abstract class BaseActivity extends AutoLayoutActivity
 {

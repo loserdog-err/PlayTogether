@@ -38,15 +38,24 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="10dp"
-                android:text="全部图片"/>
+                android:text="全部图片"
+                android:textColor="@color/black_mid_alpha"/>
 
-            <TextView
-                android:id="@+id/tvImgCount"
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/cbIsOriginal"
+                android:layout_marginLeft="30px"
+                android:layout_toRightOf="@id/tvDirName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:paddingRight="10dp"
-                android:text="1000张"/>
+                android:background="@color/black_small_alpha"
+                android:text="原图"/>
+            <!--<TextView-->
+            <!--android:id="@+id/tvImgCount"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:text="1000张"/>-->
 
             <com.gc.materialdesign.views.ButtonFlat
                 android:id="@+id/btnOk"
@@ -54,9 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@color/black_small_alpha"
-                android:text="确定"
-                android:textColor="@color/black_small_alpha"/>
+                android:background="@color/black_mid_alpha"
+                android:text="确定"/>
         </com.chenantao.autolayout.AutoRelativeLayout>
     </com.chenantao.autolayout.AutoRelativeLayout>
 

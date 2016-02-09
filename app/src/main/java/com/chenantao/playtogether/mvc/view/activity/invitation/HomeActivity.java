@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -24,7 +25,7 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 import com.chenantao.autolayout.AutoRecyclerView;
 import com.chenantao.playtogether.R;
-import com.chenantao.playtogether.chat.ChatHomeActivity;
+import com.chenantao.playtogether.chat.mvc.view.activity.ChatHomeActivity;
 import com.chenantao.playtogether.gallery.MyGalleryActivity;
 import com.chenantao.playtogether.mvc.controller.invitation.HomeController;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
@@ -73,7 +74,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 
 
 	@Inject
-	public HomeController mControllr;
+	public HomeController mController;
 
 	@Override
 	public int getLayoutId()
@@ -216,7 +217,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	public void onEvent(EventSetAvatar event)
 	{
 		mPopupWindow.dismiss();
-		mControllr.uploadAvatar(event.path.get(0));
+		mController.uploadAvatar(event.path.get(0));
 		DialogUtils.showProgressDialog("上传头像中..", this);
 	}
 
@@ -233,7 +234,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		List<Invitation> datas = new ArrayList<>();
 		mRvInvitation.setAdapter(mRvInvitationAdapter = new HomeInvitationItemAdapter(this,
 						datas));
-		mControllr.getNewlyInvitationDatas();
+		mController.getNewlyInvitationDatas();
 
 	}
 
@@ -291,7 +292,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		{
 			View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_select_avatar,
 							mDrawerLayout, false);
-			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(view, viewDim);
+			mPopupWindow = PopupWindowManager.getPopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
+							ViewGroup.LayoutParams.WRAP_CONTENT, viewDim);
 			mPopupWindow.setAnimationStyle(R.style.select_avatar_popupwindow_anim);
 			TextView tvFromGallery = (TextView) view.findViewById(R.id.tvFromGallery);
 			TextView tvTakePhoto = (TextView) view.findViewById(R.id.tvTakePhoto);
@@ -319,9 +321,20 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 				String path = mCameraFile.getAbsolutePath();
 				Logger.e("path:" + mCameraFile.getAbsolutePath());
 				DialogUtils.showProgressDialog("上传图片中", this);
-				mControllr.uploadAvatar(path);
+				mController.uploadAvatar(path);
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		if (mDrawerLayout.isDrawerOpen(Gravity.LEFT))
+		{
+			mDrawerLayout.closeDrawer(Gravity.LEFT);
+			return;
+		}
+		super.onBackPressed();
 	}
 }

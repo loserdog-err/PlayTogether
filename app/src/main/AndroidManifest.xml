@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -103,9 +103,13 @@
         <!-- ————————————————————————————聊天模块————————————————————————————————————-->
 
         <!--聊天首页-->
-        <activity android:name=".chat.ChatHomeActivity"/>
+        <activity android:name=".chat.mvc.view.activity.ChatHomeActivity"/>
         <!--聊天页面-->
-        <activity android:name=".chat.ChatActivity"/>
+        <activity android:name=".chat.mvc.view.activity.ChatActivity"/>
+        <!--添加好友的界面-->
+        <activity android:name=".chat.mvc.view.activity.AddFriendActivity"/>
+        <!--创建讨论组的界面-->
+        <activity android:name=".chat.mvc.view.activity.CreateDiscussGroupActivity"/>
     </application>
 
 </manifest>

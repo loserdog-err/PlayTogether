@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.chenantao.playtogether.MainActivity">
 
-    <com.chenantao.playtogether.chat.RecorderButton
+    <com.chenantao.playtogether.chat.mvc.view.widget.RecorderButton
         android:id="@+id/btn"
         android:layout_width="300px"
         android:layout_height="400px"

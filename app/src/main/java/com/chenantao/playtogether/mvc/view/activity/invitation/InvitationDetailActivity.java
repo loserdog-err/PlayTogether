@@ -73,6 +73,8 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 
 	private Invitation mInvitation;
 
+	private User mAuthor;//这篇邀请的作者
+
 	private boolean mIsContentPicLoaded = false;//内容里的图片是否加载完毕
 	private int mAcceptInviteNums = 0;//接受邀请的用户数量，主要是用于判断数据是否改变去更新显示下面的用户列表
 	private boolean mIsAcceptUserSet = false;//接受邀请的用户inflate过了没
@@ -140,14 +142,14 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	{
 		mInvitation = invitation;
 		DialogUtils.dismissProgressDialog();
-		User author = invitation.getAuthor();
+		mAuthor = invitation.getAuthor();
 //		mTvAuthorName.setText(author.getUsername());
-		mTvAuthorDesc.setText(author.getDesc());
+		mTvAuthorDesc.setText(mAuthor.getDesc());
 //		mTvTitle.setText(invitation.getTitle());
 		mTvContent.setText(invitation.getContent());
 		mTvExpire.setText(invitation.getExpire());
 		mTvAcceptUserNum.setText(getString(R.string.accept_user_num, invitation
-				.getAcceptInviteUsers().size()));
+						.getAcceptInviteUsers().size()));
 		//设置受约的用户姓名
 		setAcceptInviteUsers();
 		//下载作者头像
@@ -194,7 +196,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		{
 			User user = acceptInviteUsers.get(i);
 			View view = LayoutInflater.from(this).inflate(R.layout.item_accept_invite_user,
-					mLlAcceptUser, false);
+							mLlAcceptUser, false);
 			mLlAcceptUser.addView(view, mLlAcceptUser.getChildCount());
 			((TextView) view.findViewById(R.id.tvUsername)).setText(user.getUsername());
 			ImageView ivAvatar = (ImageView) view.findViewById(R.id.ivAvatar);
@@ -203,7 +205,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 			if (avFile != null)
 			{
 				PicassoUtils.displayFitImage(this, Uri.parse(avFile.getThumbnailUrl(true, 100,
-						100)), ivAvatar, null);
+								100)), ivAvatar, null);
 			}
 		}
 		mIsAcceptUserSet = true;
@@ -228,9 +230,9 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 					final int originalImageWidth = (int) file.getMetaData("width");
 					final int originalImageHeight = (int) file.getMetaData("height");
 					double[] ratio = FileUtils.compressIfMoreThanDesireHeightWidth
-							(originalImageWidth,
-									originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
-									CONTENT_PIC_HEIGHT_MAX_RATIO, this);
+									(originalImageWidth,
+													originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
+													CONTENT_PIC_HEIGHT_MAX_RATIO, this);
 					final int width = (int) (screenWidth * ratio[0]);
 					final int height = (int) (screenHeight * ratio[1]);
 					ImageView imageView = getContentImageView(width, height);
@@ -243,22 +245,20 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 						public void onClick(View v)
 						{
 							Intent intent = new Intent(InvitationDetailActivity.this,
-									ShowImageActivity.class);
+											ShowImageActivity.class);
 							intent.putExtra(ShowImageActivity.EXTRA_URI, Uri.parse(file.getUrl()))
-									.putExtra(ShowImageActivity.EXTRA_WIDTH, originalImageWidth)
-									.putExtra(ShowImageActivity.EXTRA_HEIGHT, originalImageHeight);
+											.putExtra(ShowImageActivity.EXTRA_WIDTH, originalImageWidth)
+											.putExtra(ShowImageActivity.EXTRA_HEIGHT, originalImageHeight);
 							startActivity(intent);
 						}
 					});
 					PicassoUtils.displayFitImage(this, Uri.parse(file.getThumbnailUrl(false, width,
-									height)),
-							imageView, null);
+													height)),
+									imageView, null);
 				}
 			}
 			mIsContentPicLoaded = true;
 		}
-		//下载已受约用户头像
-		// TODO: 2016/1/25
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, height);
 		params.topMargin = screenHeight / 40;
-		params.gravity = Gravity.LEFT;
+		params.gravity = Gravity.CENTER_HORIZONTAL;
 		imageView.setLayoutParams(params);
 		return imageView;
 	}
@@ -316,19 +316,19 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 					return;
 				}
 				Snackbar.make(mLlRoot, "约吗英雄", Snackbar.LENGTH_LONG)
-						.setAction("约起来", new View.OnClickListener()
-						{
-							@Override
-							public void onClick(View v)
-							{
-								mController.acceptInvite(mInvitation);
-							}
-						})
-						.show();
+								.setAction("约起来", new View.OnClickListener()
+								{
+									@Override
+									public void onClick(View v)
+									{
+										mController.acceptInvite(mInvitation);
+									}
+								})
+								.show();
 				break;
 			case R.id.ivAuthorAvatar:
 				String authorName = mTvAuthorName.getText().toString();
-				mController.chatWithAuthor(authorName);
+				mController.chatWithAuthor(mAuthor);
 				break;
 		}
 	}
@@ -349,7 +349,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		{
 			case R.id.menu_item_btn:
 				if (!AVUser.getCurrentUser().getUsername().equals(mInvitation.getAuthor()
-						.getUsername()))
+								.getUsername()))
 				{
 					Toast.makeText(this, "你非作者，不能进行此项操作", Toast.LENGTH_SHORT).show();
 				} else

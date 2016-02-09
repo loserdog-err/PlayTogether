@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -131,7 +132,7 @@ public class InviteConditionFragment extends BaseFragment
 	}
 
 	@OnClick({R.id.rlConstellation, R.id.rlExpire, R.id.rlCategory, R.id.llFood, R.id.llMovie,
-			R.id.llExercise})
+					R.id.llExercise})
 	public void onClick(View v)
 	{
 		ScreenUtils.hideKeyboard(getActivity());
@@ -190,18 +191,18 @@ public class InviteConditionFragment extends BaseFragment
 			maxAge = Integer.parseInt(mEtMaxAge.getText().toString());
 		}
 		if (minAge < Invitation.MIN_AGE || minAge > Invitation.MAX_AGE) minAge = Invitation
-				.MIN_AGE;
+						.MIN_AGE;
 		if (maxAge > Invitation.MAX_AGE || maxAge < Invitation.MIN_AGE) maxAge = Invitation
-				.MAX_AGE;
+						.MAX_AGE;
 		if (!mCbMan.isCheck() && !mCbWomen.isCheck())
 		{
 			invitation.setGender(Constant.GENDER_ALL);
 		} else invitation.setGender(mCbMan.isCheck() ? Constant.GENDER_MAN : Constant
-				.GENDER_WOMEN);
+						.GENDER_WOMEN);
 		invitation.setMinAge(minAge);
 		invitation.setMaxAge(maxAge);
 		invitation.setConstellation(Invitation.convertConstellation
-				(mTvConstellation.getText().toString()));
+						(mTvConstellation.getText().toString()));
 		invitation.setExpire(mTvExpire.getText().toString());
 		invitation.setCategory(mTvCategory.getText().toString());
 		return invitation;
@@ -237,31 +238,31 @@ public class InviteConditionFragment extends BaseFragment
 		mLlSelectCategory.setVisibility(View.VISIBLE);
 		mLlSelectCategory.setAlpha(0);
 		mLlSelectCategory
-				.animate()
-				.alpha((float) 0.8)
-				.scaleX((float) 1.2)
-				.scaleY((float) 1.2)
-				.setDuration(300)
-				.setListener(new AnimatorListenerAdapter()
-				{
-					@Override
-					public void onAnimationEnd(Animator animation)
-					{
-						mLlSelectCategory.animate()
-								.alpha((float) 1)
-								.scaleX((float) 1)
-								.scaleY((float) 1)
-								.setDuration(300)
-								.setListener(new AnimatorListenerAdapter()
-								{
-									@Override
-									public void onAnimationEnd(Animator animation)
-									{
-										isSelectUIShow = true;
-									}
-								});
-					}
-				});
+						.animate()
+						.alpha((float) 0.8)
+						.scaleX((float) 1.2)
+						.scaleY((float) 1.2)
+						.setDuration(300)
+						.setListener(new AnimatorListenerAdapter()
+						{
+							@Override
+							public void onAnimationEnd(Animator animation)
+							{
+								mLlSelectCategory.animate()
+												.alpha((float) 1)
+												.scaleX((float) 1)
+												.scaleY((float) 1)
+												.setDuration(300)
+												.setListener(new AnimatorListenerAdapter()
+												{
+													@Override
+													public void onAnimationEnd(Animator animation)
+													{
+														isSelectUIShow = true;
+													}
+												});
+							}
+						});
 	}
 
 	/**
@@ -272,17 +273,17 @@ public class InviteConditionFragment extends BaseFragment
 		if (isSelectUIShow)
 		{
 			mLlSelectCategory.animate()
-					.alpha(0)
-					.setDuration(300)
-					.setListener(new AnimatorListenerAdapter()
-					{
-						@Override
-						public void onAnimationEnd(Animator animation)
-						{
-							mLlSelectCategory.setVisibility(View.GONE);
-							isSelectUIShow = false;
-						}
-					});
+							.alpha(0)
+							.setDuration(300)
+							.setListener(new AnimatorListenerAdapter()
+							{
+								@Override
+								public void onAnimationEnd(Animator animation)
+								{
+									mLlSelectCategory.setVisibility(View.GONE);
+									isSelectUIShow = false;
+								}
+							});
 		}
 	}
 
@@ -306,22 +307,19 @@ public class InviteConditionFragment extends BaseFragment
 		{
 			//init popupwindow
 			mSelectPopupWindowContentView = LayoutInflater.from(getActivity()).inflate(R.layout
-					.popupwindow_select_view, null);
-			mPopupWindow = PopupWindowManager.getDefaultPopupWindow(mSelectPopupWindowContentView,
-					viewDim);
+							.popupwindow_select_view, null);
+			mPopupWindow = PopupWindowManager.getPopupWindow(mSelectPopupWindowContentView,
+							ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, viewDim);
 			//初始化recyclerview
 			mSelectRecyclerView = (SelectRecyclerView) mSelectPopupWindowContentView.findViewById
-					(R.id
-							.rvSelect);
+							(R.id.rvSelect);
 			mSelectRecyclerView.setLayoutManager(mLayoutManager = new SnappingLinearLayoutManager
-					(getActivity(),
-							LinearLayoutManager.VERTICAL, false));
+							(getActivity(), LinearLayoutManager.VERTICAL, false));
 			mSelectRecyclerView.setAdapter(mAdapter == null ? new SelectRecyclerViewAdapter
-					(getActivity(),
-							datas) : mAdapter);
+							(getActivity(), datas) : mAdapter);
 			//popupwindow上面的完成选择按钮
 			ButtonFlat btnFinish = (ButtonFlat) mSelectPopupWindowContentView.findViewById(R.id
-					.btnFinish);
+							.btnFinish);
 			btnFinish.setOnClickListener(new View.OnClickListener()
 			{
 				@Override
@@ -337,12 +335,12 @@ public class InviteConditionFragment extends BaseFragment
 		if (mAdapter == null || mCurrentType != type)
 		{
 			mAdapter = new SelectRecyclerViewAdapter(getActivity(),
-					datas);
+							datas);
 			mSelectRecyclerView.setAdapter(mAdapter);
 		}
 		mCurrentType = type;
 		mPopupWindow.showAtLocation(mRoot, Gravity
-				.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+						.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 		PopupWindowManager.toggleLight(true, viewDim);
 	}
 }

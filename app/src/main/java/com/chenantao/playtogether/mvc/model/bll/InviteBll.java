@@ -270,10 +270,10 @@ public class InviteBll
 //				if (gender == ChatConstant.GENDER_ALL)
 //				{
 //					int[] genders = new int[]{ChatConstant.GENDER_MAN, ChatConstant.GENDER_WOMEN};
-//					innerQuery.whereContainedIn(User.FIELD_GENDER, Arrays.asList(genders));
+//					innerQuery.whereContainedIn(ChatUser.FIELD_GENDER, Arrays.asList(genders));
 //				} else
 //				{
-//					innerQuery.whereEqualTo(User.FIELD_GENDER, gender);
+//					innerQuery.whereEqualTo(ChatUser.FIELD_GENDER, gender);
 //				}
 				//指定年龄
 				innerQuery.whereGreaterThanOrEqualTo(User.FIELD_AGE, minAge);
@@ -281,7 +281,6 @@ public class InviteBll
 				//指定排序方式
 				if (orderBy == InvitationCondition.OrderBy.NEAREST)//离我最近
 				{
-					// TODO: 2016/1/27 需要百度sdk提供的功能来实现
 					AVGeoPoint point = AVUser.getCurrentUser(User.class).getLocation();
 					if (point != null)
 					{

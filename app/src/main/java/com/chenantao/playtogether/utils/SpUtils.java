@@ -1,4 +1,4 @@
-package com.gdxz.zhongbao.client.utils;
+package com.chenantao.playtogether.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import java.util.Set;
 public class SpUtils
 {
 	//存储当前登录用户的id的文件名
-	public static final String DEFAULT_FILE_NAME = "currentUser";
+	public static final String DEFAULT_FILE_NAME = "playTogetherAttr";
 
 	/**
 	 * 设置属性根据指定的文件名
@@ -23,10 +23,10 @@ public class SpUtils
 	 * @param fileName
 	 */
 	public static void setStringProperty(Context context, String key, String value, String
-			fileName)
+					fileName)
 	{
-		SharedPreferences.Editor editor = context.getSharedPreferences(fileName, context
-				.MODE_PRIVATE).edit();
+		SharedPreferences.Editor editor = context.getSharedPreferences(fileName, Context
+						.MODE_PRIVATE).edit();
 		editor.putString(key, value);
 		editor.commit();
 	}
@@ -40,9 +40,38 @@ public class SpUtils
 	 */
 	public static void setStringProperty(Context context, String key, String value)
 	{
-		SharedPreferences.Editor editor = context.getSharedPreferences(DEFAULT_FILE_NAME, context
-				.MODE_PRIVATE).edit();
+		SharedPreferences.Editor editor = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE).edit();
 		editor.putString(key, value);
+		editor.commit();
+	}
+
+	public static void setIntProperty(Context context, String key, int value)
+	{
+		SharedPreferences.Editor editor = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE).edit();
+		editor.putInt(key, value);
+		editor.commit();
+	}
+
+	/**
+	 * 计数器，增加指定数值的幅度
+	 *
+	 * @param context
+	 * @param key
+	 * @param amount
+	 */
+	public static void increment(Context context, String key, int amount)
+	{
+//		Logger.e("increment");
+		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE);
+		int count = sp.getInt(key, -1);
+		if (count == -1) count = 0;
+		count++;
+		SharedPreferences.Editor editor = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE).edit();
+		editor.putInt(key, count);
 		editor.commit();
 	}
 
@@ -55,8 +84,8 @@ public class SpUtils
 	 */
 	public static void setStringSetProperty(Context context, String key, Set<String> set)
 	{
-		SharedPreferences.Editor editor = context.getSharedPreferences(DEFAULT_FILE_NAME, context
-				.MODE_PRIVATE).edit();
+		SharedPreferences.Editor editor = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE).edit();
 		editor.putStringSet(key, set);
 		editor.commit();
 	}
@@ -69,10 +98,10 @@ public class SpUtils
 	 * @param set
 	 */
 	public static void setStringSetProperty(Context context, String key, Set<String> set, String
-			fileName)
+					fileName)
 	{
-		SharedPreferences.Editor editor = context.getSharedPreferences(fileName, context
-				.MODE_PRIVATE).edit();
+		SharedPreferences.Editor editor = context.getSharedPreferences(fileName, Context
+						.MODE_PRIVATE).edit();
 		editor.putStringSet(key, set);
 		editor.commit();
 	}
@@ -87,7 +116,7 @@ public class SpUtils
 	 */
 	public static String getStringProperty(Context context, String key, String fileName)
 	{
-		SharedPreferences sp = context.getSharedPreferences(fileName, context.MODE_PRIVATE);
+		SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
 		return sp.getString(key, null);
 	}
 
@@ -100,9 +129,16 @@ public class SpUtils
 	 */
 	public static String getStringProperty(Context context, String key)
 	{
-		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, context
-				.MODE_PRIVATE);
+		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE);
 		return sp.getString(key, null);
+	}
+
+	public static int getIntProperty(Context context, String key)
+	{
+		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE);
+		return sp.getInt(key, -1);
 	}
 
 	/**
@@ -114,8 +150,8 @@ public class SpUtils
 	 */
 	public static Set<String> getStringSetProperty(Context context, String key)
 	{
-		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, context
-				.MODE_PRIVATE);
+		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
+						.MODE_PRIVATE);
 		return sp.getStringSet(key, null);
 	}
 
@@ -128,7 +164,7 @@ public class SpUtils
 	 */
 	public static Set<String> getStringSetProperty(Context context, String key, String fileName)
 	{
-		SharedPreferences sp = context.getSharedPreferences(fileName, context.MODE_PRIVATE);
+		SharedPreferences sp = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
 		return sp.getStringSet(key, new HashSet<String>());
 	}
 

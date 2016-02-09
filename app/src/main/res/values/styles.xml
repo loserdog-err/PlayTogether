@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionMenuTextAppearance">@style/menu_text_appearance</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -18,7 +20,6 @@
         <item name="actionMenuTextColor">@color/white_small_alpha</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <!--<item name="android:actionMenuTextAppearance">@style/menu_text_appearance</item>-->
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -42,15 +43,27 @@
         <item name="android:windowExitAnimation">@anim/category_filter_popupwindow_close</item>
     </style>
 
+    <!--选择头像时弹出的popupwindow动画-->
     <style name="select_avatar_popupwindow_anim">
         <item name="android:windowEnterAnimation">@anim/popup_window_select_avatar_open</item>
         <item name="android:windowExitAnimation">@anim/popup_window_select_avatar_close</item>
+    </style>
+
+    <style name="chat_home_menu_popupwindow_anim">
+        <item name="android:windowEnterAnimation">@anim/popup_window_chat_home_menu_open</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_chat_home_menu_close</item>
     </style>
 
     <style name="toolbar_text_appearance">
         <item name="android:textColor">@color/white_little_alpha</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="menu_text_appearance">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <!--录音时弹出的dialog-->

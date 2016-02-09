@@ -3,8 +3,11 @@ package com.chenantao.playtogether.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -31,7 +34,7 @@ public class ScreenUtils
 	public static int getScreenWidth(Context context)
 	{
 		WindowManager wm = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
+						.getSystemService(Context.WINDOW_SERVICE);
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		return outMetrics.widthPixels;
@@ -46,10 +49,42 @@ public class ScreenUtils
 	public static int getScreenHeight(Context context)
 	{
 		WindowManager wm = (WindowManager) context
-				.getSystemService(Context.WINDOW_SERVICE);
+						.getSystemService(Context.WINDOW_SERVICE);
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(outMetrics);
 		return outMetrics.heightPixels;
+	}
+
+	/**
+	 * 得到虚拟键的高度
+	 *
+	 * @return
+	 */
+	public static int getVirtualBarHeight(Context context)
+	{
+		WindowManager wm = (WindowManager) context
+						.getSystemService(Context.WINDOW_SERVICE);
+		Display d = wm.getDefaultDisplay();
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		int heightPixels = outMetrics.heightPixels;
+		if (Build.VERSION.SDK_INT >= 14 && Build.VERSION.SDK_INT < 17)
+			try
+			{
+				heightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(d);
+			} catch (Exception ignored)
+			{
+			}
+// includes window decorations (statusbar bar/menu bar)
+		if (Build.VERSION.SDK_INT >= 17)
+			try
+			{
+				Point realSize = new Point();
+				Display.class.getMethod("getRealSize", Point.class).invoke(d, realSize);
+				heightPixels = realSize.y;
+			} catch (Exception ignored)
+			{
+			}
+		return heightPixels - ScreenUtils.getScreenHeight(context);
 	}
 
 	/**
@@ -66,7 +101,7 @@ public class ScreenUtils
 			Class<?> clazz = Class.forName("com.android.internal.R$dimen");
 			Object object = clazz.newInstance();
 			int height = Integer.parseInt(clazz.getField("status_bar_height")
-					.get(object).toString());
+							.get(object).toString());
 			statusHeight = context.getResources().getDimensionPixelSize(height);
 		} catch (Exception e)
 		{
@@ -115,7 +150,7 @@ public class ScreenUtils
 		int height = getScreenHeight(activity);
 		Bitmap bp = null;
 		bp = Bitmap.createBitmap(bmp, 0, statusBarHeight, width, height
-				- statusBarHeight);
+						- statusBarHeight);
 		view.destroyDrawingCache();
 		return bp;
 	}
@@ -130,9 +165,9 @@ public class ScreenUtils
 		if (activity != null)
 		{
 			InputMethodManager imm = (InputMethodManager) activity
-					.getSystemService(Context.INPUT_METHOD_SERVICE);
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
 			imm.showSoftInputFromInputMethod(activity.getCurrentFocus()
-					.getWindowToken(), 0);
+							.getWindowToken(), 0);
 			imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
@@ -146,11 +181,11 @@ public class ScreenUtils
 		if (activity != null)
 		{
 			InputMethodManager imm = (InputMethodManager) activity
-					.getSystemService(Context.INPUT_METHOD_SERVICE);
+							.getSystemService(Context.INPUT_METHOD_SERVICE);
 			if (imm.isActive() && activity.getCurrentFocus() != null)
 			{
 				imm.hideSoftInputFromWindow(activity.getCurrentFocus()
-						.getWindowToken(), 0);
+								.getWindowToken(), 0);
 			}
 		}
 	}
