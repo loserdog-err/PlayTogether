@@ -22,6 +22,7 @@ import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.mvc.controller.invitation.InvitationDetailController;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
+import com.chenantao.playtogether.mvc.view.activity.user.PersonalCenterActivity;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.mvc.view.common.ShowImageActivity;
 import com.chenantao.playtogether.utils.DialogUtils;
@@ -78,6 +79,8 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	private boolean mIsContentPicLoaded = false;//内容里的图片是否加载完毕
 	private int mAcceptInviteNums = 0;//接受邀请的用户数量，主要是用于判断数据是否改变去更新显示下面的用户列表
 	private boolean mIsAcceptUserSet = false;//接受邀请的用户inflate过了没
+	//共享元素的数据
+	private Bitmap mAuthorAvatar;
 
 	@Inject
 	public InvitationDetailController mController;
@@ -105,10 +108,13 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		String invitationId = getIntent().getStringExtra(EXTRA_INVITATION_ID);
 		String title = getIntent().getStringExtra(EXTRA_INVITATION_TITLE);
 		String username = getIntent().getStringExtra(EXTRA_INVITATION_USERNAME);
-		Bitmap bitmap = getIntent().getParcelableExtra(EXTRA_INVITATION_AVATAR);
+		mAuthorAvatar = getIntent().getParcelableExtra(EXTRA_INVITATION_AVATAR);
 		mTvTitle.setText(title);
 		mTvAuthorName.setText(username);
-		mIvAvatar.setImageBitmap(bitmap);
+		if (mAuthorAvatar != null)
+		{
+			mIvAvatar.setImageBitmap(mAuthorAvatar);
+		}
 		if (invitationId == null)
 		{
 			Toast.makeText(this, "加载不到数据::>_<:: ", Toast.LENGTH_SHORT).show();
@@ -144,7 +150,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		DialogUtils.dismissProgressDialog();
 		mAuthor = invitation.getAuthor();
 //		mTvAuthorName.setText(author.getUsername());
-		mTvAuthorDesc.setText(mAuthor.getDesc());
+		mTvAuthorDesc.setText(mAuthor.getSimpleDesc());
 //		mTvTitle.setText(invitation.getTitle());
 		mTvContent.setText(invitation.getContent());
 		mTvExpire.setText(invitation.getExpire());
@@ -153,13 +159,15 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		//设置受约的用户姓名
 		setAcceptInviteUsers();
 		//下载作者头像
-//		AVFile authorAvatar = author.getAvatar();
-//		if (authorAvatar != null)
-//		{
-//			String avatarUrl = authorAvatar.getThumbnailUrl(false, mIvAvatar.getMeasuredWidth()
-//					, mIvAvatar.getMeasuredHeight());
-//			PicassoUtils.displayFitImage(this, Uri.parse(avatarUrl), mIvAvatar, null);
-//		}
+		if (mAuthorAvatar == null)
+		{
+			String authorAvatarUrl = mAuthor.getAvatarUrl();
+			if (authorAvatarUrl != null)
+			{
+				PicassoUtils.displayFitImage(this, Uri.parse(authorAvatarUrl), mIvAvatar, null);
+
+			}
+		}
 		//下载图片
 		downloadPic();
 	}
@@ -326,9 +334,8 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 								})
 								.show();
 				break;
-			case R.id.ivAuthorAvatar:
-				String authorName = mTvAuthorName.getText().toString();
-				mController.chatWithAuthor(mAuthor);
+			case R.id.ivAuthorAvatar://点击头像查看用户信息
+				PersonalCenterActivity.startActivity(this, mAuthor.getObjectId());
 				break;
 		}
 	}

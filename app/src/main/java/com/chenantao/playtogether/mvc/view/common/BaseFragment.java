@@ -46,12 +46,10 @@ public abstract class BaseFragment extends Fragment
 						.getApplicationComponent())
 				.build();
 		injectFragment();
-		getBundle(getArguments());
 		afterViewCreated(view);
 		super.onViewCreated(view, savedInstanceState);
 	}
 
-	protected abstract void getBundle(Bundle arguments);
 
 	protected abstract void injectFragment();
 

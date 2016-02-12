@@ -84,8 +84,9 @@
         <activity android:name=".mvc.view.activity.user.LoginActivity">
         </activity>
         <!--首页-->
-        <activity android:name=".mvc.view.activity.invitation.HomeActivity">
-        </activity>
+        <activity android:name=".mvc.view.activity.invitation.HomeActivity"/>
+        <!--个人中心activity-->
+        <activity android:name=".mvc.view.activity.user.PersonalCenterActivity"/>
         <!--发布邀请-->
         <activity
             android:name=".mvc.view.activity.invitation.PostInvitationActivity"
@@ -98,7 +99,8 @@
         <activity android:name=".mvc.view.activity.invitation.InvitationCategoryActivity"/>
         <!--查看大图的activity-->
         <activity android:name=".mvc.view.common.ShowImageActivity"/>
-
+        <!--输入信息的activity-->
+        <activity android:name=".mvc.view.common.WriteDataActivity"/>
 
         <!-- ————————————————————————————聊天模块————————————————————————————————————-->
 

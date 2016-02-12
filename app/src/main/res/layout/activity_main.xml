@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root"
     android:orientation="vertical"
     tools:context="com.chenantao.playtogether.MainActivity">
-
-    <com.chenantao.playtogether.chat.mvc.view.widget.RecorderButton
-        android:id="@+id/btn"
-        android:layout_width="300px"
-        android:layout_height="400px"
-        android:background="@mipmap/microphone"/>
-
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/address_looking_up"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="visible"/>
+    <Button
+        android:onClick="query"
+        android:text="query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -4,10 +4,13 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.utils.Constant;
+import com.chenantao.playtogether.utils.FileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -74,6 +77,26 @@ public class UserBll
 
 	}
 
+	public Observable<Void> updateUser(final User user)
+	{
+		return Observable.create(new Observable.OnSubscribe<Void>()
+		{
+			@Override
+			public void call(Subscriber<? super Void> subscriber)
+			{
+				try
+				{
+					user.save();
+					subscriber.onCompleted();
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
+				}
+			}
+		});
+	}
+
 	public Observable<AVUser> login(final User user)
 	{
 		return Observable.create(new Observable.OnSubscribe<AVUser>()
@@ -105,6 +128,9 @@ public class UserBll
 				try
 				{
 					AVFile avatar = AVFile.withFile(file.getName(), file);
+					double[] widthAndHeight = FileUtils.getImageWidthAndHeight(path);
+					avatar.addMetaData("width", widthAndHeight[0]);
+					avatar.addMetaData("height", widthAndHeight[1]);
 					avatar.save();
 					User user = AVUser.getCurrentUser(User.class);
 					user.setAvatar(avatar);
@@ -157,6 +183,115 @@ public class UserBll
 				} catch (AVException e)
 				{
 					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+
+	public Observable<User> getUserById(final String id)
+	{
+		return Observable.create(new Observable.OnSubscribe<User>()
+		{
+			@Override
+			public void call(Subscriber<? super User> subscriber)
+			{
+				AVQuery<User> query = AVQuery.getQuery(User.class);
+				try
+				{
+					User user = query.get(id);
+					subscriber.onNext(user);
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
+				}
+			}
+		});
+	}
+	/*---------------------------个人中心需要获取数据的方法------------------*/
+
+	/**
+	 * 获得发出邀请的数量
+	 */
+	public Observable<Integer> getInviteCount(final User user)
+	{
+		return Observable.create(new Observable.OnSubscribe<Integer>()
+		{
+			@Override
+			public void call(Subscriber<? super Integer> subscriber)
+			{
+				AVQuery<Invitation> query = AVQuery.getQuery(Invitation.class);
+				query.whereEqualTo(Invitation.FIELD_AUTHOR, user);
+				try
+				{
+					int count = query.count();
+					subscriber.onNext(count);
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
+				}
+			}
+		});
+
+	}
+
+	/**
+	 * 获得接受邀请的数量
+	 */
+	public Observable<Integer> getAcceptInvitedCount(final User user)
+	{
+		return Observable.create(new Observable.OnSubscribe<Integer>()
+		{
+			@Override
+			public void call(Subscriber<? super Integer> subscriber)
+			{
+				AVQuery<Invitation> query = AVQuery.getQuery(Invitation.class);
+				query.whereEqualTo(Invitation.FIELD_ACCEPT_INVITE_USERS, user);
+				try
+				{
+					int count = query.count();
+					subscriber.onNext(count);
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
+				}
+			}
+		});
+	}
+
+	/**
+	 * 获得用户的最新动态
+	 */
+	public Observable<List<Invitation>> getNewlyDynamic(final User user, final int count)
+	{
+		return Observable.create(new Observable.OnSubscribe<List<Invitation>>()
+		{
+			@Override
+			public void call(Subscriber<? super List<Invitation>> subscriber)
+			{
+				AVQuery<Invitation> inviteQuery = AVQuery.getQuery(Invitation.class);
+				AVQuery<Invitation> beInvitedQuery = AVQuery.getQuery(Invitation.class);
+				inviteQuery.whereEqualTo(Invitation.FIELD_AUTHOR, user);
+				beInvitedQuery.whereEqualTo(Invitation.FIELD_ACCEPT_INVITE_USERS, user);
+				List<AVQuery<Invitation>> queries = new ArrayList<AVQuery<Invitation>>();
+				queries.add(inviteQuery);
+				queries.add(beInvitedQuery);
+				AVQuery<Invitation> mainQuery = AVQuery.or(queries);
+				mainQuery.setLimit(count);
+				mainQuery.include(Invitation.FIELD_ACCEPT_INVITE_USERS);
+				mainQuery.include(Invitation.FIELD_AUTHOR);
+				mainQuery.orderByDescending(Invitation.UPDATED_AT);
+				try
+				{
+					List<Invitation> list = mainQuery.find();
+					subscriber.onNext(list);
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
 				}
 			}
 		});

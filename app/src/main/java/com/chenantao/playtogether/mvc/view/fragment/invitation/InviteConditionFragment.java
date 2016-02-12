@@ -2,7 +2,7 @@ package com.chenantao.playtogether.mvc.view.fragment.invitation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -115,11 +115,6 @@ public class InviteConditionFragment extends BaseFragment
 
 
 	@Override
-	protected void getBundle(Bundle arguments)
-	{
-	}
-
-	@Override
 	protected void injectFragment()
 	{
 		mFragmentComponent.inject(this);
@@ -140,7 +135,7 @@ public class InviteConditionFragment extends BaseFragment
 		{
 			case R.id.rlConstellation://星座要求的单击事件
 				ScreenUtils.hideKeyboard(getActivity());
-				showPopupWindow(TYPE_CONSTELLATION, Constant.CONSTELLATION);
+				showPopupWindow(TYPE_CONSTELLATION, Constant.CONSTELLATIONS);
 				break;
 			case R.id.rlExpire://到期时间的单击事件
 				ScreenUtils.hideKeyboard(getActivity());
@@ -194,7 +189,7 @@ public class InviteConditionFragment extends BaseFragment
 						.MIN_AGE;
 		if (maxAge > Invitation.MAX_AGE || maxAge < Invitation.MIN_AGE) maxAge = Invitation
 						.MAX_AGE;
-		if (!mCbMan.isCheck() && !mCbWomen.isCheck())
+		if ((!mCbMan.isCheck() && !mCbWomen.isCheck()) || mCbMan.isCheck() && mCbWomen.isCheck())
 		{
 			invitation.setGender(Constant.GENDER_ALL);
 		} else invitation.setGender(mCbMan.isCheck() ? Constant.GENDER_MAN : Constant
@@ -325,7 +320,14 @@ public class InviteConditionFragment extends BaseFragment
 				@Override
 				public void onClick(View v)
 				{
-					mPopupWindow.dismiss();
+					new Handler().postDelayed(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							mPopupWindow.dismiss();
+						}
+					}, 20);
 					String text = mSelectRecyclerView.getSelectItemText();
 					setSelect(text, mCurrentType);
 				}

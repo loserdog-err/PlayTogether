@@ -12,6 +12,7 @@ import com.chenantao.playtogether.mvc.view.activity.invitation.HomeActivity;
 import com.chenantao.playtogether.mvc.controller.user.RegisterController;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
+import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.DialogUtils;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.orhanobut.logger.Logger;
@@ -73,7 +74,7 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
 				{
 					//符合注册条件
 					User user = new User(username, password);
-					user.setGender(0);
+					user.setGender(Constant.GENDER_ALL);
 					DialogUtils.showProgressDialog("注册中，请骚等哦`(*∩_∩*)′", RegisterActivity.this);
 					mController.registerUser(user);
 				}

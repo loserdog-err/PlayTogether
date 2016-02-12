@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVUser;
 import com.chenantao.playtogether.utils.Constant;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,9 +16,11 @@ import java.util.List;
  */
 public class User extends AVUser
 {
-	private String username;
 	private String password;
-	private String desc;//个人描述
+//	private String desc;//个人描述
+
+	public static final int SIMPLE_DESC_MAX_LENGTH = 14;
+	public static final int DETAIL_DESC_MAX_LENGTH = 140;
 
 
 	public static final String FIELD_USERNAME = "username";
@@ -26,6 +29,12 @@ public class User extends AVUser
 	public static final String FIELD_AGE = "age";
 	public static final String FIELD_OBJECT_ID = "objectId";
 	public static final String FIELD_AVATAR = "avatar";
+	public static final String FIELD_FAVORITE_ACTIVITY = "favoriteActivity";
+	public static final String FIELD_GENDER_TREND = "genderTrend";
+	public static final String FIELD_DETAIL_DESC = "desc";
+	public static final String FIELD_SIMPLE_DETAIL = "simpleDesc";
+	public static final String FIELD_CONSTELLATION = "constellation";
+	public static final String FIELD_BIRTHDAY = "birthday";
 
 	//聊天系统需要的字段常量
 	public static final String FIELD_FRIENDS = "friends";
@@ -72,7 +81,7 @@ public class User extends AVUser
 
 	public AVFile getAvatar()
 	{
-		return getAVFile("avatar");
+		return getAVFile(FIELD_AVATAR);
 	}
 
 	public String getAvatarUrl()
@@ -85,17 +94,27 @@ public class User extends AVUser
 
 	public void setAvatar(AVFile avatar)
 	{
-		put("avatar", avatar);
+		put(FIELD_AVATAR, avatar);
 	}
 
-	public String getDesc()
+	public String getDetailDesc()
 	{
-		return getString("desc");
+		return getString(FIELD_DETAIL_DESC);
 	}
 
-	public void setDesc(String desc)
+	public void setDetailDesc(String desc)
 	{
-		put("desc", desc);
+		put(FIELD_DETAIL_DESC, desc);
+	}
+
+	public String getSimpleDesc()
+	{
+		return getString(FIELD_SIMPLE_DETAIL);
+	}
+
+	public void setSimpleDesc(String desc)
+	{
+		put(FIELD_SIMPLE_DETAIL, desc);
 	}
 
 	public void setLocation(AVGeoPoint point)
@@ -110,14 +129,14 @@ public class User extends AVUser
 		return null;
 	}
 
-	public void setGender(int gender)
+	public void setGender(String gender)
 	{
 		put(FIELD_GENDER, gender);
 	}
 
-	public int getGender()
+	public String getGender()
 	{
-		return getInt(FIELD_GENDER);
+		return getString(FIELD_GENDER);
 	}
 
 	public void setAge(int age)
@@ -143,6 +162,67 @@ public class User extends AVUser
 			return new ArrayList<User>();
 		}
 		return list;
+	}
+
+	public void setConstellation(String constellation)
+	{
+		put(FIELD_CONSTELLATION, constellation);
+	}
+
+	public String getConstellation()
+	{
+		return getString(FIELD_CONSTELLATION);
+	}
+
+	public void setBirthday(Date birthday)
+	{
+		put(FIELD_BIRTHDAY, birthday);
+	}
+
+	public Date getBirthday()
+	{
+		return getDate(FIELD_BIRTHDAY);
+	}
+
+	public String getFavoriteActivity()
+	{
+		int category = getInt(FIELD_FAVORITE_ACTIVITY);
+		switch (category)
+		{
+			case Constant.CATEGORY_FOOD:
+				return "美食";
+			case Constant.CATEGORY_EXERCISE:
+				return "运动";
+			case Constant.CATEGORY_MOVIE:
+				return "电影";
+		}
+		return "无";
+	}
+
+	public void setFavorite(String activity)
+	{
+		int category = -1;
+		if ("运动".equals(activity))
+		{
+			category = Constant.CATEGORY_EXERCISE;
+		} else if ("美食".equals(activity))
+		{
+			category = Constant.CATEGORY_FOOD;
+		} else if ("电影".equals(activity))
+		{
+			category = Constant.CATEGORY_MOVIE;
+		}
+		put(FIELD_FAVORITE_ACTIVITY, category);
+	}
+
+	public String getGenderTrend()
+	{
+		return getString(FIELD_GENDER_TREND);
+	}
+
+	public void setGenderTrend(String strGender)
+	{
+		put(FIELD_GENDER_TREND, strGender);
 	}
 
 }

@@ -16,6 +16,7 @@
         android:paddingTop="30px">
 
         <TextView
+            android:id="@+id/tvHeader"
             style="@style/big_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
             app:mrl_rippleAlpha="0.05">
 
             <TextView
-                android:id="@+id/tvFromGallery"
+                android:id="@+id/tvItem1"
                 style="@style/mid_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,7 +53,7 @@
             app:mrl_rippleAlpha="0.05">
 
             <TextView
-                android:id="@+id/tvTakePhoto"
+                android:id="@+id/tvItem2"
                 style="@style/mid_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

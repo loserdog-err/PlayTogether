@@ -32,6 +32,7 @@ import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bean.event.EventRefreshData;
 import com.chenantao.playtogether.mvc.model.bean.event.EventSetAvatar;
+import com.chenantao.playtogether.mvc.view.activity.user.PersonalCenterActivity;
 import com.chenantao.playtogether.mvc.view.adapter.HomeInvitationItemAdapter;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.utils.DialogUtils;
@@ -139,14 +140,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 			@Override
 			public boolean onNavigationItemSelected(MenuItem item)
 			{
+				Intent intent;
 				switch (item.getItemId())
 				{
 					case R.id.home:
 						break;
 					case R.id.personCenter:
+						PersonalCenterActivity.startActivity(HomeActivity.this, AVUser.getCurrentUser()
+										.getObjectId());
 						break;
 					case R.id.invite:
-						Intent intent = new Intent(HomeActivity.this, PostInvitationActivity
+						intent = new Intent(HomeActivity.this, PostInvitationActivity
 										.class);
 						startActivity(intent);
 						break;
@@ -170,13 +174,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 		Intent intent = null;
 		switch (v.getId())
 		{
-			case R.id.tvFromGallery:
+			case R.id.tvItem1:
 				intent = new Intent(this, MyGalleryActivity.class);
 				intent.putExtra(MyGalleryActivity.EXTRA_LIMIT_COUNT, 1);
 				intent.putExtra(MyGalleryActivity.EXTRA_SELECT_TYPE, MyGalleryActivity.TYPE_UPLOAD_AVATAR);
 				startActivity(intent);
 				break;
-			case R.id.tvTakePhoto:
+			case R.id.tvItem2:
 				String state = Environment.getExternalStorageState();
 				if (state.equals(Environment.MEDIA_MOUNTED))
 				{
@@ -290,13 +294,13 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener
 	{
 		if (mPopupWindow == null)
 		{
-			View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_select_avatar,
+			View view = LayoutInflater.from(this).inflate(R.layout.popupwindow_select_item,
 							mDrawerLayout, false);
 			mPopupWindow = PopupWindowManager.getPopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT,
 							ViewGroup.LayoutParams.WRAP_CONTENT, viewDim);
 			mPopupWindow.setAnimationStyle(R.style.select_avatar_popupwindow_anim);
-			TextView tvFromGallery = (TextView) view.findViewById(R.id.tvFromGallery);
-			TextView tvTakePhoto = (TextView) view.findViewById(R.id.tvTakePhoto);
+			TextView tvFromGallery = (TextView) view.findViewById(R.id.tvItem1);
+			TextView tvTakePhoto = (TextView) view.findViewById(R.id.tvItem2);
 			tvFromGallery.setOnClickListener(this);
 			tvTakePhoto.setOnClickListener(this);
 		}

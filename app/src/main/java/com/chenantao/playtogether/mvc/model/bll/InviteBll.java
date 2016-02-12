@@ -20,6 +20,7 @@ import com.chenantao.playtogether.utils.LocationUtils;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,11 +52,11 @@ public class InviteBll
 					public void onReceiveLocation(BDLocation location)
 					{
 						if (location.getLocType() == BDLocation.TypeGpsLocation || location
-								.getLocType() == BDLocation.TypeNetWorkLocation || location
-								.getLocType() == BDLocation.TypeOffLineLocation)
+										.getLocType() == BDLocation.TypeNetWorkLocation || location
+										.getLocType() == BDLocation.TypeOffLineLocation)
 						{
 							subscriber.onNext(new AVGeoPoint(location.getLatitude(), location
-									.getLongitude()));
+											.getLongitude()));
 						} else
 						{
 							subscriber.onNext(null);
@@ -76,8 +77,7 @@ public class InviteBll
 	 * @return
 	 */
 	public Observable<Invitation> postInvitation(final Invitation invitation, final AVGeoPoint
-			point,
-	                                             final Context context)
+					point, final Context context)
 	{
 		return Observable.create(new Observable.OnSubscribe<Invitation>()
 		{
@@ -100,7 +100,14 @@ public class InviteBll
 						uploadFiles.add(avFile);
 					}
 					invitation.setPics(uploadFiles);
-					invitation.setLocation(point);
+					if (point == null)
+					{
+						AVGeoPoint defaultPoint = new AVGeoPoint(0, 0);
+						invitation.setLocation(defaultPoint);
+					} else
+					{
+						invitation.setLocation(point);
+					}
 					invitation.save();
 					subscriber.onNext(invitation);
 				} catch (Exception e)
@@ -217,7 +224,7 @@ public class InviteBll
 	 * @return
 	 */
 	public Observable<Invitation> acceptInvite(final Invitation invitation, final Boolean
-			hasInvited)
+					hasInvited)
 	{
 		return Observable.create(new Observable.OnSubscribe<Invitation>()
 		{
@@ -250,7 +257,7 @@ public class InviteBll
 	 * @param condition
 	 */
 	public Observable<List<Invitation>> getInvitationsByCondition(final InvitationCondition
-			                                                              condition)
+																																				condition)
 	{
 		return Observable.create(new Observable.OnSubscribe<List<Invitation>>()
 		{
@@ -258,7 +265,7 @@ public class InviteBll
 			public void call(Subscriber<? super List<Invitation>> subscriber)
 			{
 				int category = condition.getCategory();
-				int gender = condition.getGender();
+				String gender = condition.getGender();
 				int minAge = condition.getMinAge();
 				int maxAge = condition.getMaxAge();
 				InvitationCondition.OrderBy orderBy = condition.getOrderBy();
@@ -267,14 +274,14 @@ public class InviteBll
 				//指定类别
 				query.whereEqualTo(Invitation.FIELD_CATEGORY, category);
 				//嵌套查询，查询受邀用户是指定性别的的invitation
-//				if (gender == ChatConstant.GENDER_ALL)
-//				{
-//					int[] genders = new int[]{ChatConstant.GENDER_MAN, ChatConstant.GENDER_WOMEN};
-//					innerQuery.whereContainedIn(ChatUser.FIELD_GENDER, Arrays.asList(genders));
-//				} else
-//				{
-//					innerQuery.whereEqualTo(ChatUser.FIELD_GENDER, gender);
-//				}
+				if (gender.equals(Constant.GENDER_ALL))
+				{
+					String[] genders = new String[]{Constant.GENDER_MAN, Constant.GENDER_WOMEN};
+					innerQuery.whereContainedIn(User.FIELD_GENDER, Arrays.asList(genders));
+				} else
+				{
+					innerQuery.whereEqualTo(User.FIELD_GENDER, gender);
+				}
 				//指定年龄
 				innerQuery.whereGreaterThanOrEqualTo(User.FIELD_AGE, minAge);
 				innerQuery.whereLessThanOrEqualTo(User.FIELD_AGE, maxAge);

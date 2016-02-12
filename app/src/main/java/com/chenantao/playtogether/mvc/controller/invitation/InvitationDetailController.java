@@ -1,22 +1,14 @@
 package com.chenantao.playtogether.mvc.controller.invitation;
 
 import android.app.Activity;
-import android.content.Intent;
 
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.chenantao.playtogether.chat.mvc.view.activity.ChatActivity;
 import com.chenantao.playtogether.chat.mvc.bll.ChatBll;
 import com.chenantao.playtogether.chat.mvc.bll.ConversationBll;
-import com.chenantao.playtogether.chat.utils.ChatConstant;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bll.InviteBll;
 import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationDetailActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -110,49 +102,6 @@ public class InvitationDetailController
 						});
 	}
 
-	/**
-	 * 与作者聊天，需要先登录，然后创建会话
-	 */
-	public void chatWithAuthor(final User author)
-	{
-		final List<User> members = new ArrayList<>();
-		User user = AVUser.getCurrentUser(User.class);
-		final String myName = user.getUsername();
-		members.add(author);
-		members.add(user);
-		mChatBll.login(myName)//登录
-						.subscribeOn(AndroidSchedulers.mainThread())
-						.observeOn(AndroidSchedulers.mainThread())
-						.flatMap(new Func1<AVIMClient, Observable<AVIMConversation>>()//创建会话
-						{
-							@Override
-							public Observable<AVIMConversation> call(AVIMClient client)
-							{
-								return mConversationBll.createConversation(members, client,
-												ChatConstant.TYPE_SINGLE_CHAT, myName + author.getUsername());
-
-							}
-						})
-						.subscribe(new Action1<AVIMConversation>()
-						{
-							@Override
-							public void call(AVIMConversation conversation)
-							{
-								Intent intent = new Intent(mActivity, ChatActivity.class);
-								intent.putExtra(ChatActivity.EXTRA_CONVERSATION_ID, conversation
-												.getConversationId());
-								mActivity.startActivity(intent);
-							}
-						}, new Action1<Throwable>()
-						{
-							@Override
-							public void call(Throwable throwable)
-							{
-								mActivity.chatWithAuthorFail("聊天失败:" + throwable.getMessage());
-								throwable.printStackTrace();
-							}
-						});
-	}
 }
 
 

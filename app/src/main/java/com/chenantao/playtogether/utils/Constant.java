@@ -23,18 +23,18 @@ public class Constant
 	public static final int CATEGORY_FOOD = 2;
 
 	//一些通用常量
-	public static final int GENDER_MAN = 0;
-	public static final int GENDER_WOMEN = 1;
-	public static final int GENDER_ALL = 2;
+	public static final String GENDER_MAN = "男";
+	public static final String GENDER_WOMEN = "女";
+	public static final String GENDER_ALL = "不限";
 
 	//分页显示的常量
-	public static final int PAGE_SIZE=20;
+	public static final int PAGE_SIZE = 20;
 
 	public static final List<InterestCategory> CATEGORIES = new ArrayList<>();
 
-	public static final String[] CONSTELLATION = new String[]{"", "", "白羊座", "金牛座", "双子座", "巨蟹座",
-			"狮子座",
-			"处女座", "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座", "", ""};
+	public static final String[] CONSTELLATIONS = new String[]{"", "", "白羊座", "金牛座", "双子座", "巨蟹座",
+					"狮子座",
+					"处女座", "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座", "", ""};
 
 	public static final String ONE_HOUR = "一小时";
 	public static final String TWO_HOUR = "二小时";
@@ -51,13 +51,13 @@ public class Constant
 
 
 	public static final String[] EXPIRE_DATE = new String[]{"", "", ONE_HOUR, TWO_HOUR, THREE_HOUR,
-			FOUR_HOUR,
-			FIVE_HOUR, ONE_DAY, TWO_DAY, THREE_DAY, ONE_WEEK, TWO_WEEK,
-			ONE_MONTH, NEVER, "", ""};
+					FOUR_HOUR,
+					FIVE_HOUR, ONE_DAY, TWO_DAY, THREE_DAY, ONE_WEEK, TWO_WEEK,
+					ONE_MONTH, NEVER, "", ""};
 
 
 	public static final int MAX_UPLOAD_PIC = 10;//上传图片的最大数量
 
-	public static final int AVATAR_WIDTH=150;
-	public static final int AVATAR_HEIGHT=150;
+	public static final int AVATAR_WIDTH = 150;
+	public static final int AVATAR_HEIGHT = 150;
 }

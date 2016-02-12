@@ -44,40 +44,40 @@ public class InvitationCategoryController
 		//对一些没赋值的条件赋默认值以及一些输入校验
 		int minAge = condition.getMinAge();
 		int maxAge = condition.getMaxAge();
-		int gender = condition.getGender();
+		String gender = condition.getGender();
 		if (minAge < Invitation.MIN_AGE || minAge > Invitation.MAX_AGE) minAge = Invitation
-				.MIN_AGE;
+						.MIN_AGE;
 		if (maxAge > Invitation.MAX_AGE || maxAge < Invitation.MIN_AGE) maxAge = Invitation
-				.MAX_AGE;
+						.MAX_AGE;
 		if (minAge > maxAge) minAge = maxAge;
-		if (gender == -1) condition.setGender(Constant.GENDER_ALL);
+		condition.setGender(Constant.GENDER_ALL);
 		condition.setMinAge(minAge);
 		condition.setMaxAge(maxAge);
 		mInviteBll.getInvitationsByCondition(condition)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<List<Invitation>>()
-				{
-					@Override
-					public void call(List<Invitation> invitations)
-					{
-						if (condition.getSkip() == 0)
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Action1<List<Invitation>>()
 						{
-							mActivity.refreshDataSuccess(invitations);
-						} else
-						{
-							mActivity.addDataSuccess(invitations);
-						}
+							@Override
+							public void call(List<Invitation> invitations)
+							{
+								if (condition.getSkip() == 0)
+								{
+									mActivity.refreshDataSuccess(invitations);
+								} else
+								{
+									mActivity.addDataSuccess(invitations);
+								}
 
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
-						mActivity.refreshDataFail("加载数据失败：" + throwable.getMessage());
-					}
-				});
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
+								mActivity.refreshDataFail("加载数据失败：" + throwable.getMessage());
+							}
+						});
 	}
 
 	/**
@@ -92,23 +92,23 @@ public class InvitationCategoryController
 //		Logger.e(user.getLocation()+"");
 		user.setLocation(new AVGeoPoint(latitude, longitude));
 		mUserBll.updateLocation(user)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<Void>()
-				{
-					@Override
-					public void call(Void aVoid)
-					{
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Action1<Void>()
+						{
+							@Override
+							public void call(Void aVoid)
+							{
 //						Logger.e("更新定位成功");
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
 //						Logger.e("更新定位失败：" + throwable.getMessage());
-					}
-				});
+							}
+						});
 	}
 
 }

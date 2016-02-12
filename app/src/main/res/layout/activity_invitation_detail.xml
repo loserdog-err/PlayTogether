@@ -74,7 +74,9 @@
                         <TextView
                             android:id="@+id/tvAuthorName"
                             style="@style/big_black"
+                            android:maxLines="1"
                             android:layout_width="150px"
+                            android:maxWidth="150px"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15px"
                             android:layout_marginTop="10px"
@@ -91,6 +93,9 @@
                             android:layout_below="@id/tvAuthorName"
                             android:layout_marginLeft="15px"
                             android:layout_marginTop="10px"
+                            android:maxWidth="150px"
+                            android:ellipsize="end"
+                            android:maxLines="1"
                             android:layout_toRightOf="@id/ivAuthorAvatar"
                             android:text=""/>
                     </com.chenantao.autolayout.AutoRelativeLayout>

@@ -7,4 +7,5 @@
     <string name="share_element_avatar">sb</string>
     <string name="share_element_username">username</string>
     <string name="share_element_title">title</string>
+    <string name="join_count">%1$d 个参与者</string>
 </resources>

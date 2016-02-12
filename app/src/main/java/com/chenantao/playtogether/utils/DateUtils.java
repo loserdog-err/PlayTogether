@@ -17,9 +17,7 @@ public class DateUtils
 	/**
 	 * 将特定格式的字符串转换为date对象
 	 *
-	 * @param date
 	 * @param format 格式，如yyyy-MM-dd
-	 * @return
 	 */
 	public static Date string2date(String date, String format)
 	{
@@ -37,12 +35,13 @@ public class DateUtils
 
 	}
 
+	public static Date string2date(String date)
+	{
+		return string2date(date, "yyyy-MM-dd");
+	}
+
 	/**
 	 * 将date对象转换 为特定格式的字符串
-	 *
-	 * @param date
-	 * @param format
-	 * @return
 	 */
 	public static String date2string(Date date, String format)
 	{
@@ -58,23 +57,15 @@ public class DateUtils
 
 	/**
 	 * 将date对象转换 为特定默认格式的字符串
-	 *
-	 * @param date
-	 * @return
 	 */
 	public static String date2string(Date date)
 	{
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String result = sdf.format(date);
-		sdf = null;
-		return result;
+		return date2string(date, "yyyy-MM-dd");
 	}
 
 	/**
 	 * 将一个date转换为语义化的字符串，例如是今天就显示时间，例如06:06 昨天就显示昨天
 	 * 前天就显示日期 ,例如 01-07
-	 *
-	 * @return
 	 */
 	public static String date2desc(Date date)
 	{
@@ -105,10 +96,6 @@ public class DateUtils
 
 	/**
 	 * 将long型的毫秒数转化为特定格式的String时间
-	 *
-	 * @param format
-	 * @param mill
-	 * @return
 	 */
 	public static String long2date(String format, long mill)
 	{
@@ -118,14 +105,10 @@ public class DateUtils
 
 	/**
 	 * 将long型的毫秒数转化为默认(HH:mm:ss)格式的String时间
-	 *
-	 * @param mill
-	 * @return
 	 */
 	public static String long2date(long mill)
 	{
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		return sdf.format(mill);
+		return long2date("HH:mm:ss", mill);
 	}
 
 

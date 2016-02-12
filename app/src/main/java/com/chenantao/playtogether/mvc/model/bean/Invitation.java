@@ -21,30 +21,9 @@ import java.util.List;
 public class Invitation extends AVObject
 {
 
-	public static String TABLE_NAME = "_invitation";
 
-	//性别常量
-//	public static final int GENDER_MAN = 0;
-//	public static final int GENDER_WOMEN = 1;
-//	public static final int GENDER_ALL = 2;
 	public static final int MAX_AGE = 99;
 	public static final int MIN_AGE = 10;
-	//类别常量
-//	public static final int CATEGORY_MOVIE = 0;
-//	public static final int CATEGORY_EXERCISE = 1;
-//	public static final int CATEGORY_FOOD = 2;
-//	private String title;//邀请函的标题
-//	private String content;//邀请函的内容
-	//邀请函的筛选条件
-//	private int gender;
-//	private int minAge;
-//	private int maxAge;
-//	private String constellation;
-//	private Date expire;
-//	private int category;
-//
-//	private ChatUser author;
-//	private List<ChatUser> acceptInviteUsers;//受约用户
 
 
 	public List<String> uploadPicsPath = new ArrayList<>();
@@ -126,23 +105,12 @@ public class Invitation extends AVObject
 
 	public String getGender()
 	{
-		int gender = getInt("gender");
-		if (gender == Constant.GENDER_MAN)
-		{
-			return "男";
-		} else if (gender == Constant.GENDER_WOMEN)
-		{
-			return "女";
-		} else
-		{
-			return "不限";
-		}
-
+		return getString(FIELD_GENDER);
 	}
 
-	public void setGender(int gender)
+	public void setGender(String gender)
 	{
-		put("gender", gender);
+		put(FIELD_GENDER, gender);
 	}
 
 	public int getMinAge()

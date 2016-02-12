@@ -12,7 +12,9 @@ import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationCategor
 import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationDetailActivity;
 import com.chenantao.playtogether.mvc.view.activity.invitation.PostInvitationActivity;
 import com.chenantao.playtogether.mvc.view.activity.user.LoginActivity;
+import com.chenantao.playtogether.mvc.view.activity.user.PersonalCenterActivity;
 import com.chenantao.playtogether.mvc.view.activity.user.RegisterActivity;
+import com.chenantao.playtogether.mvc.view.common.WriteDataActivity;
 
 import dagger.Component;
 
@@ -37,6 +39,10 @@ public interface ActivityComponent
 
 	void inject(InvitationCategoryActivity invitationCategoryActivity);
 
+	void inject(PersonalCenterActivity personalCenterActivity);
+
+	void inject(WriteDataActivity writeDataActivity);
+
 	/*聊天模块*/
 	void inject(AddFriendActivity addFriendActivity);
 
@@ -45,4 +51,5 @@ public interface ActivityComponent
 	void inject(ChatHomeActivity chatHomeActivity);
 
 	void inject(CreateDiscussGroupActivity createDiscussGroupActivity);
+
 }

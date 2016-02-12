@@ -8,14 +8,13 @@ package com.chenantao.playtogether.mvc.model.bean;
 public class InvitationCondition
 {
 	private int category;
-	private int gender = -1;
+	private String gender = "不限";
 
-	private int minAge=Invitation.MIN_AGE;
+	private int minAge = Invitation.MIN_AGE;
 
-	private int maxAge=Invitation.MAX_AGE;
+	private int maxAge = Invitation.MAX_AGE;
 
 	private int skip;//加载更多时用到，需要跳过多少条数
-
 //	private boolean orderByNearest;//离我最近
 //	private boolean orderByNewly;//最新
 //	private boolean orderByMostMember;//同伙最多
@@ -39,12 +38,12 @@ public class InvitationCondition
 		this.category = category;
 	}
 
-	public int getGender()
+	public String getGender()
 	{
 		return gender;
 	}
 
-	public void setGender(int gender)
+	public void setGender(String gender)
 	{
 		this.gender = gender;
 	}
@@ -93,11 +92,11 @@ public class InvitationCondition
 	public String toString()
 	{
 		return "InvitationCondition{" +
-				"category=" + category +
-				", gender=" + gender +
-				", minAge=" + minAge +
-				", maxAge=" + maxAge +
-				", orderBy=" + orderBy +
-				'}';
+						"category=" + category +
+						", gender=" + gender +
+						", minAge=" + minAge +
+						", maxAge=" + maxAge +
+						", orderBy=" + orderBy +
+						'}';
 	}
 }
