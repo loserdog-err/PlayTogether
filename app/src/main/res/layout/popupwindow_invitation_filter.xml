@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500px"
+    android:background="@color/white_little_alpha">
+
+    <com.chenantao.autolayout.AutoFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="30px"
+            android:paddingRight="30px">
+
+            <!--选择性别的layout-->
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="性别"/>
+
+
+                <com.gc.materialdesign.views.CheckBox
+                    android:id="@+id/cbWomen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30px"
+                    android:background="@color/primary_color2"
+                    android:text="女"/>
+
+                <com.gc.materialdesign.views.CheckBox
+                    android:id="@+id/cbMan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30px"
+                    android:layout_toLeftOf="@id/cbWomen"
+                    android:background="@color/primary_color2"
+                    android:text="男"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+            <!--选择年龄的layout-->
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:layout_marginTop="10px"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="年龄"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="30px">
+
+                    <EditText
+                        android:id="@+id/etMaxAge"
+                        style="@style/mid_black"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_border"
+                        android:gravity="start|center"
+                        android:inputType="number"
+                        android:padding="5px"
+                        android:singleLine="true"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvTo"
+                    style="@style/small_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="150px"
+                    android:gravity="center"
+                    android:text="至"/>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10px"
+                    android:layout_toLeftOf="@id/tvTo">
+
+                    <EditText
+                        android:id="@+id/etMinAge"
+                        style="@style/mid_black"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext_border"
+                        android:gravity="start|center"
+                        android:inputType="number"
+                        android:padding="5px"
+                        android:singleLine="true"
+                        app:check="true"/>
+                </android.support.design.widget.TextInputLayout>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="5px"
+                android:background="@color/black_big_alpha"/>
+
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150px"
+                android:layout_marginTop="30px">
+
+                <TextView
+                    android:id="@+id/tvOrderBy"
+                    style="@style/big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="排序"/>
+
+                <CheckBox
+                    android:id="@+id/cbNearest"
+                    style="@style/small_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvOrderBy"
+                    android:layout_marginTop="10px"
+                    android:background="@drawable/selector_checkbox_bg"
+                    android:button="@null"
+                    android:paddingBottom="10px"
+                    android:paddingLeft="15px"
+                    android:paddingRight="15px"
+                    android:paddingTop="10px"
+                    android:text="离我最近"/>
+
+                <CheckBox
+                    android:id="@+id/cbNewly"
+                    style="@style/small_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvOrderBy"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="10px"
+                    android:layout_toRightOf="@id/cbNearest"
+                    android:background="@drawable/selector_checkbox_bg"
+                    android:button="@null"
+                    android:paddingBottom="10px"
+                    android:paddingLeft="15px"
+                    android:paddingRight="15px"
+                    android:paddingTop="10px"
+                    android:text="最新邀请"/>
+
+                <!--<CheckBox-->
+                    <!--android:id="@+id/cbMostMember"-->
+                    <!--style="@style/small_black"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@id/tvOrderBy"-->
+                    <!--android:layout_marginLeft="10px"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:layout_toRightOf="@id/cbNewly"-->
+                    <!--android:background="@drawable/selector_checkbox_bg"-->
+                    <!--android:button="@null"-->
+                    <!--android:paddingBottom="10px"-->
+                    <!--android:paddingLeft="15px"-->
+                    <!--android:paddingRight="15px"-->
+                    <!--android:paddingTop="10px"-->
+                    <!--android:text="同伙最多"/>-->
+            </com.chenantao.autolayout.AutoRelativeLayout>
+
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100px"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.gc.materialdesign.views.ButtonFlat
+                    android:id="@+id/btnReset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="重置"/>
+
+                <com.gc.materialdesign.views.ButtonFlat
+                    android:id="@+id/btnOk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="确定"/>
+
+            </com.chenantao.autolayout.AutoLinearLayout>
+        </com.chenantao.autolayout.AutoLinearLayout>
+
+        <include layout="@layout/include_vertical_category_list"/>
+    </com.chenantao.autolayout.AutoFrameLayout>
+</com.chenantao.autolayout.AutoCardView>

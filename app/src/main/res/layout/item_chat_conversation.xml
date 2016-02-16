@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150px"
+    app:mrl_rippleAlpha="0.05">
+
+    <com.chenantao.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="20px">
+
+        <com.chenantao.autolayout.AutoFrameLayout
+            android:layout_width="130px"
+            android:layout_centerVertical="true"
+            android:layout_height="120px">
+
+            <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+                android:id="@+id/conversationIcon"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:layout_gravity="center"
+                android:src="@mipmap/avatar"
+                app:type="round"/>
+        </com.chenantao.autolayout.AutoFrameLayout>
+
+        <TextView
+            android:id="@+id/tvConversationName"
+            style="@style/big_black"
+            android:textStyle="bold"
+            android:textColor="@color/primary_color2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150px"
+            android:layout_marginTop="20px"
+            android:text="潘狗"/>
+
+        <TextView
+            android:id="@+id/tvLastMsg"
+            style="@style/mid_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvConversationName"
+            android:layout_marginLeft="150px"
+            android:layout_marginTop="10px"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="500px"
+            android:text="我要做你的狗"
+            android:textColor="@color/black_mid_alpha"/>
+
+        <TextView
+            android:id="@+id/tvLastUpdate"
+            style="@style/small_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:text="2014-01-07"/>
+
+    </com.chenantao.autolayout.AutoRelativeLayout>
+</com.balysv.materialripple.MaterialRippleLayout>

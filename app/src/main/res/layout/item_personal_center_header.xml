@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10px">
+
+    <com.chenantao.autolayout.AutoCardView
+        android:layout_width="730px"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        app:cardUseCompatPadding="true">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20px">
+
+            <TextView
+                android:id="@+id/tvDetailDesc"
+                style="@style/mid_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="比较喜欢装逼比较喜欢装逼比较喜欢装逼比较喜欢装逼比较喜欢装逼比较喜欢装逼比较喜欢装逼比较喜欢装逼"/>
+
+            <!--兴趣以及性别倾向-->
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20px"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/small_black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="最喜欢的活动"/>
+
+                <TextView
+                    style="@style/small_black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="同伴性别倾向"/>
+            </com.chenantao.autolayout.AutoLinearLayout>
+
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/favorite_activity"
+                    style="@style/big_black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="电影"/>
+
+                <TextView
+                    android:id="@+id/gender_trend"
+                    style="@style/big_black"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="女"/>
+            </com.chenantao.autolayout.AutoLinearLayout>
+
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/btnChat"
+                android:textSize="15px"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="聊天"/>
+        </com.chenantao.autolayout.AutoLinearLayout>
+    </com.chenantao.autolayout.AutoCardView>
+</com.chenantao.autolayout.AutoFrameLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350px"
+    android:layout_height="wrap_content"
+    android:background="@drawable/chat_home_menu"
+
+    android:orientation="vertical">
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="350px"
+        android:layout_height="100px"
+        app:mrl_rippleAlpha="0.05">
+
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:id="@+id/rlAddFriend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:src="@mipmap/add_friend"/>
+
+            <TextView
+                style="@style/mid_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="添加好友"/>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+
+    <com.balysv.materialripple.MaterialRippleLayout
+        android:layout_width="350px"
+        android:layout_height="100px"
+        app:mrl_rippleAlpha="0.05">
+
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:id="@+id/rlCreateDiscussGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:src="@mipmap/create_discussion_group"/>
+
+            <TextView
+                style="@style/mid_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="创建讨论组"/>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
+</com.chenantao.autolayout.AutoLinearLayout>

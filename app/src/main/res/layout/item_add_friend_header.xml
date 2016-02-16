@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="550px"
+        android:layout_marginLeft="10px"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginBottom="20px"
+        android:layout_marginTop="20px">
+
+        <EditText
+            android:id="@+id/etName"
+            style="@style/mid_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_border"
+            android:gravity="left|center_vertical"
+            android:hint="请输入姓名"
+            android:padding="10px"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <com.gc.materialdesign.views.ButtonFlat
+        android:id="@+id/btnAddFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="10px"
+        android:layout_marginTop="30px"
+        android:text="添加"/>
+
+    <TextView
+        style="@style/mid_black"
+        android:layout_width="wrap_content"
+        android:layout_height="100px"
+        android:layout_below="@id/textInputLayout"
+        android:layout_marginLeft="30px"
+        android:gravity="center"
+        android:text="臭味相投的人"
+        android:textColor="@color/black_big_alpha"
+        android:textStyle="bold"/>
+
+</com.chenantao.autolayout.AutoRelativeLayout>

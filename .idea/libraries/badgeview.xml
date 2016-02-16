@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="badgeview">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/badgeview.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

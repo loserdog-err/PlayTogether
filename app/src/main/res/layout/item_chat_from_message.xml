@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:emojicon="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5px">
+
+    <TextView
+        android:id="@+id/tvPostTime"
+        style="@style/small_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+
+    <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+        android:id="@+id/ivAvatar"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_below="@id/tvPostTime"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="25px"
+        android:src="@mipmap/avatar"
+        app:type="round"/>
+
+    <com.chenantao.autolayout.AutoFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPostTime"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="20px"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:background="@drawable/chat_from_bg"
+        android:gravity="center_vertical">
+
+        <!--文字消息-->
+        <com.rockerhieu.emojicon.EmojiconTextView
+            android:id="@+id/tvContent"
+            style="@style/mid_black"
+            android:paddingRight="10px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="600px"
+            android:paddingLeft="25px"
+            android:text="傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！傻逼！"
+            android:visibility="gone"
+            emojicon:emojiconSize="28sp"/>
+
+        <!--语音信息-->
+        <com.chenantao.autolayout.AutoRelativeLayout
+            android:id="@+id/rlVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivVoice"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="10px"
+                android:background="@mipmap/volume_from"/>
+
+            <TextView
+                style="@style/small_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10px"
+                android:layout_toRightOf="@id/ivVoice"
+                android:text="2"/>
+        </com.chenantao.autolayout.AutoRelativeLayout>
+        <!--图片信息-->
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/pictures_no"
+            android:visibility="gone"/>
+
+    </com.chenantao.autolayout.AutoFrameLayout>
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvUsername"-->
+    <!--style="@style/small_black"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignLeft="@id/ivAvatar"-->
+    <!--android:layout_below="@id/ivAvatar"-->
+    <!--android:layout_marginLeft="3px"-->
+    <!--android:layout_marginTop="10px"-->
+    <!--android:text="狗晴"/>-->
+</RelativeLayout>

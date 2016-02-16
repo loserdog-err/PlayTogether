@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="okio-1.6.0-leancloud">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/okio-1.6.0-leancloud.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary_color"
+        android:titleTextColor="@android:color/white"
+        app:layout_collapseMode="pin"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="right"
+            android:layout_height="wrap_content"
+            app:mrl_rippleAlpha="0.05">
+
+            <TextView
+                android:id="@+id/tvOk"
+                style="@style/mid_white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10px"
+                android:text="确定"
+                android:textStyle="bold"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20px"
+        app:hintTextAppearance="@style/edittext_hint_text_appearance">
+
+        <EditText
+            android:gravity="left|top"
+            android:singleLine="false"
+            android:maxLines="10"
+            android:id="@+id/etInput"
+            style="@style/mid_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:maxWidth="700px"
+            android:padding="25px"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tvLimitHint"
+        style="@style/small_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25px"
+        android:text="长度必须在30个字之内"/>
+</com.chenantao.autolayout.AutoLinearLayout>

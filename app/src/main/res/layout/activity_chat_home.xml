@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    android:id="@+id/mFlRoot"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="256dp"
+                android:background="@mipmap/chat_home_bg"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginEnd="96dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.8"
+                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+
+                    <View
+                        android:background="@drawable/scrim_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/ivAvatar"
+                        android:layout_width="150px"
+                        android:layout_height="150px"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="100px"
+                        android:layout_marginLeft="30px"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/avatar"
+                        app:riv_border_color="@color/white_small_alpha"
+                        app:riv_border_width="2dp"
+                        app:riv_corner_radius="30dp"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="true"/>
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        style="@style/large_white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="150px"
+                        android:layout_marginLeft="210px"
+                        android:text="陈岸涛"
+                        android:textStyle="bold"/>
+                </FrameLayout>
+
+                <!--<include-->
+                <!--layout="@layout/include_tool_bar"/>-->
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:titleTextColor="@android:color/white"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <TextView
+                        android:layout_gravity="top"
+                        style="@style/large_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="聊聊吧"
+                        android:textStyle="bold"/>
+                </android.support.v7.widget.Toolbar>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dip"
+                    android:gravity="bottom"
+                    app:tabSelectedTextColor="#ffffff"
+                    app:tabTextAppearance="@style/tablayout_style"
+                    android:layout_gravity="bottom"
+                    app:tabGravity="fill"
+                    app:tabMode="scrollable"/>
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="20px"
+        android:background="@color/primary_color"
+        android:src="@mipmap/fab_icon"/>
+
+    <View
+        android:id="@+id/viewDim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C0000000"
+        android:visibility="gone"/>
+</com.chenantao.autolayout.AutoFrameLayout>

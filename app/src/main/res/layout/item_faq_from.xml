@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5px">
+
+    <TextView
+        android:id="@+id/tv_postTime"
+        style="@style/small_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
+        android:id="@+id/ivAvatar"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_below="@id/tvPostTime"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="35px"
+        android:src="@mipmap/avatar"
+        app:type="round"/>
+
+    <com.chenantao.autolayout.AutoFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPostTime"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="40px"
+        android:layout_toRightOf="@id/ivAvatar"
+        android:background="@drawable/chat_from_bg"
+        android:gravity="center_vertical">
+
+        <!--文字消息-->
+        <TextView
+            android:id="@+id/tv_text"
+            style="@style/mid_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="600px"
+            android:paddingLeft="25px"
+            android:paddingRight="10px"
+            android:visibility="visible"
+            emojicon:emojiconSize="28sp"/>
+    </com.chenantao.autolayout.AutoFrameLayout>
+</com.chenantao.autolayout.AutoRelativeLayout>

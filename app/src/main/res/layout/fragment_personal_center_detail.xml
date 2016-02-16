@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20px">
+
+            <com.chenantao.autolayout.AutoCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
+
+                <com.chenantao.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!--性别-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="性别"/>
+
+                            <TextView
+                                android:id="@+id/tvGender"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="男"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+
+                    <!--年龄-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlAge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="年龄"/>
+
+                            <TextView
+                                android:id="@+id/tvAge"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="18"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                    <!--星座-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlConstellation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="星座"/>
+
+                            <TextView
+                                android:id="@+id/tvConstellation"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="巨蟹座"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                    <!--生日-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlBirthday"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="生日"/>
+
+                            <TextView
+                                android:id="@+id/tvBirthday"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="1994-07-07"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                </com.chenantao.autolayout.AutoLinearLayout>
+            </com.chenantao.autolayout.AutoCardView>
+
+            <com.chenantao.autolayout.AutoCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40px"
+                app:cardUseCompatPadding="true">
+
+                <com.chenantao.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--最喜欢的活动-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlFavoriteActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="最喜欢的活动"/>
+
+                            <TextView
+                                android:id="@+id/tvFavoriteActivity"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="电影"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                    <!--同伴性别倾向-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlGenderTrend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="同伴性别倾向"/>
+
+                            <TextView
+                                android:id="@+id/tvGenderTrend"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:ellipsize="end"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="女"/>
+
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                </com.chenantao.autolayout.AutoLinearLayout>
+            </com.chenantao.autolayout.AutoCardView>
+
+            <com.chenantao.autolayout.AutoCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40px"
+                app:cardUseCompatPadding="true">
+
+                <com.chenantao.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--邮箱-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="邮箱"/>
+
+                            <TextView
+                                android:id="@+id/tvEmail"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="2313570516@qq.com"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                    <!--手机-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="手机"/>
+
+                            <TextView
+                                android:id="@+id/tvPhone"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="18819433192"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                </com.chenantao.autolayout.AutoLinearLayout>
+            </com.chenantao.autolayout.AutoCardView>
+
+            <com.chenantao.autolayout.AutoCardView
+                android:id="@+id/cardViewDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40px"
+                app:cardUseCompatPadding="true">
+
+                <com.chenantao.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <!--简单描述-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlSimpleDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="简单描述"/>
+
+                            <TextView
+                                android:id="@+id/tvSimpleDesc"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="闲来无事，偶尔装装逼"/>
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                    <!--详细描述-->
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <com.chenantao.autolayout.AutoRelativeLayout
+                            android:id="@+id/rlDetailDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="30px">
+
+                            <TextView
+                                style="@style/mid_black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="详细描述"/>
+
+                            <TextView
+                                android:id="@+id/tvDetailDesc"
+                                style="@style/small_black"
+                                android:layout_width="350px"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:ellipsize="end"
+                                android:gravity="center_horizontal"
+                                android:maxLines="1"
+                                android:text="人活在这世上，如果不装逼，那么跟咸鱼，还有什么区别"/>
+
+                        </com.chenantao.autolayout.AutoRelativeLayout>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+                </com.chenantao.autolayout.AutoLinearLayout>
+            </com.chenantao.autolayout.AutoCardView>
+        </com.chenantao.autolayout.AutoLinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/viewDim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C0000000"
+        android:visibility="gone"/>
+</com.chenantao.autolayout.AutoFrameLayout>

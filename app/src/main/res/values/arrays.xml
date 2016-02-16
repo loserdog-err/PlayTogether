@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--进入个人中心的动画圆圈的颜色-->
+    <array name="splash_circle_color">
+        <item>@android:color/black</item>
+        <item>@android:color/holo_orange_dark</item>
+        <item>@android:color/holo_red_light</item>
+        <item>@android:color/holo_green_light</item>
+        <item>@android:color/holo_purple</item>
+        <item>@android:color/holo_blue_dark</item>
+    </array>
+</resources>

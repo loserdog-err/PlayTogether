@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout
+    android:id="@+id/materialRippleLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="150px"
+    app:mrl_rippleAlpha="0.05">
+
+    <com.chenantao.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/avatar"
+            app:riv_border_color="@color/white_small_alpha"
+            app:riv_border_width="2dp"
+            app:riv_corner_radius="30dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"/>
+
+        <TextView
+            android:id="@+id/tvUsername"
+            style="@style/mid_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/ivAvatar"
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@id/ivAvatar"
+            android:text="陈岸涛"
+            android:textColor="@color/primary_color2"
+            android:textStyle="bold"/>
+
+        <com.chenantao.autolayout.AutoFrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <com.gc.materialdesign.views.CheckBox
+                android:id="@+id/cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_color"/>
+
+            <!--<com.gc.materialdesign.views.ButtonFlat-->
+            <!--android:id="@+id/btnAdd"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="添加"-->
+            <!--android:visibility="gone"/>-->
+            <Button
+                android:layout_width="100px"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn"
+                android:minHeight="85px"
+                android:id="@+id/btnAdd"
+                android:text="添加"/>
+        </com.chenantao.autolayout.AutoFrameLayout>
+
+        <TextView
+            android:id="@+id/tvSimpleDesc"
+            style="@style/small_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvUsername"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="15px"
+            android:layout_toRightOf="@id/ivAvatar"
+            android:text="比较喜欢装逼"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black_large_alpha"
+            android:visibility="gone"/>
+    </com.chenantao.autolayout.AutoRelativeLayout>
+</com.balysv.materialripple.MaterialRippleLayout>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="330px"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10px">
+
+    <com.chenantao.autolayout.AutoCardView
+        android:layout_width="730px"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20px"
+        android:orientation="vertical">
+
+        <com.chenantao.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!--约过-->
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:gravity="center_vertical"
+                android:padding="30px">
+
+                <TextView
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="约过"/>
+
+                <ImageView
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/more"/>
+
+                <TextView
+                    android:id="@+id/tvInviteCount"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60px"
+                    android:gravity="center"
+                    android:text="20"
+                    android:textColor="@color/black_mid_alpha"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black_big_alpha"/>
+
+            <!--受约过-->
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5px"
+                android:gravity="center_vertical"
+                android:padding="30px">
+
+                <TextView
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="受约过"/>
+
+                <ImageView
+                    android:layout_width="30px"
+                    android:layout_height="30px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/more"/>
+
+                <TextView
+                    android:id="@+id/tvBeInvitedCount"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="60px"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_mid_alpha"/>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+
+        </com.chenantao.autolayout.AutoLinearLayout>
+    </com.chenantao.autolayout.AutoCardView>
+    <TextView
+        style="@style/small_black"
+        android:textStyle="bold"
+        android:text="最新动态"
+        android:textColor="@color/primary_color2"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="20px"
+        android:layout_gravity="bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</com.chenantao.autolayout.AutoFrameLayout>
+

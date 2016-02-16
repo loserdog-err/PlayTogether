@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:mrl_rippleAlpha="0.05">
+
+    <com.chenantao.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20px"
+        android:paddingRight="20px">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10px"
+            android:background="@color/black_big_alpha"/>
+
+        <TextView
+            android:id="@+id/tvAction"
+            style="@style/small_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="20px"
+            android:text="接受了邀请"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/mid_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvAction"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="20px"
+            android:maxWidth="630px"
+            android:text="有人周末一起去装逼吗？有的话电话联系啊啊啊"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvAcceptInvitedNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTitle"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="20px"
+            android:text="@string/join_count"/>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivCategory"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/divider"
+            android:layout_marginTop="10px"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/category_food"
+            app:riv_border_color="@color/white_small_alpha"
+            app:riv_border_width="2dp"
+            app:riv_corner_radius="30dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="true"/>
+
+    </com.chenantao.autolayout.AutoRelativeLayout>
+</com.balysv.materialripple.MaterialRippleLayout>
