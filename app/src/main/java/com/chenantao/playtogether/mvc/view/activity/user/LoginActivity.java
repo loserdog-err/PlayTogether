@@ -5,28 +5,26 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.mvc.controller.user.LoginController;
 import com.chenantao.playtogether.mvc.model.bean.User;
-import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.mvc.view.activity.invitation.HomeActivity;
+import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.utils.DialogUtils;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.views.ButtonRectangle;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 
 public class LoginActivity extends BaseActivity implements View.OnFocusChangeListener, View
-		.OnClickListener
+				.OnClickListener
 {
 
-	@Bind(R.id.ivAuthorAvatar)
-	ImageView mIvAvatar;
 	@Bind(R.id.etUsername)
 	EditText mEtUsername;
 	@Bind(R.id.etPassword)
@@ -34,7 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 	@Bind(R.id.btnRegister)
 	ButtonFlat mBtnRegister;
 	@Bind(R.id.btnLogin)
-	ButtonFlat mBtnLogin;
+	ButtonRectangle mBtnLogin;
 
 	@Inject
 	public LoginController mController;
@@ -65,6 +63,8 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 		{
 			toolbar.setTitle("登录");
 		}
+		mBtnLogin.setRippleSpeed(50);
+
 		initEvent();
 	}
 
@@ -140,11 +140,13 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
 	public void loginSuccess(AVUser user)
 	{
+		DialogUtils.dismissProgressDialog();
 		Intent intent = new Intent(this, HomeActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putParcelable("user", user);
 		intent.putExtras(bundle);
 		startActivity(intent);
+		finish();
 	}
 
 	public void loginError()

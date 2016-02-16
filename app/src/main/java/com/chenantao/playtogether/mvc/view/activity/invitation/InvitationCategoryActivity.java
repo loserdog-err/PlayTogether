@@ -46,7 +46,7 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 
 	public static final String EXTRA_CATEGORY = "category";
 
-	public int mCategory;
+	public String mCategory;
 	@Bind(R.id.btnFilter)
 	ButtonRectangle btnFilter;
 	@Bind(R.id.appBarLayout)
@@ -100,7 +100,7 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 	@Override
 	public void afterCreate()
 	{
-		mCategory = getIntent().getIntExtra(EXTRA_CATEGORY, Constant.CATEGORY_FOOD);
+		mCategory = getIntent().getStringExtra(EXTRA_CATEGORY);
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null)
 		{
@@ -136,15 +136,15 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 	 */
 	private void setHeader()
 	{
-		if (mCategory == Constant.CATEGORY_EXERCISE)
+		if (mCategory.equals(Constant.CATEGORY_EXERCISE))
 		{
 			mCollapsingToolbarLayout.setTitle("运动");
 			mHeader.setBackgroundResource(R.mipmap.exerise_header);
-		} else if (mCategory == Constant.CATEGORY_FOOD)
+		} else if (mCategory.equals(Constant.CATEGORY_FOOD))
 		{
 			mCollapsingToolbarLayout.setTitle("美食");
 			mHeader.setBackgroundResource(R.mipmap.food_header);
-		} else if (mCategory == Constant.CATEGORY_MOVIE)
+		} else if (mCategory.equals(Constant.CATEGORY_MOVIE))
 		{
 			mCollapsingToolbarLayout.setTitle("电影");
 			mHeader.setBackgroundResource(R.mipmap.movie_header);
@@ -235,7 +235,6 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 	/**
 	 * 更新用户位置
 	 *
-	 * @param event
 	 */
 	public void onEvent(EventLocate event)
 	{
@@ -356,6 +355,9 @@ public class InvitationCategoryActivity extends BaseActivity implements View.OnC
 		}
 	}
 
+	/**
+	 * 最后一项是否可视，这决定是否开始加载下一页
+	 */
 	private boolean isLastItemDisplaying()
 	{
 		if (mRvInvitation != null && mRvInvitation.getAdapter() != null)

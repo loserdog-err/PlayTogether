@@ -18,9 +18,15 @@ public class Constant
 	public static final int PASSWORD_MAX_LENGTH = 16;
 
 	//兴趣类别常量
-	public static final int CATEGORY_MOVIE = 0;
-	public static final int CATEGORY_EXERCISE = 1;
-	public static final int CATEGORY_FOOD = 2;
+//	public static final int CATEGORY_MOVIE = 0;
+//	public static final int CATEGORY_EXERCISE = 1;
+//	public static final int CATEGORY_FOOD = 2;
+	public static final String CATEGORY_MOVIE = "电影";
+	public static final String CATEGORY_EXERCISE = "运动";
+	public static final String CATEGORY_FOOD = "美食";
+
+	//sp 的key
+	public static final String SP_KEY_IS_FIRST_LOGIN = "isFirstLogin";
 
 	//一些通用常量
 	public static final String GENDER_MAN = "男";
@@ -60,4 +66,7 @@ public class Constant
 
 	public static final int AVATAR_WIDTH = 150;
 	public static final int AVATAR_HEIGHT = 150;
+	//上传头像的最大宽高
+	public static final int UPLOAD_AVATAR_WIDTH = 500;
+	public static final int UPLOAD_AVATAR_HEIGHT = 500;
 }

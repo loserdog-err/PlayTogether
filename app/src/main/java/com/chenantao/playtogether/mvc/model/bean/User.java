@@ -186,33 +186,12 @@ public class User extends AVUser
 
 	public String getFavoriteActivity()
 	{
-		int category = getInt(FIELD_FAVORITE_ACTIVITY);
-		switch (category)
-		{
-			case Constant.CATEGORY_FOOD:
-				return "美食";
-			case Constant.CATEGORY_EXERCISE:
-				return "运动";
-			case Constant.CATEGORY_MOVIE:
-				return "电影";
-		}
-		return "无";
+		return getString(FIELD_FAVORITE_ACTIVITY);
 	}
 
-	public void setFavorite(String activity)
+	public void setFavoriteActivity(String activity)
 	{
-		int category = -1;
-		if ("运动".equals(activity))
-		{
-			category = Constant.CATEGORY_EXERCISE;
-		} else if ("美食".equals(activity))
-		{
-			category = Constant.CATEGORY_FOOD;
-		} else if ("电影".equals(activity))
-		{
-			category = Constant.CATEGORY_MOVIE;
-		}
-		put(FIELD_FAVORITE_ACTIVITY, category);
+		put(FIELD_FAVORITE_ACTIVITY, activity);
 	}
 
 	public String getGenderTrend()

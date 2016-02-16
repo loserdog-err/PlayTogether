@@ -1,6 +1,7 @@
 package com.chenantao.playtogether.mvc.model.bll;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -8,6 +9,7 @@ import com.avos.avoscloud.AVGeoPoint;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -19,7 +21,7 @@ import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.LocationUtils;
 import com.orhanobut.logger.Logger;
 
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,11 +93,14 @@ public class InviteBll
 					for (int i = 0; i < filePaths.size(); i++)
 					{
 						String path = filePaths.get(i);
-						double[] metaData = FileUtils.getImageWidthAndHeight(path);
-						File file = new File(path);
-						AVFile avFile = AVFile.withFile(file.getName(), file);
-						avFile.addMetaData("width", metaData[0]);
-						avFile.addMetaData("height", metaData[1]);
+						Bitmap bitmap = FileUtils.compressImage(path, Invitation.UPLOAD_PIC_WIDTH, Invitation
+										.UPLOAD_PIC_HEIGHT);
+						ByteArrayOutputStream os = new ByteArrayOutputStream();
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 60, os);
+						AVFile avFile = new AVFile(System.currentTimeMillis() + "", os.toByteArray());
+						avFile.addMetaData("width", bitmap.getWidth());
+						avFile.addMetaData("height", bitmap.getHeight());
+						Logger.e("width:" + bitmap.getWidth() + ",height:" + bitmap.getHeight());
 						avFile.save();
 						uploadFiles.add(avFile);
 					}
@@ -129,20 +134,37 @@ public class InviteBll
 		return Observable.create(new Observable.OnSubscribe<List<Invitation>>()
 		{
 			@Override
-			public void call(Subscriber<? super List<Invitation>> subscriber)
+			public void call(final Subscriber<? super List<Invitation>> subscriber)
 			{
 				AVQuery<Invitation> query = AVObject.getQuery(Invitation.class);
 				query.orderByDescending(AVObject.CREATED_AT);
+				query.whereNotEqualTo(Invitation.FIELD_IS_EXPIRE, true);
 				query.include(Invitation.FIELD_AUTHOR);
-				try
+				query.setCachePolicy(AVQuery.CachePolicy.NETWORK_ELSE_CACHE);
+//				query.setCachePolicy(AVQuery.CachePolicy.CACHE_THEN_NETWORK);
+				query.findInBackground(new FindCallback<Invitation>()
 				{
-					List<Invitation> invitations = query.find();
-					subscriber.onNext(invitations);
-				} catch (AVException e)
-				{
-					e.printStackTrace();
-					subscriber.onError(e);
-				}
+					@Override
+					public void done(List<Invitation> invitations, AVException e)
+					{
+						if (e == null)
+						{
+							subscriber.onNext(invitations);
+						} else
+						{
+							subscriber.onError(e);
+						}
+					}
+				});
+//				try
+//				{
+//					List<Invitation> invitations = query.find();
+//					subscriber.onNext(invitations);
+//				} catch (AVException e)
+//				{
+//					e.printStackTrace();
+//					subscriber.onError(e);
+//				}
 			}
 		});
 	}
@@ -264,7 +286,8 @@ public class InviteBll
 			@Override
 			public void call(Subscriber<? super List<Invitation>> subscriber)
 			{
-				int category = condition.getCategory();
+				Logger.e("condition:" + condition);
+				String category = condition.getCategory();
 				String gender = condition.getGender();
 				int minAge = condition.getMinAge();
 				int maxAge = condition.getMaxAge();
@@ -299,6 +322,8 @@ public class InviteBll
 				{
 					query.orderByDescending(Invitation.CREATED_AT);
 				}
+				//只显示还没过期的
+				query.whereNotEqualTo(Invitation.FIELD_IS_EXPIRE, true);
 				//指定分页显示的数据
 				query.setLimit(Constant.PAGE_SIZE);
 				query.setSkip(condition.getSkip());
@@ -308,6 +333,27 @@ public class InviteBll
 				{
 					List<Invitation> invitations = query.find();
 					subscriber.onNext(invitations);
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
+				}
+			}
+		});
+	}
+
+	public Observable<Void> setExpire(final Invitation invitation)
+	{
+		return Observable.create(new Observable.OnSubscribe<Void>()
+		{
+			@Override
+			public void call(Subscriber<? super Void> subscriber)
+			{
+				invitation.setIsExpire(true);
+				try
+				{
+					invitation.save();
+					subscriber.onCompleted();
 				} catch (AVException e)
 				{
 					e.printStackTrace();

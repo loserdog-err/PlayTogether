@@ -43,12 +43,13 @@
 
             <com.gc.materialdesign.views.CheckBox
                 android:id="@+id/cbIsOriginal"
-                android:layout_marginLeft="30px"
-                android:layout_toRightOf="@id/tvDirName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_toRightOf="@id/tvDirName"
                 android:background="@color/black_small_alpha"
-                android:text="原图"/>
+                android:text="原图"
+                android:visibility="gone"/>
             <!--<TextView-->
             <!--android:id="@+id/tvImgCount"-->
             <!--android:layout_width="wrap_content"-->

@@ -2,6 +2,7 @@ package com.chenantao.playtogether.mvc.view.common;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.chenantao.autolayout.AutoLayoutActivity;
 import com.chenantao.playtogether.MyApplication;
@@ -16,7 +17,6 @@ import de.greenrobot.event.EventBus;
 
 /**
  * Created by Chenantao_gg on 2016/1/17.
- *
  */
 public abstract class BaseActivity extends AutoLayoutActivity
 {
@@ -33,14 +33,24 @@ public abstract class BaseActivity extends AutoLayoutActivity
 		ButterKnife.bind(this);
 		//dagger2注入
 		mActivityComponent = DaggerActivityComponent.builder()
-				.activityModule(new ActivityModule(this))
-				.applicationComponent(((MyApplication) getApplication()).getApplicationComponent())
-				.build();
+						.activityModule(new ActivityModule(this))
+						.applicationComponent(((MyApplication) getApplication()).getApplicationComponent())
+						.build();
 		mToolbar = (Toolbar) findViewById(R.id.toolbar);
 		if (mToolbar != null)
 		{
 			setSupportActionBar(mToolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			mToolbar.setNavigationOnClickListener(new View.OnClickListener()
+			{
+				@Override
+				public void onClick(View v)
+				{
+					finish();
+				}
+			});
 		}
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		injectActivity();
 		afterCreate();
 	}

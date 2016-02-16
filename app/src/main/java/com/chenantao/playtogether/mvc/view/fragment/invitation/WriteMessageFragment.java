@@ -47,7 +47,7 @@ import de.greenrobot.event.EventBus;
  * 7.关于后退键隐藏的逻辑，放到宿主activity中处理
  */
 public class WriteMessageFragment extends Fragment implements
-		CompoundButton.OnCheckedChangeListener
+				CompoundButton.OnCheckedChangeListener
 {
 	//为了复用，输入标题以及内容都由这个fragment提供
 	public static final int TYPE_WRITE_TITLE = 0;
@@ -63,6 +63,8 @@ public class WriteMessageFragment extends Fragment implements
 	EditText mEtMessage;
 
 	//底边工具栏需要的
+	@Bind(R.id.cbVoice)
+	CheckBox mCbVoice;
 	@Bind(R.id.cbSelectEmoji)
 	CheckBox mCbSelectEmoji;
 	@Bind(R.id.cbSelectPic)
@@ -91,7 +93,7 @@ public class WriteMessageFragment extends Fragment implements
 	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
-			savedInstanceState)
+					savedInstanceState)
 	{
 		mRoot = inflater.inflate(R.layout.fragment_write_message, container, false);
 		ButterKnife.bind(this, mRoot);
@@ -118,9 +120,11 @@ public class WriteMessageFragment extends Fragment implements
 			mCbSelectPic.setVisibility(View.VISIBLE);
 			mPathDatas = new ArrayList<>();
 			mRvSelectPic.setLayoutManager(mHorizLayoutManager = new LinearLayoutManager
-					(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+							(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 			mRvSelectPic.setAdapter(mAdapter = new SelectPicAdapter(getActivity(), mPathDatas));
 		}
+		//隐藏语音选项，暂时不支持发布问题时发布语音
+		mCbVoice.setVisibility(View.GONE);
 		initEvent();
 	}
 
@@ -218,7 +222,7 @@ public class WriteMessageFragment extends Fragment implements
 		int selectedNum = mPathDatas.size();
 		int remainSelect = Constant.MAX_UPLOAD_PIC - selectedNum;
 		mTvSelectNumHint.setText(getResources().getString(R.string.select_num_hint,
-				selectedNum, remainSelect));
+						selectedNum, remainSelect));
 	}
 
 	/**
@@ -242,7 +246,7 @@ public class WriteMessageFragment extends Fragment implements
 		int selectedNum = mPathDatas.size();
 		int remainSelect = Constant.MAX_UPLOAD_PIC - selectedNum;
 		mTvSelectNumHint.setText(getResources().getString(R.string.select_num_hint,
-				selectedNum, remainSelect));
+						selectedNum, remainSelect));
 		mRlSelectPic.setVisibility(View.VISIBLE);
 		ScreenUtils.hideKeyboard(getActivity());
 	}

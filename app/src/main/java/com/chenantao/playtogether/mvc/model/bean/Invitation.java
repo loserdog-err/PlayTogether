@@ -21,25 +21,29 @@ import java.util.List;
 public class Invitation extends AVObject
 {
 
+	//上传图片的最大宽高
+	public static final int UPLOAD_PIC_WIDTH = 1000;
+	public static final int UPLOAD_PIC_HEIGHT = 1000;
 
 	public static final int MAX_AGE = 99;
 	public static final int MIN_AGE = 10;
 
 
 	public List<String> uploadPicsPath = new ArrayList<>();
-	//	public static final String FIELD_TITLE = "title";
-//	public static final String FIELD_CONTENT = "content";
+	public static final String FIELD_TITLE = "title";
+	public static final String FIELD_CONTENT = "content";
 	public static final String FIELD_GENDER = "gender";
 	public static final String FIELD_MIN_AGE = "minAge";
 	public static final String FIELD_MAX_AGE = "maxAge";
-	//	public static final String FIELD_CONSTELLATION = "constellation";
-//	public static final String FIELD_EXPIRE = "expire";
+	public static final String FIELD_CONSTELLATION = "constellation";
+	public static final String FIELD_EXPIRE = "expire";
 	public static final String FIELD_CATEGORY = "category";
 	public static final String FIELD_AUTHOR = "author";
 	public static final String FIELD_PIC = "pics";//上传的照片
 	public static final String FIELD_LOCATION = "location";//位置
 	public static final String FIELD_ACCEPT_INVITE_USERS = "acceptInviteUsers";
 	public static final String FIELD_OBJECT_ID = "objectId";
+	public static final String FIELD_IS_EXPIRE = "isExpire";//邀请是否过期
 
 	public Invitation()
 	{
@@ -47,12 +51,12 @@ public class Invitation extends AVObject
 
 	public User getAuthor()
 	{
-		return getAVObject("author");
+		return getAVObject(FIELD_AUTHOR);
 	}
 
 	public void setAuthor(User author)
 	{
-		put("author", author);
+		put(FIELD_AUTHOR, author);
 	}
 
 	//此处为我们的默认实现，当然你也可以自行实现
@@ -85,22 +89,22 @@ public class Invitation extends AVObject
 
 	public String getTitle()
 	{
-		return getString("title");
+		return getString(FIELD_TITLE);
 	}
 
 	public void setTitle(String title)
 	{
-		put("title", title);
+		put(FIELD_TITLE, title);
 	}
 
 	public String getContent()
 	{
-		return getString("content");
+		return getString(FIELD_CONTENT);
 	}
 
 	public void setContent(String content)
 	{
-		put("content", content);
+		put(FIELD_CONTENT, content);
 	}
 
 	public String getGender()
@@ -115,43 +119,53 @@ public class Invitation extends AVObject
 
 	public int getMinAge()
 	{
-		return getInt("minAge");
+		return getInt(FIELD_MIN_AGE);
 	}
 
 	public void setMinAge(int minAge)
 	{
-		put("minAge", minAge);
+		put(FIELD_MIN_AGE, minAge);
 	}
 
 	public int getMaxAge()
 	{
-		return getInt("maxAge");
+		return getInt(FIELD_MAX_AGE);
 	}
 
 	public void setMaxAge(int maxAge)
 	{
-		put("maxAge", maxAge);
+		put(FIELD_MAX_AGE, maxAge);
 	}
 
 	public String getConstellation()
 	{
-		return getString("constellation");
+		return getString(FIELD_CONSTELLATION);
 	}
 
 	public void setConstellation(String constellation)
 	{
 		if ("".equals(constellation))
 		{
-			put("constellation", "不限");
+			put(FIELD_CONSTELLATION, "不限");
 		} else
 		{
-			put("constellation", constellation);
+			put(FIELD_CONSTELLATION, constellation);
 		}
+	}
+
+	public boolean getIsExpire()
+	{
+		return getBoolean(FIELD_IS_EXPIRE);
+	}
+
+	public void setIsExpire(boolean isExpire)
+	{
+		put(FIELD_IS_EXPIRE, isExpire);
 	}
 
 	public String getExpire()
 	{
-		Date date = getDate("expire");
+		Date date = getDate(FIELD_EXPIRE);
 		String expire = DateUtils.date2string(date, "MM月dd日HH时mm分");
 		if ("".equals(expire))
 		{
@@ -199,27 +213,20 @@ public class Invitation extends AVObject
 			calendar.add(Calendar.MONTH, 1);
 		} else
 		{
-			put("expire", null);
+			put(FIELD_EXPIRE, null);
 			return;
 		}
-		put("expire", calendar.getTime());
+		put(FIELD_EXPIRE, calendar.getTime());
 	}
 
 	public String getCategory()
 	{
-		int category = getInt("category");
-		if (category == Constant.CATEGORY_MOVIE) return "电影";
-		else if (category == Constant.CATEGORY_EXERCISE) return "运动";
-		else if (category == Constant.CATEGORY_FOOD) return "美食";
-		else return "美食";
+		return getString(FIELD_CATEGORY);
 	}
 
 	public void setCategory(String category)
 	{
-		if ("美食".equals(category)) put("category", Constant.CATEGORY_FOOD);
-		else if ("运动".equals(category)) put("category", Constant.CATEGORY_EXERCISE);
-		else if ("电影".equals(category)) put("category", Constant.CATEGORY_MOVIE);
-		else put("category", Constant.CATEGORY_MOVIE);
+		put(FIELD_CATEGORY, category);
 	}
 
 	public static String convertConstellation(String constellation)
@@ -236,9 +243,6 @@ public class Invitation extends AVObject
 	public List<User> getAcceptInviteUsers()
 	{
 		List<User> list = getList(FIELD_ACCEPT_INVITE_USERS);
-//		ArrayList list = (ArrayList) get(Invitation.FIELD_ACCEPT_INVITE_USERS);
-//		ChatUser user = (ChatUser) list.get(0);
-//		Logger.e("user:" + user.getUsername());
 		if (list == null)
 		{
 			return new ArrayList<User>();
@@ -254,7 +258,6 @@ public class Invitation extends AVObject
 
 	public void setAcceptInviteUser(User user)
 	{
-//		getAcceptInviteUsers();
 		addUnique(FIELD_ACCEPT_INVITE_USERS, user);
 	}
 

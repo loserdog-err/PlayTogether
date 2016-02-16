@@ -50,7 +50,8 @@ public class PopupWindowManager
 			@Override
 			public void onDismiss()
 			{
-				toggleLight(false, dimView);
+				if (dimView != null)
+					toggleLight(false, dimView);
 				if (listener != null)
 					listener.onClose();
 			}
@@ -86,7 +87,7 @@ public class PopupWindowManager
 		{
 			dimView.setVisibility(View.GONE);
 		}
-
 	}
+
 
 }

@@ -35,20 +35,91 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.NavigationView
-            android:id="@+id/navigationView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/drawer_header"
-            app:itemTextColor="@drawable/selector_item"
-            app:menu="@menu/drawer_menu"
-            app:theme="@style/drawer_style"/>
+            android:layout_gravity="start">
+
+            <com.chenantao.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.design.widget.NavigationView
+                    android:id="@+id/navigationView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:elevation="0dp"
+                    android:layout_gravity="start"
+                    android:layout_weight="8"
+                    app:headerLayout="@layout/drawer_header"
+                    app:itemTextColor="@drawable/selector_item"
+                    app:menu="@menu/drawer_menu"
+                    app:theme="@style/drawer_style"/>
+
+                <!--footer-->
+                <com.chenantao.autolayout.AutoLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black_big_alpha"/>
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <TextView
+                            android:id="@+id/tvLogout"
+                            style="@style/mid_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10px"
+                            android:padding="10dp"
+                            android:text="退出账号"
+                            android:textStyle="bold"/>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.05">
+
+                        <TextView
+                            android:id="@+id/tvExit"
+                            style="@style/mid_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10px"
+                            android:padding="10dp"
+                            android:text="退出应用"
+                            android:textStyle="bold"/>
+                    </com.balysv.materialripple.MaterialRippleLayout>
+
+                </com.chenantao.autolayout.AutoLinearLayout>
+
+
+            </com.chenantao.autolayout.AutoLinearLayout>
+
+        </android.support.design.widget.NavigationView>
+
     </android.support.v4.widget.DrawerLayout>
 
     <View
-        android:visibility="gone"
         android:id="@+id/viewDim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#C0000000"/>
+        android:background="#C0000000"
+        android:visibility="gone"/>
+
+    <View
+        android:id="@+id/guideView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/home_first_bg"
+        android:visibility="gone"/>
 </com.chenantao.autolayout.AutoFrameLayout>

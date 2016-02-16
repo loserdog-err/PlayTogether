@@ -1,0 +1,73 @@
+<com.chenantao.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary_color"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextAppearance="@style/toolbar_text_appearance">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/large_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="问问"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.Toolbar>
+
+
+    <com.chenantao.autolayout.AutoRelativeLayout
+        android:id="@+id/rlInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/toolbox"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5px"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <EditText
+            android:id="@+id/et_send_content"
+            style="@style/mid_black"
+            android:layout_width="650px"
+            android:layout_height="80px"
+            android:layout_marginLeft="5px"
+            android:layout_marginTop="5px"
+            android:background="@drawable/edittext_border"
+            android:clickable="true"
+            android:gravity="left|center_vertical"
+            android:padding="10px"
+            emojicon:emojiconSize="28sp"/>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="100px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
+            android:layout_toRightOf="@id/et_send_content"
+            android:background="@drawable/selector_btn"
+            android:minHeight="85px"
+            android:text="发送"/>
+    </com.chenantao.autolayout.AutoRelativeLayout>
+
+    <ListView
+        android:background="@mipmap/faq_chat_bg"
+        android:id="@+id/lv_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rlInput"
+        android:layout_below="@id/toolbar"
+        android:divider="@null"/>
+</com.chenantao.autolayout.AutoRelativeLayout>

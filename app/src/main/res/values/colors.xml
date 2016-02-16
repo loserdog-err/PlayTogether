@@ -9,7 +9,7 @@
     <color name="black_big_alpha">#4b000000</color>
     <color name="black_large_alpha">#0a000000</color>
 
-    <color name="background_color">#06000000</color>
+    <color name="background_color">#c8f6f6f6</color>
 
     <color name="white_little_alpha">#f0ffffff</color>
     <color name="white_small_alpha">#dcffffff</color>
@@ -20,4 +20,5 @@
     <color name="primary_color2">#0288d1</color>
     <color name="status_bar_color">#039be5</color>
     <color name="primary_small_alpha">#b403a9f4</color>
+
 </resources>

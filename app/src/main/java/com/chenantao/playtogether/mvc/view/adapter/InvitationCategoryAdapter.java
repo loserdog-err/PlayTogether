@@ -118,11 +118,12 @@ public class InvitationCategoryAdapter extends RecyclerView.Adapter<RecyclerView
 		User user = AVUser.getCurrentUser(User.class);
 		AVGeoPoint localPoint = user.getLocation();
 		AVGeoPoint authorPoint = invitation.getLocation();
-		//当item的作者不是本人，有位置坐标，并且还没有
+		//当item的作者不是当前登录用户，有位置坐标，显示距离
 		if (localPoint != null && authorPoint != null && !user.getUsername().equals(author
 						.getUsername()))
 		{
-			int distance = (int) LocationUtils.getDistance(localPoint, authorPoint);//米
+			String distance= LocationUtils.getDistance(localPoint, authorPoint);
+
 			itemViewHolder.mTvDistance.setText(mContext.getResources().getString(R.string
 							.distance_from_me, distance));
 		} else

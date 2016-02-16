@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chenantao.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                          xmlns:app="http://schemas.android.com/apk/res-auto"
-                                          android:layout_width="match_parent"
-                                          android:layout_height="265px"
-                                          android:orientation="vertical">
+<com.chenantao.autolayout.AutoFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="465px"
+    android:orientation="vertical">
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200px"
-        android:background="@color/primary_color"/>
+        android:layout_height="400px"
+        android:background="@mipmap/drawer_header_bg"/>
 
     <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
         android:id="@+id/ivAuthorAvatar"
         android:layout_width="130px"
         android:layout_height="130px"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="135px"
+        android:layout_marginTop="325px"
         android:src="@mipmap/avatar"
         app:type="round"/>
-    <!--<ImageView-->
-    <!--android:layout_gravity="center_horizontal"-->
-    <!--android:layout_marginTop="135px"-->
-    <!--android:id="@+id/ivAvatar"-->
-    <!--android:layout_width="130px"-->
-    <!--android:layout_height="130px"-->
-    <!--android:src="@mipmap/avatar"/>-->
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/tvUsername"
-        style="@style/large_white"
+        style="@style/big_large_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
-        android:layout_marginTop="30px"
-        android:text="陈岸涛"/>
+        android:layout_marginTop="100px"
+        android:text="陈岸涛"
+        android:textStyle="bold"/>
 
 </com.chenantao.autolayout.AutoFrameLayout>

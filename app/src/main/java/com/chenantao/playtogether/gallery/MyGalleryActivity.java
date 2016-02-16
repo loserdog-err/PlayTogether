@@ -85,19 +85,18 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 		int limitCount = getIntent().getIntExtra(EXTRA_LIMIT_COUNT, 0);
 		mType = getIntent().getIntExtra(EXTRA_SELECT_TYPE, -1);
 		if (mType == -1) finish();
-		//如果限制的数目跟已有的不同，证明在不同的地方打开了gallery，所以清空选中的图片
-		if (limitCount != MyGalleryAdapter.mLimitCount)
-			MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
-		MyGalleryAdapter.mLimitCount = limitCount;
-		mProgressBar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBar);
-		mProgressBar.setVisibility(View.VISIBLE);
-		getSupportLoaderManager().initLoader(1, null, this);
+		mCbIsSendOriginal = (CheckBox) findViewById(R.id.cbIsOriginal);
 		mRv = (RecyclerView) findViewById(R.id.rv);
 		mRlBottom = (RelativeLayout) findViewById(R.id.rlBottom);
 		mTvDirName = (TextView) findViewById(R.id.tvDirName);
 		mCbIsSendOriginal = (CheckBox) findViewById(R.id.cbIsOriginal);
 //		mTvImgCount = (TextView) findViewById(R.id.tvImgCount);
 		mBtnOk = (ButtonFlat) findViewById(R.id.btnOk);
+		if (mType == TYPE_CHAT) mCbIsSendOriginal.setVisibility(View.VISIBLE);
+		MyGalleryAdapter.mLimitCount = limitCount;
+		mProgressBar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBar);
+		mProgressBar.setVisibility(View.VISIBLE);
+		getSupportLoaderManager().initLoader(1, null, this);
 	}
 
 	@Override
@@ -282,10 +281,10 @@ public class MyGalleryActivity extends BaseActivity implements LoaderManager
 				{
 					EventBus.getDefault().post(new EventSetAvatar(MyGalleryAdapter.mSelectedImgs));
 					MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
-					return;
 				} else if (mType == TYPE_UPLOAD_PIC)//当前为上传图片
 				{
 					EventBus.getDefault().post(new EventUploadPic(MyGalleryAdapter.mSelectedImgs));
+					MyGalleryAdapter.mSelectedImgs = new ArrayList<>();
 				} else if (mType == TYPE_CHAT)//发送聊天图片
 				{
 					EventBus.getDefault().post(new EventChatPic(MyGalleryAdapter.mSelectedImgs,

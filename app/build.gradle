@@ -83,6 +83,10 @@ dependencies {
     compile 'com.rockerhieu.emojicon:library:1.0'
     //recyclerview 动画
     compile 'jp.wasabeef:recyclerview-animators:2.2.0'
+    //navigation bar 颜色
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
+
     compile files('libs/avoscloud-push-v3.13.jar')
     compile files('libs/avoscloud-sdk-v3.13.jar')
     compile files('libs/fastjson.jar')
@@ -92,4 +96,5 @@ dependencies {
     compile files('libs/okio-1.6.0-leancloud.jar')
     compile files('libs/protobuf-java-2.6.1.jar')
     compile files('libs/badgeview.jar')
+
 }

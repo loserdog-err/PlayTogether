@@ -63,6 +63,7 @@
                     app:hintTextAppearance="@style/edittext_hint_text_appearance">
 
                     <EditText
+                        android:inputType="textPassword"
                         android:id="@+id/etPassword"
                         style="@style/mid_black"
                         android:layout_width="match_parent"
@@ -75,6 +76,7 @@
                     android:id="@+id/btnRegister"
                     android:layout_width="match_parent"
                     android:layout_height="100px"
+                    android:textSize="15px"
                     android:layout_marginTop="30px"
                     android:background="@color/primary_color"
                     android:text="注册"/>

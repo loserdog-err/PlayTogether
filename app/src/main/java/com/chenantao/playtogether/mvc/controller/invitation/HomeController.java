@@ -54,31 +54,47 @@ public class HomeController
 					@Override
 					public void call(Throwable throwable)
 					{
+						throwable.printStackTrace();
 						mActivity.loadDataError("啊哦，加载失败");
 					}
 				});
+//		AVQuery<Invitation> query = AVObject.getQuery(Invitation.class);
+//		query.orderByDescending(AVObject.CREATED_AT);
+//		query.whereNotEqualTo(Invitation.FIELD_IS_EXPIRE, true);
+//		query.include(Invitation.FIELD_AUTHOR);
+//		query.setCachePolicy(AVQuery.CachePolicy.CACHE_THEN_NETWORK);
+//		query.findInBackground(new FindCallback<Invitation>()
+//		{
+//			@Override
+//			public void done(List<Invitation> invitations, AVException e)
+//			{
+//				if (e == null)
+//					mActivity.loadDataSuccess(invitations);
+//			}
+//		});
+
 	}
 
 	public void uploadAvatar(String path)
 	{
 		mUserBll.uploadAvatar(path)
-				.subscribeOn(Schedulers.io())
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<String>()
-				{
-					@Override
-					public void call(String path)
-					{
-						mActivity.uploadAvatarSuccess(path);
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
-						throwable.printStackTrace();
-						mActivity.uploadAvatarFail("失败啦:" + throwable.getMessage());
-					}
-				});
+						.subscribeOn(Schedulers.io())
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Action1<String>()
+						{
+							@Override
+							public void call(String path)
+							{
+								mActivity.uploadAvatarSuccess(path);
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
+								throwable.printStackTrace();
+								mActivity.uploadAvatarFail("失败啦:" + throwable.getMessage());
+							}
+						});
 	}
 }

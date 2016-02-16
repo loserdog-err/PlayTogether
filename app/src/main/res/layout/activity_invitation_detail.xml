@@ -74,13 +74,13 @@
                         <TextView
                             android:id="@+id/tvAuthorName"
                             style="@style/big_black"
-                            android:maxLines="1"
                             android:layout_width="150px"
-                            android:maxWidth="150px"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15px"
                             android:layout_marginTop="10px"
                             android:layout_toRightOf="@id/ivAuthorAvatar"
+                            android:maxLines="1"
+                            android:maxWidth="150px"
                             android:text=""
                             android:textColor="@color/primary_color2"
                             android:transitionName="@string/share_element_username"/>
@@ -93,10 +93,10 @@
                             android:layout_below="@id/tvAuthorName"
                             android:layout_marginLeft="15px"
                             android:layout_marginTop="10px"
-                            android:maxWidth="150px"
+                            android:layout_toRightOf="@id/ivAuthorAvatar"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:layout_toRightOf="@id/ivAuthorAvatar"
+                            android:maxWidth="150px"
                             android:text=""/>
                     </com.chenantao.autolayout.AutoRelativeLayout>
 
@@ -151,47 +151,54 @@
             </com.chenantao.autolayout.AutoLinearLayout>
         </ScrollView>
         <!--已约的用户-->
-        <com.chenantao.autolayout.AutoRelativeLayout
-            android:layout_width="match_parent"
+        <com.chenantao.autolayout.AutoCardView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:layout_marginTop="10px"
-            android:background="@color/white_little_alpha"
-            android:paddingLeft="10px">
+            app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/tvAcceptUserNum"
-                style="@style/big_black"
-                android:layout_width="wrap_content"
+            <com.chenantao.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left|bottom"
-                android:layout_marginBottom="5px"
-                android:layout_marginLeft="10px"
-                android:text="@string/accept_user_num"
-                android:textColor="@color/black_mid_alpha"/>
+                android:background="@color/white_little_alpha"
+                android:paddingLeft="10px">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_below="@id/tvAcceptUserNum"
-                android:layout_gravity="bottom"
-                android:background="@color/black_big_alpha"/>
+                <TextView
+                    android:id="@+id/tvAcceptUserNum"
+                    style="@style/mid_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:layout_marginBottom="5px"
+                    android:layout_marginLeft="10px"
+                    android:text="您有10个同伙"
+                    android:textColor="@color/black_big_alpha"/>
 
-            <com.chenantao.autolayout.AutoLinearLayout
-                android:id="@+id/llAcceptUser"
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:layout_below="@id/tvAcceptUserNum"
-                android:layout_gravity="bottom"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10px">
-            </com.chenantao.autolayout.AutoLinearLayout>
-        </com.chenantao.autolayout.AutoRelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@id/tvAcceptUserNum"
+                    android:layout_gravity="bottom"
+                    android:background="@color/black_big_alpha"/>
+
+                <com.chenantao.autolayout.AutoLinearLayout
+                    android:id="@+id/llAcceptUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:layout_below="@id/tvAcceptUserNum"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10px">
+                </com.chenantao.autolayout.AutoLinearLayout>
+            </com.chenantao.autolayout.AutoRelativeLayout>
+        </com.chenantao.autolayout.AutoCardView>
 
         <!--按钮，约！-->
         <com.gc.materialdesign.views.AutoHideButtonFloat
+            android:translationZ="20px"
             android:id="@+id/btnInvite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -201,5 +208,12 @@
             android:background="@color/primary_color"
             app:animate="true"
             app:iconDrawable="@mipmap/yue"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
     </com.chenantao.autolayout.AutoFrameLayout>
 </com.chenantao.autolayout.AutoLinearLayout>

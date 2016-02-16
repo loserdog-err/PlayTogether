@@ -10,7 +10,6 @@ import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bll.InviteBll;
 import com.chenantao.playtogether.mvc.model.bll.UserBll;
 import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationCategoryActivity;
-import com.chenantao.playtogether.utils.Constant;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class InvitationCategoryController
 		if (maxAge > Invitation.MAX_AGE || maxAge < Invitation.MIN_AGE) maxAge = Invitation
 						.MAX_AGE;
 		if (minAge > maxAge) minAge = maxAge;
-		condition.setGender(Constant.GENDER_ALL);
+		condition.setGender(gender);
 		condition.setMinAge(minAge);
 		condition.setMaxAge(maxAge);
 		mInviteBll.getInvitationsByCondition(condition)
@@ -75,7 +74,7 @@ public class InvitationCategoryController
 							@Override
 							public void call(Throwable throwable)
 							{
-								mActivity.refreshDataFail("加载数据失败：" + throwable.getMessage());
+								mActivity.refreshDataFail("似乎出了点问题，请检查您的网路是否通畅");
 							}
 						});
 	}

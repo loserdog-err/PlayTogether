@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.chenantao.autolayout.AutoFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
-    android:orientation="vertical"
-    tools:context="com.chenantao.playtogether.MainActivity">
-    <Button
-        android:onClick="query"
-        android:text="query"
+    tools:context=".mvc.view.activity.user.LoginActivity">
+
+    <View
+        android:background="@mipmap/main_bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+        android:layout_height="match_parent"/>
+</com.chenantao.autolayout.AutoFrameLayout>
+

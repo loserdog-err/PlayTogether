@@ -1,5 +1,7 @@
 package com.chenantao.playtogether.mvc.model.bll;
 
+import android.graphics.Bitmap;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVQuery;
@@ -8,7 +10,9 @@ import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.FileUtils;
+import com.orhanobut.logger.Logger;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,6 +91,7 @@ public class UserBll
 				try
 				{
 					user.save();
+					Logger.e("trend" + AVUser.getCurrentUser(User.class).getGenderTrend());
 					subscriber.onCompleted();
 				} catch (AVException e)
 				{
@@ -127,10 +132,14 @@ public class UserBll
 				File file = new File(path);
 				try
 				{
-					AVFile avatar = AVFile.withFile(file.getName(), file);
-					double[] widthAndHeight = FileUtils.getImageWidthAndHeight(path);
-					avatar.addMetaData("width", widthAndHeight[0]);
-					avatar.addMetaData("height", widthAndHeight[1]);
+					//对头像进行压缩
+					Bitmap bitmap = FileUtils.compressImage(path, Constant.UPLOAD_AVATAR_WIDTH, Constant
+									.UPLOAD_AVATAR_HEIGHT);
+					ByteArrayOutputStream os = new ByteArrayOutputStream();
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 60, os);
+					AVFile avatar = new AVFile(System.currentTimeMillis() + "", os.toByteArray());
+					avatar.addMetaData("width", bitmap.getWidth());
+					avatar.addMetaData("height", bitmap.getHeight());
 					avatar.save();
 					User user = AVUser.getCurrentUser(User.class);
 					user.setAvatar(avatar);
@@ -304,9 +313,6 @@ public class UserBll
 
 	/**
 	 * 得到指定 username 的好友列表
-	 *
-	 * @param username
-	 * @return
 	 */
 	public Observable<List<User>> getFriends(final String username)
 	{
@@ -343,20 +349,19 @@ public class UserBll
 	}
 
 	/**
-	 * 为当前用户添加好友，先把用户名转换为 User 对象，然后再添加到好友数组里面
-	 *
-	 * @param friendName
-	 * @return
+	 * 为当前用户添加好友，如果传进来的是friendName，先把用户名转换为 User 对象，然后再添加到好友数组里面
+	 * 如果传进来的已经是 User 对象，则直接添加就好
 	 */
-	public Observable<User> addFriend(final String friendName)
+	public Observable<User> addFriend(final String friendName, final User friend)
 	{
-		return checkIfIsFriend(friendName)
+		return checkIfIsFriend(friendName == null ? friend.getUsername() : friendName)
 						.flatMap(new Func1<String, Observable<User>>()
 						{
 							@Override
-							public Observable<User> call(String friend)
+							public Observable<User> call(String friendName)
 							{
-								return getUserByUserName(friendName);
+								return friendName == null ? Observable.just(friend) : getUserByUserName
+												(friendName);
 							}
 						})
 						.flatMap(new Func1<User, Observable<User>>()
@@ -388,11 +393,63 @@ public class UserBll
 						});
 	}
 
+	public Observable<User> addFriend(final User friend)
+	{
+		return Observable.create(new Observable.OnSubscribe<User>()
+		{
+			@Override
+			public void call(Subscriber<? super User> subscriber)
+			{
+				User me = AVUser.getCurrentUser(User.class);
+				List<User> friendList = me.getFriends();
+				friendList.addAll(Arrays.asList(friend));
+				me.setFriends(friendList);
+				try
+				{
+					me.save();
+					subscriber.onNext(friend);
+				} catch (AVException e)
+				{
+					subscriber.onError(e);
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public Observable<List<User>> getSimilarPeople(final User user)
+	{
+		return Observable.create(new Observable.OnSubscribe<List<User>>()
+		{
+			@Override
+			public void call(Subscriber<? super List<User>> subscriber)
+			{
+				AVQuery<User> query = AVQuery.getQuery(User.class);
+				List<String> friends = new ArrayList<String>();
+				for (User friend : user.getFriends())
+				{
+					friends.add(friend.getUsername());
+				}
+				query.whereNotContainedIn(User.FIELD_USERNAME, friends);//排除掉已经是好友的人
+				query.whereNotEqualTo(User.OBJECT_ID, user.getObjectId());//排除掉自己
+				//喜欢同伴的性别以及活动，就认为这两人臭味相投
+				query.whereEqualTo(User.FIELD_GENDER_TREND, user.getGenderTrend());
+				query.whereEqualTo(User.FIELD_FAVORITE_ACTIVITY, user.getFavoriteActivity());
+				try
+				{
+					List<User> userList = query.find();
+					subscriber.onNext(userList);
+				} catch (AVException e)
+				{
+					e.printStackTrace();
+					subscriber.onError(e);
+				}
+			}
+		});
+	}
+
 	/**
 	 * 检查 指定friend 是否已经是我的好友
-	 *
-	 * @param friend
-	 * @return
 	 */
 	public Observable<String> checkIfIsFriend(final String friend)
 	{
@@ -418,7 +475,5 @@ public class UserBll
 
 
 		});
-
-
 	}
 }

@@ -88,4 +88,11 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/primary_color</item>
     </style>
+    <style name="login_edittext_hint_text_appearance">
+        <item name="android:lineSpacingExtra">6px</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white_little_alpha</item>
+    </style>
 </resources>

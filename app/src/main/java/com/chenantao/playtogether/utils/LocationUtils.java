@@ -61,11 +61,19 @@ public class LocationUtils
 		}
 	}
 
-	public static double getDistance(AVGeoPoint p1, AVGeoPoint p2)
+	public static String getDistance(AVGeoPoint p1, AVGeoPoint p2)
 	{
 		float[] results = new float[1];
 		Location.distanceBetween(p1.getLatitude(), p1.getLongitude(), p2.getLatitude(), p2
-				.getLongitude(), results);
-		return results[0];
+						.getLongitude(), results);
+		int m = (int) results[0];
+		String strM = m + "";
+		if (strM.length() > 3)//换算成 km
+		{
+			float km = m * 1.0f / 1000;
+			km = Math.round(km * 100) * 1.0f / 100;
+			return km + "km";
+		}
+		return m + "m";
 	}
 }

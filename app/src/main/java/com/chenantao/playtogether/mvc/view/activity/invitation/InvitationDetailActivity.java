@@ -7,11 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +29,7 @@ import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
 import com.chenantao.playtogether.utils.ScreenUtils;
 import com.gc.materialdesign.views.AutoHideButtonFloat;
+import com.gc.materialdesign.views.ButtonRectangle;
 
 import java.util.List;
 
@@ -67,6 +67,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	AutoHideButtonFloat mBtnInvite;
 	@Bind(R.id.tvAcceptUserNum)
 	TextView mTvAcceptUserNum;
+	@Bind(R.id.btnMenu)
+	ButtonRectangle mBtnMenu;
+	@Bind(R.id.progressBar)
+	ProgressBar mProgressBar;
 	public static final String EXTRA_INVITATION_ID = "invitationId";
 	public static final String EXTRA_INVITATION_TITLE = "title";
 	public static final String EXTRA_INVITATION_USERNAME = "username";
@@ -111,6 +115,12 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		mAuthorAvatar = getIntent().getParcelableExtra(EXTRA_INVITATION_AVATAR);
 		mTvTitle.setText(title);
 		mTvAuthorName.setText(username);
+		//如果当前登录用户为作者，显示菜单按钮，隐藏接受邀请的按钮
+		if (username.equals(AVUser.getCurrentUser().getUsername()))
+		{
+			mBtnMenu.setVisibility(View.VISIBLE);
+			mBtnInvite.setVisibility(View.GONE);
+		}
 		if (mAuthorAvatar != null)
 		{
 			mIvAvatar.setImageBitmap(mAuthorAvatar);
@@ -121,6 +131,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 			return;
 		} else
 		{
+			mProgressBar.setVisibility(View.VISIBLE);
 			loadData(invitationId);
 		}
 		initEvent();
@@ -131,6 +142,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	{
 		mBtnInvite.setOnClickListener(this);
 		mIvAvatar.setOnClickListener(this);
+		if (mBtnMenu.getVisibility() == View.VISIBLE)
+		{
+			mBtnMenu.setOnClickListener(this);
+		}
 	}
 
 	private void loadData(String invitationId)
@@ -141,11 +156,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	/**
 	 * 文本信息加载完毕
 	 * 作者头像、姓名，标题是共享元素，不用设置了
-	 *
-	 * @param invitation
 	 */
 	public void loadTextDataSuccess(Invitation invitation)
 	{
+		mProgressBar.setVisibility(View.GONE);
 		mInvitation = invitation;
 		DialogUtils.dismissProgressDialog();
 		mAuthor = invitation.getAuthor();
@@ -153,7 +167,14 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		mTvAuthorDesc.setText(mAuthor.getSimpleDesc());
 //		mTvTitle.setText(invitation.getTitle());
 		mTvContent.setText(invitation.getContent());
-		mTvExpire.setText(invitation.getExpire());
+		if (invitation.getIsExpire())//如果已过期，禁用设为到期按钮
+		{
+			mBtnMenu.setEnabled(false);
+			mTvExpire.setText("已过期");
+		} else
+		{
+			mTvExpire.setText(invitation.getExpire());
+		}
 		mTvAcceptUserNum.setText(getString(R.string.accept_user_num, invitation
 						.getAcceptInviteUsers().size()));
 		//设置受约的用户姓名
@@ -165,16 +186,10 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 			if (authorAvatarUrl != null)
 			{
 				PicassoUtils.displayFitImage(this, Uri.parse(authorAvatarUrl), mIvAvatar, null);
-
 			}
 		}
 		//下载图片
 		downloadPic();
-	}
-
-	public void chatWithAuthorFail(String msg)
-	{
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 	}
 
 	public void loadDataFail(String msg)
@@ -189,7 +204,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	 */
 	public void setAcceptInviteUsers()
 	{
-		if (mLlAcceptUser.getChildCount() > 5)
+		if (mIsAcceptUserSet && mLlAcceptUser.getChildCount() > 5)//最多只同时显示5个受约的小伙伴
 		{
 			return;
 		}
@@ -238,8 +253,7 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 					final int originalImageWidth = (int) file.getMetaData("width");
 					final int originalImageHeight = (int) file.getMetaData("height");
 					double[] ratio = FileUtils.compressIfMoreThanDesireHeightWidth
-									(originalImageWidth,
-													originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
+									(originalImageWidth, originalImageHeight, CONTENT_PIC_WIDTH_MAX_RATIO,
 													CONTENT_PIC_HEIGHT_MAX_RATIO, this);
 					final int width = (int) (screenWidth * ratio[0]);
 					final int height = (int) (screenHeight * ratio[1]);
@@ -271,8 +285,6 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 
 	/**
 	 * 约炮成功
-	 *
-	 * @param invitation
 	 */
 	public void acceptInviteSuccess(Invitation invitation)
 	{
@@ -284,8 +296,6 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 
 	/**
 	 * 约炮失败
-	 *
-	 * @param msg
 	 */
 	public void acceptInviteFail(String msg)
 	{
@@ -293,15 +303,18 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 		Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 	}
 
+	public void setExpireSuccess()
+	{
+		Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();
+		mBtnMenu.setEnabled(false);
+		mTvExpire.setText("已过期");
+	}
 
 	/**
 	 * 根据屏占比创建内容中的imageview
-	 *
-	 * @return
 	 */
 	public ImageView getContentImageView(int width, int height)
 	{
-		int screenWidth = ScreenUtils.getScreenWidth(this);
 		int screenHeight = ScreenUtils.getScreenHeight(this);
 		ImageView imageView = new ImageView(this);
 		imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -315,10 +328,14 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 	@Override
 	public void onClick(View v)
 	{
+		if (mInvitation == null)
+		{
+			return;
+		}
 		switch (v.getId())
 		{
 			case R.id.btnInvite:
-				if (mInvitation.getAuthor().getObjectId() == AVUser.getCurrentUser().getObjectId())
+				if (mInvitation.getAuthor().getObjectId().equals(AVUser.getCurrentUser().getObjectId()))
 				{
 					Toast.makeText(this, "请不要自导自演", Toast.LENGTH_LONG).show();
 					return;
@@ -337,33 +354,19 @@ public class InvitationDetailActivity extends BaseActivity implements View.OnCli
 			case R.id.ivAuthorAvatar://点击头像查看用户信息
 				PersonalCenterActivity.startActivity(this, mAuthor.getObjectId());
 				break;
-		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		getMenuInflater().inflate(R.menu.toolbar_menu, menu);
-		MenuItem item = menu.findItem(R.id.menu_item_btn);
-		item.setTitle("设为到期");
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		switch (item.getItemId())
-		{
-			case R.id.menu_item_btn:
-				if (!AVUser.getCurrentUser().getUsername().equals(mInvitation.getAuthor()
-								.getUsername()))
-				{
-					Toast.makeText(this, "你非作者，不能进行此项操作", Toast.LENGTH_SHORT).show();
-				} else
-				{
-				}
+			case R.id.btnMenu://将邀请设置为到期，仅作者可做
+				Snackbar.make(mLlRoot, "确定设置为已过期吗?", Snackbar.LENGTH_LONG)
+								.setAction("确定", new View.OnClickListener()
+								{
+									@Override
+									public void onClick(View v)
+									{
+										mController.setExpire(mInvitation);
+									}
+								})
+								.show();
 				break;
 		}
-		return super.onOptionsItemSelected(item);
 	}
+
 }

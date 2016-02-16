@@ -7,7 +7,7 @@ package com.chenantao.playtogether.mvc.model.bean;
  */
 public class InvitationCondition
 {
-	private int category;
+	private String category;
 	private String gender = "不限";
 
 	private int minAge = Invitation.MIN_AGE;
@@ -28,12 +28,12 @@ public class InvitationCondition
 		NEAREST, NEWLY
 	}
 
-	public int getCategory()
+	public String getCategory()
 	{
 		return category;
 	}
 
-	public void setCategory(int category)
+	public void setCategory(String category)
 	{
 		this.category = category;
 	}
@@ -86,17 +86,5 @@ public class InvitationCondition
 	public void setSkip(int skip)
 	{
 		this.skip = skip;
-	}
-
-	@Override
-	public String toString()
-	{
-		return "InvitationCondition{" +
-						"category=" + category +
-						", gender=" + gender +
-						", minAge=" + minAge +
-						", maxAge=" + maxAge +
-						", orderBy=" + orderBy +
-						'}';
 	}
 }

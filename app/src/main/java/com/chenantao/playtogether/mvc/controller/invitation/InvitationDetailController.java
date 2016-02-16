@@ -3,8 +3,6 @@ package com.chenantao.playtogether.mvc.controller.invitation;
 import android.app.Activity;
 
 import com.avos.avoscloud.AVUser;
-import com.chenantao.playtogether.chat.mvc.bll.ChatBll;
-import com.chenantao.playtogether.chat.mvc.bll.ConversationBll;
 import com.chenantao.playtogether.mvc.model.bean.Invitation;
 import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.model.bll.InviteBll;
@@ -13,6 +11,7 @@ import com.chenantao.playtogether.mvc.view.activity.invitation.InvitationDetailA
 import javax.inject.Inject;
 
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -26,15 +25,11 @@ public class InvitationDetailController
 	public InvitationDetailActivity mActivity;
 	@Inject
 	public InviteBll mInviteBll;
-	private ChatBll mChatBll;
-	private ConversationBll mConversationBll;
 
 	@Inject
 	public InvitationDetailController(Activity activity)
 	{
 		mActivity = (InvitationDetailActivity) activity;
-		mChatBll = new ChatBll();
-		mConversationBll = new ConversationBll();
 	}
 
 	public void loadData(String invitationId)
@@ -56,7 +51,7 @@ public class InvitationDetailController
 							public void call(Throwable throwable)
 							{
 								throwable.printStackTrace();
-								mActivity.loadDataFail("失败啦：" + throwable.getMessage());
+								mActivity.loadDataFail("似乎出了点问题，请检查您的网络是否通畅");
 							}
 						});
 
@@ -64,8 +59,6 @@ public class InvitationDetailController
 
 	/**
 	 * 接受邀请
-	 *
-	 * @param invitation
 	 */
 	public void acceptInvite(final Invitation invitation)
 	{
@@ -97,7 +90,36 @@ public class InvitationDetailController
 							public void call(Throwable throwable)
 							{
 								throwable.printStackTrace();
-								mActivity.acceptInviteFail("受约失败啦:" + throwable.getMessage());
+								mActivity.acceptInviteFail(throwable.getMessage());
+							}
+						});
+	}
+
+	/**
+	 * 将邀请设置为已过期
+	 */
+	public void setExpire(Invitation invitation)
+	{
+		mInviteBll.setExpire(invitation)
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribeOn(Schedulers.io())
+						.subscribe(new Subscriber<Void>()
+						{
+							@Override
+							public void onCompleted()
+							{
+								mActivity.setExpireSuccess();
+							}
+
+							@Override
+							public void onError(Throwable e)
+							{
+								e.printStackTrace();
+							}
+
+							@Override
+							public void onNext(Void aVoid)
+							{
 							}
 						});
 	}

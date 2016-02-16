@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 
-import com.chenantao.playtogether.utils.ScreenUtils;
+import com.orhanobut.logger.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,9 +19,9 @@ public class FileUtils
 	private static File imageCacheDir;//图片缓存的目录
 	private static File voiceCacheDir;//音频缓存的目录
 	public static final String VOICE_PATH = Environment.getExternalStorageDirectory()
-			.getPath() + "/cat_voice";//音频文件存储路径
+					.getPath() + "/cat_voice";//音频文件存储路径
 	public static final String IMAGE_PATH = Environment.getExternalStorageDirectory()
-			.getPath() + "/cat_image"; //图片地址缓存路径
+					.getPath() + "/cat_image"; //图片地址缓存路径
 
 	static
 	{
@@ -189,28 +189,25 @@ public class FileUtils
 
 	/**
 	 * 当图片超过给定的宽度占屏比和高度占屏比时，返回压缩后的占屏比
-	 * 返回的数组下标为0为宽度，下边1为高度
+	 * 返回的数组下标为0为宽度，下边1为高度.
+	 * 注意，这个方法并不对图片进行压缩，只是返回大小。
+	 * 一般是用于上传图片或者下载需要指定大小的图片时用到
 	 *
-	 * @param maxWidthRatio 最大的占宽比
+	 * @param maxWidthRatio  最大的占宽比
 	 * @param maxHeightRatio 最大的占高比
 	 * @param imageWidth     真实图片的宽度
 	 * @param imageHeight    真实图片的高度
 	 * @return 为了适配不同分辨率，返回的是屏占比，下标0为占屏幕宽度百分比，下标1为占屏幕高度百分比
 	 */
 	public static double[] compressIfMoreThanDesireHeightWidth(
-			int imageWidth, int imageHeight, double maxWidthRatio,
-			double maxHeightRatio, Context context)
+					int imageWidth, int imageHeight, double maxWidthRatio,
+					double maxHeightRatio, Context context)
 	{
 		int screenWidth = ScreenUtils.getScreenWidth(context);
 		int screenHeight = ScreenUtils.getScreenHeight(context);
 		int desireWidth = (int) (screenWidth * maxWidthRatio);
 		int desireHeight = (int) (screenHeight * maxHeightRatio);
 		float resultWidthRatio, resultHeightRatio;
-//		BitmapFactory.Options options = new BitmapFactory.Options();
-//		options.inJustDecodeBounds = true;
-//		BitmapFactory.decodeFile(path, options);
-//		int imageWidth = options.outWidth;
-//		int imageHeight = options.outHeight;
 		//如果宽或者高超过了限制,则对图片进行压缩，以适应最大的宽高比
 		if (imageWidth > desireWidth || imageHeight > desireHeight)
 		{
@@ -238,6 +235,32 @@ public class FileUtils
 		double imageWidth = options.outWidth;
 		double imageHeight = options.outHeight;
 		return new double[]{imageWidth, imageHeight};
+	}
+
+
+	public static Bitmap compressImage(String path, int maxWidth, int maxHeight)
+	{
+		BitmapFactory.Options option = new BitmapFactory.Options();
+		option.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(path, option);
+		int imageWidth = option.outWidth;
+		int imageHeight = option.outHeight;
+		int sampleSize = 1;
+		if (imageWidth > maxWidth || imageHeight > maxHeight)
+		{
+			float widthScale = imageWidth * 1.0f / maxWidth;
+			float heightScale = imageHeight * 1.0f / maxHeight;
+			sampleSize = Math.round(Math.max(widthScale, heightScale));
+		}
+		option.inSampleSize = sampleSize;
+		option.inJustDecodeBounds = false;
+		int resultWidth = imageWidth / sampleSize;
+		int resultHeight = imageHeight / sampleSize;
+		Logger.e("inSampleSize:" + sampleSize + ",resultWidth:" + resultWidth + ",resultHeight:" +
+						resultHeight);
+		Bitmap bitmap = BitmapFactory.decodeFile(path, option);
+//		Logger.e("bitmap width:"+bitmap.getWidth()+",bitmap height:"+bitmap.getHeight());
+		return bitmap;
 	}
 
 }

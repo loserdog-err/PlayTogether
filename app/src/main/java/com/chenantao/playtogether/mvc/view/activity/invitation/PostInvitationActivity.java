@@ -256,7 +256,6 @@ public class PostInvitationActivity extends BaseActivity implements View.OnClick
 	/**
 	 * fragment的工具栏弹出或者缩回的回调，需要调整一下 约 按钮的位置
 	 *
-	 * @param event
 	 */
 	public void onEvent(EventToolboxPopup event)
 	{

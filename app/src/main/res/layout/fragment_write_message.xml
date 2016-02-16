@@ -8,19 +8,6 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <!--<EditText-->
-        <!--android:id="@+id/etMessage"-->
-        <!--style="@style/mid_black"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@null"-->
-        <!--android:gravity="left|top"-->
-        <!--android:hint="写出你的标题..."-->
-        <!--android:inputType="textMultiLine"-->
-        <!--android:minLines="10"-->
-        <!--android:paddingLeft="10px"-->
-        <!--android:paddingTop="5px"-->
-        <!--android:text=""/>-->
 
     <com.rockerhieu.emojicon.EmojiconEditText
         android:clickable="true"
