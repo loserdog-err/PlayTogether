@@ -64,6 +64,7 @@
                     android:orientation="vertical">
 
                     <View
+                        android:layout_marginTop="40px"
                         android:layout_width="match_parent"
                         android:layout_height="1px"
                         android:background="@color/black_big_alpha"/>

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Environment;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -14,10 +13,8 @@ import android.widget.Button;
 import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.chat.utils.AudioManager;
 import com.chenantao.playtogether.chat.utils.RecorderDialogManager;
-import com.chenantao.playtogether.utils.FileUtils;
 import com.orhanobut.logger.Logger;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -95,7 +92,6 @@ public class RecorderButton extends Button implements AudioManager.OnAudioPrepar
 	public void hadPrepare()
 	{
 		//开始录音
-		Logger.e("hadPrepare");
 		setCurrentState(RECORDING);
 		isRecording = true;
 		//开启一条线程记录录音时间并更新ui

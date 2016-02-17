@@ -6,7 +6,7 @@ import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.AVIMMessageHandler;
 import com.chenantao.playtogether.chat.AVImClientManager;
 import com.chenantao.playtogether.chat.event.EventHomeConversationChange;
-import com.orhanobut.logger.Logger;
+import com.chenantao.playtogether.chat.utils.NotificationUtils;
 
 import de.greenrobot.event.EventBus;
 
@@ -16,21 +16,28 @@ import de.greenrobot.event.EventBus;
  */
 public class ChatHomeHandler extends AVIMMessageHandler
 {
-	public ChatHomeHandler()
-	{
-	}
 
 	@Override
 	public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client)
 	{
-		Logger.e("on Message");
 		String clientId;
 		clientId = AVImClientManager.getInstance().getClientId();
 		if (client.getClientId().equals(clientId))
 		{
-			if (!message.getFrom().equals(clientId))
+			if (message.getFrom().equals(clientId))
 			{
-				EventBus.getDefault().post(new EventHomeConversationChange(true, conversation));
+				//如果是自己发送出去的消息，是不用更新未读数量的
+				EventBus.getDefault().post(new EventHomeConversationChange(false, conversation));
+			} else
+			{
+				//需要判断一下聊天界面是否可见，如果可见，也不用更新未读数量
+				if (NotificationUtils.isShowNotification(conversation.getConversationId()))//会话不可见，更新未读数量
+				{
+					EventBus.getDefault().post(new EventHomeConversationChange(true, conversation));
+				} else//会话可见
+				{
+					EventBus.getDefault().post(new EventHomeConversationChange(false, conversation));
+				}
 			}
 		}
 

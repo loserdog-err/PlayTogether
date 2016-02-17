@@ -39,6 +39,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10px"
                 android:gravity="center_vertical"
+                android:maxLines="1"
                 android:maxWidth="150px"
                 android:text="陈岸涛"
                 android:textColor="@color/primary_color2"
@@ -58,12 +59,12 @@
         <TextView
             android:id="@+id/tvTitle"
             style="@style/big_black"
-            android:maxWidth="400px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50px"
             android:layout_toRightOf="@id/ivAuthorAvatar"
             android:gravity="center_vertical"
+            android:maxWidth="400px"
             android:text="有人一起xxoo吗有人一起xxoo吗有人一起xxoo吗"
             android:transitionName="@string/share_element_title"/>
 
@@ -83,13 +84,13 @@
             android:textColor="@color/black_mid_alpha"/>
 
         <View
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="30px"
-            android:layout_marginLeft="50px"
             android:layout_width="match_parent"
-            android:layout_toRightOf="@id/ivAuthorAvatar"
             android:layout_height="1px"
+            android:layout_alignParentBottom="true"
             android:layout_below="@id/tvContent"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@id/ivAuthorAvatar"
             android:background="@color/black_big_alpha"/>
     </com.chenantao.autolayout.AutoRelativeLayout>
 </com.chenantao.autolayout.AutoFrameLayout>

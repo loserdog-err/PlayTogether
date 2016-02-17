@@ -19,7 +19,7 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="actionMenuTextColor">@color/white_small_alpha</item>
         <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
         <item name="android:textSize">16sp</item>
     </style>
 

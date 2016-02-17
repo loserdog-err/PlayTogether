@@ -34,7 +34,7 @@
         <!--android:textStyle="bold"/>-->
         <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
             android:layout_width="150px"
-            android:src="@mipmap/avatar"
+            android:src="@mipmap/logo"
             android:layout_height="150px"/>
 
         <!--用户名-->

@@ -32,7 +32,7 @@
                 <TextView
                     android:id="@+id/tvTitle"
                     style="@style/large_black"
-                    android:layout_width="600px"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30px"
                     android:padding="10px"
@@ -96,8 +96,7 @@
                             android:layout_toRightOf="@id/ivAuthorAvatar"
                             android:ellipsize="end"
                             android:maxLines="1"
-                            android:maxWidth="150px"
-                            android:text=""/>
+                            android:maxWidth="500px"/>
                     </com.chenantao.autolayout.AutoRelativeLayout>
 
                     <!--内容，含文字和图片-->

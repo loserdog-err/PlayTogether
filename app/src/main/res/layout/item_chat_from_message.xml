@@ -64,6 +64,7 @@
                 android:background="@mipmap/volume_from"/>
 
             <TextView
+                android:id="@+id/length"
                 style="@style/small_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -26,6 +26,7 @@ import com.chenantao.playtogether.utils.FileUtils;
 import com.chenantao.playtogether.utils.PicassoUtils;
 import com.chenantao.playtogether.utils.ScreenUtils;
 
+import java.util.Date;
 import java.util.Map;
 
 import butterknife.Bind;
@@ -49,6 +50,8 @@ public abstract class ChatCommonViewHolder extends RecyclerView.ViewHolder
 	ImageView mIvVoice;
 	@Bind(R.id.ivImage)
 	ImageView mIvImage;
+	@Bind(R.id.length)
+	TextView mTvLength;
 
 	private Context mContext;
 
@@ -64,7 +67,7 @@ public abstract class ChatCommonViewHolder extends RecyclerView.ViewHolder
 	public void bindData(AVIMMessage message, boolean shouldShowTime)
 	{
 		if (shouldShowTime)
-			mTvPostTime.setText(DateUtils.long2date("HH:mm", message.getTimestamp()));
+			mTvPostTime.setText(DateUtils.date2desc(new Date(message.getTimestamp())));
 		else
 		{
 			mTvPostTime.setText("");
@@ -110,8 +113,6 @@ public abstract class ChatCommonViewHolder extends RecyclerView.ViewHolder
 
 	/**
 	 * 处理图片需要动态改变聊天框的长宽高，依赖上传到服务器的图片元数据
-	 *
-	 * @param message
 	 */
 	private void handleImageMessage(final AVIMImageMessage message)
 	{
@@ -143,8 +144,9 @@ public abstract class ChatCommonViewHolder extends RecyclerView.ViewHolder
 		{
 			thumbUri = originalUri = Uri.parse("file:///" + path);
 		}
-		PicassoUtils.displaySpecSizeImage(mContext, thumbUri, mIvImage, resultWidth, resultHeight, null);
-		itemView.setOnClickListener(new View.OnClickListener()
+		PicassoUtils.displaySpecSizeImage(mContext, thumbUri, mIvImage, resultWidth, resultHeight,
+						null);
+		mIvImage.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)//点击查看大图
@@ -175,15 +177,13 @@ public abstract class ChatCommonViewHolder extends RecyclerView.ViewHolder
 		mTvContent.setVisibility(View.GONE);
 		mRlVoice.setVisibility(View.VISIBLE);
 		final AVIMAudioMessage audioMessage = (AVIMAudioMessage) message;
+		mTvLength.setText(Math.round(audioMessage.getDuration()) + "\"");
 		mIvVoice.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
 				//设置语音文件的背景图片并开始播放背景动画
-//				mIvVoice.setBackgroundResource(R.drawable.play_recorder_anim);
-//				final AnimationDrawable drawable = (AnimationDrawable) mIvVoice
-//								.getBackground();
 				String path = audioMessage.getLocalFilePath();
 				if (path == null)
 					path = audioMessage.getFileUrl();

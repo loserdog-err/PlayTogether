@@ -55,6 +55,7 @@
             <!--android:text="添加"-->
             <!--android:visibility="gone"/>-->
             <Button
+                android:visibility="gone"
                 android:layout_width="100px"
                 android:layout_height="wrap_content"
                 android:background="@drawable/selector_btn"

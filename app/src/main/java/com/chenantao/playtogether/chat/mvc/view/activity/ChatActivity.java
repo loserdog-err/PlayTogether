@@ -28,12 +28,10 @@ import com.chenantao.autolayout.AutoRelativeLayout;
 import com.chenantao.playtogether.R;
 import com.chenantao.playtogether.chat.AVImClientManager;
 import com.chenantao.playtogether.chat.event.EventChatPic;
-import com.chenantao.playtogether.chat.event.EventHomeConversationChange;
 import com.chenantao.playtogether.chat.event.EventReceiveMessage;
 import com.chenantao.playtogether.chat.handler.ChatHandler;
 import com.chenantao.playtogether.chat.mvc.controller.ChatController;
 import com.chenantao.playtogether.chat.mvc.view.adapter.ChatAdapter;
-import com.chenantao.playtogether.chat.mvc.view.adapter.SelectPicAdapter;
 import com.chenantao.playtogether.chat.mvc.view.widget.RecorderButton;
 import com.chenantao.playtogether.chat.utils.AudioManager;
 import com.chenantao.playtogether.chat.utils.ChatConstant;
@@ -43,7 +41,6 @@ import com.chenantao.playtogether.mvc.model.bean.User;
 import com.chenantao.playtogether.mvc.view.common.BaseActivity;
 import com.chenantao.playtogether.utils.Constant;
 import com.chenantao.playtogether.utils.ScreenUtils;
-import com.orhanobut.logger.Logger;
 import com.rockerhieu.emojicon.EmojiconGridFragment;
 import com.rockerhieu.emojicon.EmojiconsFragment;
 import com.rockerhieu.emojicon.emoji.Emojicon;
@@ -69,6 +66,7 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 				CompoundButton.OnCheckedChangeListener, EmojiconGridFragment.OnEmojiconClickedListener,
 				EmojiconsFragment.OnEmojiconBackspaceClickedListener, View.OnFocusChangeListener
 {
+	public static final String TAG = ChatActivity.class.getSimpleName();
 
 	@Bind(R.id.btnSend)
 	Button mBtnSend;
@@ -120,8 +118,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 	@Bind(R.id.rvSelectPic)
 	RecyclerView mRvSelectPic;
 	List<String> mSelectPaths;
-	SelectPicAdapter mSelectPicAdapter;
-	LinearLayoutManager mSelectPicLayoutManager;
 
 	private boolean mIsPrepare = false;//页面是否准备完毕，这里界面数据初始化完毕后就算准备完毕了
 
@@ -147,6 +143,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 			Toast.makeText(this, "无效会话", Toast.LENGTH_SHORT).show();
 			finish();
 		}
+		//用于查看当前会话是否可见，如果可见，不更新首页的未读数量
+		NotificationUtils.addTag(mConversationId);
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) actionBar.setTitle("");
 		if (conversationName == null)
@@ -203,7 +201,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 				try
 				{
 					AVIMAudioMessage message = new AVIMAudioMessage(file);
-					Logger.e("path:" + file.getAbsolutePath());
 					message.setAttrs(initMessage(message));
 					mAdapter.addData(message);
 					mController.sendMessage(message);
@@ -299,8 +296,8 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 		{
 			// TODO: 2016/1/31 显示未读消息、
 		}
-		//同时更新一下 chatHomeActivity 的状态
-		EventBus.getDefault().post(new EventHomeConversationChange(false, event.conversation));
+//		//同时更新一下 chatHomeActivity 的状态
+//		EventBus.getDefault().post(new EventHomeConversationChange(false, event.conversation));
 	}
 
 	/**
@@ -372,8 +369,6 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 	 * 为什么我还要自己来赋值呢？因为拓麻的 observable 有延迟啊。
 	 * <p/>
 	 * 初始化一些信息，并返回属性map
-	 *
-	 * @param message
 	 */
 	public Map<String, Object> initMessage(AVIMMessage message)
 	{
@@ -480,9 +475,9 @@ public class ChatActivity extends BaseActivity implements View.OnClickListener,
 		{
 			mHandler = new ChatHandler();
 		}
-		NotificationUtils.addTag(mConversationId);
 		AVIMMessageManager.registerMessageHandler(AVIMMessage.class, mHandler);
 	}
+
 
 	@Override
 	public void onBackPressed()

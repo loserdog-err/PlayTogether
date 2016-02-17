@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvPostTime"
+        android:paddingRight="10px"
         android:background="@drawable/chat_to_bg"
         android:layout_marginTop="20px"
         android:layout_toLeftOf="@id/ivAvatar"
@@ -62,6 +63,7 @@
                 android:background="@mipmap/volume_to"/>
 
             <TextView
+                android:id="@+id/length"
                 style="@style/small_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

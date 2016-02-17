@@ -16,11 +16,6 @@ public class SpUtils
 
 	/**
 	 * 设置属性根据指定的文件名
-	 *
-	 * @param context
-	 * @param key
-	 * @param value
-	 * @param fileName
 	 */
 	public static void setStringProperty(Context context, String key, String value, String
 					fileName)
@@ -33,10 +28,6 @@ public class SpUtils
 
 	/**
 	 * 设置字符串属性根据默认的文件名
-	 *
-	 * @param context
-	 * @param key
-	 * @param value
 	 */
 	public static void setStringProperty(Context context, String key, String value)
 	{
@@ -57,13 +48,9 @@ public class SpUtils
 	/**
 	 * 计数器，增加指定数值的幅度
 	 *
-	 * @param context
-	 * @param key
-	 * @param amount
 	 */
 	public static void increment(Context context, String key, int amount)
 	{
-//		Logger.e("increment");
 		SharedPreferences sp = context.getSharedPreferences(DEFAULT_FILE_NAME, Context
 						.MODE_PRIVATE);
 		int count = sp.getInt(key, -1);
@@ -78,9 +65,6 @@ public class SpUtils
 	/**
 	 * 设置字符串的set集合根据默认的文件名
 	 *
-	 * @param context
-	 * @param key
-	 * @param set
 	 */
 	public static void setStringSetProperty(Context context, String key, Set<String> set)
 	{
@@ -93,9 +77,6 @@ public class SpUtils
 	/**
 	 * 设置字符串的set集合根据指定的文件名
 	 *
-	 * @param context
-	 * @param key
-	 * @param set
 	 */
 	public static void setStringSetProperty(Context context, String key, Set<String> set, String
 					fileName)
@@ -108,11 +89,6 @@ public class SpUtils
 
 	/**
 	 * 根据key从指定的文件中获取字符串值
-	 *
-	 * @param context
-	 * @param key
-	 * @param fileName
-	 * @return
 	 */
 	public static String getStringProperty(Context context, String key, String fileName)
 	{
@@ -122,10 +98,6 @@ public class SpUtils
 
 	/**
 	 * 根据key从默认的文件中获取字符串值
-	 *
-	 * @param context
-	 * @param key
-	 * @return
 	 */
 	public static String getStringProperty(Context context, String key)
 	{
@@ -144,9 +116,6 @@ public class SpUtils
 	/**
 	 * 根据key从默认的文件中获取字符串集合
 	 *
-	 * @param context
-	 * @param key
-	 * @return
 	 */
 	public static Set<String> getStringSetProperty(Context context, String key)
 	{
@@ -158,9 +127,6 @@ public class SpUtils
 	/**
 	 * 根据key从指定的文件中获取字符串集合
 	 *
-	 * @param context
-	 * @param key
-	 * @return
 	 */
 	public static Set<String> getStringSetProperty(Context context, String key, String fileName)
 	{

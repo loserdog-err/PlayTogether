@@ -286,7 +286,6 @@ public class InviteBll
 			@Override
 			public void call(Subscriber<? super List<Invitation>> subscriber)
 			{
-				Logger.e("condition:" + condition);
 				String category = condition.getCategory();
 				String gender = condition.getGender();
 				int minAge = condition.getMinAge();

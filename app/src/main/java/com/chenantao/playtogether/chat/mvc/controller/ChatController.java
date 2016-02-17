@@ -8,21 +8,24 @@ import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMImageMessage;
 import com.chenantao.playtogether.chat.AVImClientManager;
-import com.chenantao.playtogether.chat.mvc.view.activity.ChatActivity;
+import com.chenantao.playtogether.chat.event.EventHadRead;
+import com.chenantao.playtogether.chat.event.EventHomeConversationChange;
 import com.chenantao.playtogether.chat.mvc.bll.ChatBll;
 import com.chenantao.playtogether.chat.mvc.bll.ConversationBll;
-import com.chenantao.playtogether.chat.event.EventHadRead;
+import com.chenantao.playtogether.chat.mvc.view.activity.ChatActivity;
 import com.chenantao.playtogether.chat.utils.ChatConstant;
 import com.chenantao.playtogether.utils.ScreenUtils;
 import com.chenantao.playtogether.utils.SpUtils;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -80,20 +83,25 @@ public class ChatController
 							}
 						})
 						.subscribeOn(AndroidSchedulers.mainThread())
-						.subscribe(new Action1<Void>()
+						.subscribe(new Subscriber<Void>()
 						{
 							@Override
-							public void call(Void aVoid)
+							public void onCompleted()
 							{
-								mActivity.sendMessageSuccess();
+								//发送消息成功后通知一下首页刷新信息
+								EventBus.getDefault().post(new EventHomeConversationChange(false, mConversation));
 							}
-						}, new Action1<Throwable>()
-						{
+
 							@Override
-							public void call(Throwable throwable)
+							public void onError(Throwable e)
 							{
-								mActivity.sendMessageFail("发送失败：" + throwable.getMessage());
-								throwable.printStackTrace();
+								mActivity.sendMessageFail("发送失败：" + e.getMessage());
+								e.printStackTrace();
+							}
+
+							@Override
+							public void onNext(Void aVoid)
+							{
 							}
 						});
 	}
@@ -188,7 +196,7 @@ public class ChatController
 	/**
 	 * 压缩图片
 	 */
-	public Observable<AVIMMessage> compressImage(AVIMImageMessage message)
+	public Observable<AVIMMessage> compressImage(final AVIMImageMessage message)
 	{
 		//压缩上传的图片并重新构造 message
 		int maxWidth = (int) (ScreenUtils.getScreenWidth(mActivity) * ChatConstant
@@ -202,8 +210,11 @@ public class ChatController
 							@Override
 							public Observable<AVIMMessage> call(AVFile file)
 							{
-								AVIMMessage msg = new AVIMImageMessage(file);
-								return Observable.just(msg);
+								AVIMImageMessage msg = new AVIMImageMessage(file);
+								Map<String, Object> attrs = message.getAttrs();
+								msg.setAttrs(attrs);
+								AVIMMessage avimMessage = msg;
+								return Observable.just(avimMessage);
 							}
 						});
 	}

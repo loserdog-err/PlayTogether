@@ -220,7 +220,7 @@ public class ChatHomeActivity extends BaseActivity implements View.OnClickListen
 
 	/**
 	 * 由于种种原因，fab 的高度要手动调整
-	 * @param hasFocus
+	 *
 	 */
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus)
@@ -232,6 +232,7 @@ public class ChatHomeActivity extends BaseActivity implements View.OnClickListen
 		params.bottomMargin = (int) marginBottom;
 		mBtnMenu.setLayoutParams(params);
 	}
+
 	@Override
 	protected void onResume()
 	{

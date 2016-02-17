@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.chenantao.autolayout.AutoLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
             android:id="@+id/emojicons"
             class="com.rockerhieu.emojicon.EmojiconsFragment"
             android:layout_width="match_parent"
-            android:layout_height="440px"/>
+            android:layout_height="match_parent"/>
         <!--</FrameLayout>-->
     </com.chenantao.autolayout.AutoFrameLayout>
 
@@ -114,13 +114,5 @@
             android:layout_centerInParent="true"
             android:background="@mipmap/microphone"/>
 
-        <View
-            android:layout_width="80px"
-            android:layout_height="80px"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20px"
-            android:layout_marginTop="20px"
-            android:background="@mipmap/msg_clear"/>
-
     </com.chenantao.autolayout.AutoRelativeLayout>
-</LinearLayout>
+</com.chenantao.autolayout.AutoLinearLayout>
