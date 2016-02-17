@@ -1,4 +1,7 @@
 # PlayTogether
+测试版下载地址
+--
+<img src="https://github.com/Chenantao/PlayTogether/blob/master/beta.png" width="300" height="300">
 
 <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/1.png" width="300" height="500">
 <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/3.png" width="300" height="500">
