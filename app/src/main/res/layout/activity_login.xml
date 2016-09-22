@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.chenantao.autolayout.AutoFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chenantao.autolayout.AutoFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +11,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/login_mask"/>
+        android:background="@drawable/login_mask" />
 
 
     <LinearLayout
@@ -20,9 +19,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100px"
-        android:gravity="center_horizontal"
+        android:background="@mipmap/login_input_bg"
         android:orientation="vertical"
-        android:paddingBottom="20px">
+        android:paddingBottom="20px"
+        android:paddingLeft="50px"
+        android:paddingRight="50px">
 
         <!--<TextView-->
         <!--style="@style/big_large_white"-->
@@ -32,10 +33,10 @@
         <!--android:layout_marginTop="40px"-->
         <!--android:text="登 录"-->
         <!--android:textStyle="bold"/>-->
-        <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
-            android:layout_width="150px"
-            android:src="@mipmap/logo"
-            android:layout_height="150px"/>
+        <!--<com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg-->
+        <!--android:layout_width="150px"-->
+        <!--android:src="@mipmap/logo"-->
+        <!--android:layout_height="150px"/>-->
 
         <!--用户名-->
         <android.support.design.widget.TextInputLayout
@@ -49,47 +50,57 @@
                 style="@style/mid_white"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:hint="用户名"
+                android:background="@drawable/edittext_bg"
                 android:gravity="center|left"
-                android:padding="15px"
-                android:textColorHint="@color/white_mid_alpha"/>
+                android:hint="用户名"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="12dp"
+                android:textColorHint="@color/white_mid_alpha" />
         </android.support.design.widget.TextInputLayout>
 
         <!--密码-->
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80px"
-            app:hintTextAppearance="@style/edittext_hint_text_appearance">
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/login_edittext_hint_text_appearance">
 
             <EditText
                 android:id="@+id/etPassword"
-                android:inputType="textPassword"
                 style="@style/mid_white"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center|left"
                 android:hint="密码"
-                android:textColorHint="@color/white_big_alpha"/>
+                android:inputType="textPassword"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="25dp"
+                android:paddingTop="12dp"
+                android:textColorHint="@color/white_mid_alpha" />
         </android.support.design.widget.TextInputLayout>
 
         <com.gc.materialdesign.views.ButtonRectangle
             android:id="@+id/btnLogin"
-            android:text="登录"
             android:layout_width="match_parent"
-            android:layout_height="100px"
-            android:textSize="15px"
+            android:layout_height="105px"
             android:layout_marginTop="30px"
-            android:background="@color/primary_color"/>
+            android:background="@color/primary_color"
+            android:text="登录"
+            android:textSize="18px" />
 
         <com.gc.materialdesign.views.ButtonFlat
             android:id="@+id/btnRegister"
-            android:layout_marginLeft="45px"
-            android:layout_gravity="left"
-            android:layout_marginTop="10px"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white_mid_alpha"
-            android:text="还没有账号？"/>
+            android:layout_gravity="left"
+            android:layout_marginTop="10px"
+            android:background="@color/white_small_alpha"
+            android:text="还没有账号？"
+            android:textStyle="bold" />
     </LinearLayout>
 </com.chenantao.autolayout.AutoFrameLayout>
 

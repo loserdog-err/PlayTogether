@@ -52,13 +52,14 @@
             emojicon:emojiconSize="28sp"/>
 
         <Button
+            android:layout_centerVertical="true"
             android:id="@+id/btn_send"
-            android:layout_width="100px"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5px"
+            android:layout_marginLeft="3dp"
             android:layout_toRightOf="@id/et_send_content"
             android:background="@drawable/selector_btn"
-            android:minHeight="85px"
+            android:minHeight="30dp"
             android:text="发送"/>
     </com.chenantao.autolayout.AutoRelativeLayout>
 

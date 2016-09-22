@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PlayTogether</string>
+    <string name="app_name">结伴而行</string>
     <string name="select_num_hint">已选%1$d张，还剩%2$d 张可选</string>
     <string name="accept_user_num">你有%1$d个同伙</string>
     <string name="from_category">来自 %1$s</string>

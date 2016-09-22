@@ -286,6 +286,7 @@ public class InviteBll
 			@Override
 			public void call(Subscriber<? super List<Invitation>> subscriber)
 			{
+//				Logger.e("condition:" + condition);
 				String category = condition.getCategory();
 				String gender = condition.getGender();
 				int minAge = condition.getMinAge();
@@ -298,7 +299,8 @@ public class InviteBll
 				//嵌套查询，查询受邀用户是指定性别的的invitation
 				if (gender.equals(Constant.GENDER_ALL))
 				{
-					String[] genders = new String[]{Constant.GENDER_MAN, Constant.GENDER_WOMEN};
+					String[] genders = new String[]{Constant.GENDER_MAN, Constant.GENDER_WOMEN,
+									Constant.GENDER_ALL};
 					innerQuery.whereContainedIn(User.FIELD_GENDER, Arrays.asList(genders));
 				} else
 				{
@@ -314,7 +316,6 @@ public class InviteBll
 					if (point != null)
 					{
 						query.whereNear(Invitation.FIELD_LOCATION, point);
-
 					}
 
 				} else//最新

@@ -11,13 +11,14 @@
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingBottom="30px"
+        android:paddingBottom="10px"
         android:paddingLeft="10px"
-        android:paddingTop="30px">
+        android:paddingTop="20px">
 
 
         <com.chenantao.playtogether.mvc.view.widget.MultipleShapeImg
             android:id="@+id/ivAuthorAvatar"
+            android:layout_below="@id/tvFlag"
             android:layout_width="100px"
             android:layout_height="100px"
             android:layout_marginLeft="30px"
@@ -59,12 +60,12 @@
         <TextView
             android:id="@+id/tvTitle"
             style="@style/big_black"
+            android:layout_below="@id/tvFlag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50px"
             android:layout_toRightOf="@id/ivAuthorAvatar"
             android:gravity="center_vertical"
-            android:maxWidth="400px"
             android:text="有人一起xxoo吗有人一起xxoo吗有人一起xxoo吗"
             android:transitionName="@string/share_element_title"/>
 

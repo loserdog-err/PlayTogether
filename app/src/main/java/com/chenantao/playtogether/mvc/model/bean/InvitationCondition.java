@@ -87,4 +87,17 @@ public class InvitationCondition
 	{
 		this.skip = skip;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "InvitationCondition{" +
+						"category='" + category + '\'' +
+						", gender='" + gender + '\'' +
+						", minAge=" + minAge +
+						", maxAge=" + maxAge +
+						", skip=" + skip +
+						", orderBy=" + orderBy +
+						'}';
+	}
 }

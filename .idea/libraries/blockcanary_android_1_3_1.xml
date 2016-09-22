@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="blockcanary-android-1.3.1">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.markzhai/blockcanary-android/1.3.1/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.markzhai/blockcanary-android/1.3.1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.markzhai/blockcanary-android/1.3.1/1e7a9889b300943853cd5cfe172903abe683817c/blockcanary-android-1.3.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

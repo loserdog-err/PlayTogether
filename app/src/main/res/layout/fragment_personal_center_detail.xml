@@ -37,7 +37,7 @@
                             android:id="@+id/rlGender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -73,7 +73,7 @@
                             android:id="@+id/rlAge"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -108,7 +108,7 @@
                             android:id="@+id/rlConstellation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -142,7 +142,7 @@
                             android:id="@+id/rlBirthday"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -189,7 +189,7 @@
                             android:id="@+id/rlFavoriteActivity"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -223,7 +223,7 @@
                             android:id="@+id/rlGenderTrend"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -272,7 +272,7 @@
                             android:id="@+id/rlEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -306,7 +306,7 @@
                             android:id="@+id/rlPhone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -354,7 +354,7 @@
                             android:id="@+id/rlSimpleDesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"
@@ -388,7 +388,7 @@
                             android:id="@+id/rlDetailDesc"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="30px">
+                            android:padding="15dp">
 
                             <TextView
                                 style="@style/mid_black"

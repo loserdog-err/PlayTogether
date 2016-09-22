@@ -55,12 +55,12 @@ public class PostInvitationController
 			return;
 		}
 		WriteMessageFragment writeTitleFragment = (WriteMessageFragment) fragments.get
-				(PostInvitationActivity.POS_WRITE_TITLE);
+						(PostInvitationActivity.POS_WRITE_TITLE);
 		WriteMessageFragment writeContentFragment = (WriteMessageFragment) fragments.get
-				(PostInvitationActivity.POS_WRITE_CONTENT);
+						(PostInvitationActivity.POS_WRITE_CONTENT);
 		InviteConditionFragment conditionFragment = (InviteConditionFragment) fragments
-				.get(PostInvitationActivity
-						.POS_CONDITION);
+						.get(PostInvitationActivity
+										.POS_CONDITION);
 		//先从标题和内容获得数据
 		String title = writeTitleFragment.getContent();
 		String content = writeContentFragment.getContent();
@@ -78,49 +78,56 @@ public class PostInvitationController
 		invitation.setUploadPicsPath(uploadFiles);
 		//由于条件fragment数据较多，这里创建一个对象供其自己set进去
 		conditionFragment.getInputData(invitation);
+		//校验一下数据
+		if ("".equals(invitation.getCategory()))
+		{
+			DialogUtils.dismissProgressDialog();
+			Toast.makeText(mActivity, "选择一下你的兴趣呀", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		mInviteBll.getLocation(mActivity)
-				.subscribeOn(AndroidSchedulers.mainThread())
-				.observeOn(Schedulers.io())
-				.doOnNext(new Action1<AVGeoPoint>()
-				{
-					@Override
-					public void call(AVGeoPoint point)
-					{
-						User user = AVUser.getCurrentUser(User.class);
-						if (point != null)
+						.subscribeOn(AndroidSchedulers.mainThread())
+						.observeOn(Schedulers.io())
+						.doOnNext(new Action1<AVGeoPoint>()
 						{
-							user.setLocation(point);
-							mUserBll.updateLocation(user);
-						}
-					}
-				})
-				.observeOn(Schedulers.io())
-				.flatMap(new Func1<AVGeoPoint, Observable<Invitation>>()
-				{
-					@Override
-					public Observable<Invitation> call(AVGeoPoint point)
-					{
-						return mInviteBll.postInvitation(invitation, point, mActivity);
-					}
-				})
-				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(new Action1<Invitation>()
-				{
-					@Override
-					public void call(Invitation obj)
-					{
-						mActivity.postInvitationSuccess();
-					}
-				}, new Action1<Throwable>()
-				{
-					@Override
-					public void call(Throwable throwable)
-					{
-						throwable.printStackTrace();
-						mActivity.postInvitationFail("失败啦，不知道为神马，重试一遍吧");
-						Logger.e(throwable, "发布失败");
-					}
-				});
+							@Override
+							public void call(AVGeoPoint point)
+							{
+								User user = AVUser.getCurrentUser(User.class);
+								if (point != null)
+								{
+									user.setLocation(point);
+									mUserBll.updateLocation(user);
+								}
+							}
+						})
+						.observeOn(Schedulers.io())
+						.flatMap(new Func1<AVGeoPoint, Observable<Invitation>>()
+						{
+							@Override
+							public Observable<Invitation> call(AVGeoPoint point)
+							{
+								return mInviteBll.postInvitation(invitation, point, mActivity);
+							}
+						})
+						.observeOn(AndroidSchedulers.mainThread())
+						.subscribe(new Action1<Invitation>()
+						{
+							@Override
+							public void call(Invitation obj)
+							{
+								mActivity.postInvitationSuccess();
+							}
+						}, new Action1<Throwable>()
+						{
+							@Override
+							public void call(Throwable throwable)
+							{
+								throwable.printStackTrace();
+								mActivity.postInvitationFail("失败啦，不知道为神马，重试一遍吧");
+								Logger.e(throwable, "发布失败");
+							}
+						});
 
 	}
 }

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:top="4dp">
-        <shape>
-            <corners android:radius="10px"/>
-            <solid android:color="@color/black_big_alpha"/>
-        </shape>
+    <item android:top="10dp">
+        <bitmap android:src="@drawable/login_et_bg"/>
     </item>
 </layer-list>

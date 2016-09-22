@@ -68,10 +68,15 @@ public class LocationUtils
 						.getLongitude(), results);
 		int m = (int) results[0];
 		String strM = m + "";
-		if (strM.length() > 3)//换算成 km
+		if (strM.length() > 6)//换算成kkm
+		{
+			float kkm = m * 1.0f / (1000 * 1000);
+			kkm = Math.round(kkm * 100) * 1.0f / 10;
+			return kkm + "kkm";
+		} else if (strM.length() > 3)//换算成 km
 		{
 			float km = m * 1.0f / 1000;
-			km = Math.round(km * 100) * 1.0f / 100;
+			km = Math.round(km * 100) * 1.0f / 10;
 			return km + "km";
 		}
 		return m + "m";

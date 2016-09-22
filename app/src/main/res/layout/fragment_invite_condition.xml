@@ -229,7 +229,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="60px"
                     android:gravity="center"
-                    android:text="美食"
+                    android:text=""
                     android:textColor="@color/black_mid_alpha"/>
             </com.chenantao.autolayout.AutoRelativeLayout>
         </com.balysv.materialripple.MaterialRippleLayout>
