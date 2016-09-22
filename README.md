@@ -6,9 +6,10 @@
 * 对聊天模块以及相册模块单独封包，便于以后提取复用
 * dagger2 依赖注入
 * EventBus
-  
-  <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/1.png" width="200" height="350">
-  <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/3.png" width="200" height="350">
+
+
+<img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/1.png" width="200" height="350">
+<img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/3.png" width="200" height="350">
  <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/4.png" width="200" height="350">
  <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/5.png" width="200" height="350">
  <img src="https://github.com/Chenantao/PlayTogether/blob/master/screenshot/6.png" width="200" height="350">
